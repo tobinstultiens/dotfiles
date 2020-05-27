@@ -25,8 +25,9 @@ set $mod Mod1
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id xss-lock --transfer-sleep-lock -- /bin/customi3lock --nofork
 exec xset s off
+bindsym Mod4+l exec /bin/customi3lock
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -180,16 +181,16 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym $left       resize shrink width 10 px or 10 ppt
-        bindsym $down       resize grow height 10 px or 10 ppt
-        bindsym $up         resize shrink height 10 px or 10 ppt
-        bindsym $right      resize grow width 10 px or 10 ppt
+        bindsym $left       resize shrink width 2 px or 2 ppt
+        bindsym $down       resize grow height 2 px or 2 ppt
+        bindsym $up         resize shrink height 2 px or 2 ppt
+        bindsym $right      resize grow width 2 px or 2 ppt
 
         # same bindings, but for the arrow keys
-        bindsym Left        resize shrink width 10 px or 10 ppt
-        bindsym Down        resize grow height 10 px or 10 ppt
-        bindsym Up          resize shrink height 10 px or 10 ppt
-        bindsym Right       resize grow width 10 px or 10 ppt
+        bindsym Left        resize shrink width 2 px or 2 ppt
+        bindsym Down        resize grow height 2 px or 2 ppt
+        bindsym Up          resize shrink height 2 px or 2 ppt
+        bindsym Right       resize grow width 2 px or 2 ppt
 
         # back to normal: Enter or Escape or $mod+r
         bindsym Return mode "default"
@@ -205,8 +206,8 @@ bar {
     font pango:DejaVu Sans Mono, FontAwesome 11
     position top
     tray_output DP1
-    status_command ~/Projects/bumblebee-status/bumblebee-status/bumblebee-status \
-        -m cpu memory disk pasink pasource date time dunst \
+    status_command /usr/share/bumblebee-status/bumblebee-status \
+        -m pomodoro cpu memory disk pasink pasource date time dunst \
         -p time.format="%H:%M" \
 	-t solarized-powerline
 }
@@ -227,7 +228,6 @@ exec_always feh --bg-scale /home/tobins/Pictures/Backgrounds/anime-city-lights-n
 
 # Application startup
 exec --no-startup-id flameshot
-exec firefox
 exec discord
 exec whatsdesk
 exec mailspring
@@ -236,6 +236,7 @@ exec --no-startup-id ckb-next
 exec --no-startup-id /usr/lib/geoclue-2.0/demos/agent
 exec --no-startup-id redshift-gtk
 exec --no-startup-id picom
+exec firefox
 
 # Application window placement
 # Workspace 1

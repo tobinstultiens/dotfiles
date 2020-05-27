@@ -11,12 +11,15 @@ Plug 'tpope/vim-surround'
 Plug 'dense-analysis/ale'
 Plug 'itchyny/lightline.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 call plug#end()
 
 set relativenumber
-set tabstop=4 shiftwidth=4 noet
-autocmd vimenter * colorscheme gruvbox
+set tabstop=2 shiftwidth=2 noet
+colorscheme gruvbox
+set background=dark
 let g:lightline = {
       \ 'colorscheme': 'solarized',
       \ }
@@ -25,3 +28,11 @@ let g:lightline = {
 nmap <leader>gd <Plug>(coc-definition)
 nmap <leader>gr <Plug>(coc-references)
 nnoremap <C-p> :GFiles<CR>
+
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
