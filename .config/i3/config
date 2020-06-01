@@ -45,6 +45,7 @@ bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioStop exec playerctl stop
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
+bindsym $mod+p exec amixer set Capture toggle
 
 # Flameshot shortcut
 bindsym Print exec flameshot gui
@@ -63,7 +64,7 @@ floating_modifier $mod
 bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
-bindsym $mod+Shift+q kill
+bindsym $mod+q kill
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec dmenu_run
