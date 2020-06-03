@@ -22,9 +22,15 @@ map O $mimeopen --ask $f
 # use either file extensions and/or mime types here. Below uses an editor for
 # text files and a file opener for the rest.
 cmd open ${{
-    case $(file --mime-type $f -b) in
-        text/*) $EDITOR $fx;;
-        *) for f in $fx; do setsid $OPENER $f > /dev/null 2> /dev/null & done;;
+  case $(file --mime-type $f -b) in
+	image/vnd.djvu|application/pdf|application/octet-stream) setsid -f zathura $fx >/dev/null 2>&1 ;;
+    text/*) $EDITOR $fx;;
+	image/x-xcf|image/svg+xml) setsid -f gimp $f >/dev/null 2>&1 ;;
+	image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\)\(_large\)*$" | setsid -f sxiv -aio 2>/dev/null | lf-select ;;
+	audio/*) mpv --audio-display=no $f ;;
+	video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
+	application/pdf|application/vnd*|application/epub*) setsid -f zathura $fx >/dev/null 2>&1 ;;
+        *) for f in $fx; do setsid -f $OPENER $f >/dev/null 2>&1; done;;
     esac
 }}
 
@@ -83,3 +89,13 @@ cmd zip ${{
     zip -r $1.zip $1
     rm -rf $1
 }}
+
+# Open in terminal in current window
+cmd currentWindow ${{
+		set -f
+		#cd $f
+}}
+
+map gnt cd /mnt/stultnas/Tobin
+map gna cd /mnt/stultnas/Tobin/Anime
+map gns cd /mnt/stultnas/Tobin/Series

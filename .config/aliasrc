@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Use neovim for vim if present.
+command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d"
+
+alias \
+		slp="systemctl suspend" \
+		p="sudo pacman" \
+		nas="sudo ~/.scripts/MountNas" \

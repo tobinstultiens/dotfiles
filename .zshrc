@@ -12,7 +12,7 @@ alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="avit"
 
-plugins=(z git zsh-autosuggestions fzf)
+plugins=(z zsh-autosuggestions fzf)
 
 source $ZSH/oh-my-zsh.sh
 
