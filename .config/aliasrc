@@ -7,3 +7,9 @@ alias \
 		slp="systemctl suspend" \
 		p="sudo pacman" \
 		nas="sudo ~/.scripts/MountNas" \
+
+# Git commands
+alias \
+		gskip="git update-index --skip-worktree" \
+		gnoskip="git update-index --no-skip-worktree" \
+		gcheck="git ls-files -v|grep '^S'" \
