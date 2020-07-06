@@ -26,7 +26,7 @@ set $mod Mod1
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
 exec --no-startup-id xss-lock --transfer-sleep-lock -- /bin/customi3lock --nofork
-exec xset s off
+exec xset s off -dpms
 bindsym Mod4+l exec /bin/customi3lock
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
@@ -139,9 +139,9 @@ set $ws4 "4: Virtual"
 set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7"
-set $ws8 "8: Mail"
-set $ws9 "9: Spotify"
-set $ws10 "10"
+set $ws8 "8"
+set $ws9 "9: Mail"
+set $ws10 "10: Spotify"
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -219,10 +219,14 @@ exec xrandr --output DP1 --auto --pos 0x0 --output HDMI2 --auto --pos 2560x360
 # Window setup workspaces
 workspace $ws1 output DP1
 workspace $ws3 output DP1
-workspace $ws8 output DP1
+workspace $ws5 output DP1
+workspace $ws7 output DP1
+workspace $ws9 output DP1
 workspace $ws2 output HDMI2
 workspace $ws4 output HDMI2
-workspace $ws9 output HDMI2
+workspace $ws6 output HDMI2
+workspace $ws8 output HDMI2
+workspace $ws10 output HDMI2
 
 # Setup Wallpaper
 exec_always feh --bg-scale /home/tobins/Pictures/Backgrounds/anime-city-lights-night-rain-umbrella-sky-5k-ou-2560x1440.jpg --bg-fill /home/tobins/Pictures/Backgrounds/1920x1080/8fa9975a9e6f6251ee55a4a26f06d440.jpg
@@ -251,7 +255,7 @@ assign [class="whatsdesk"] $ws3
 assign [class="Virt-manager"] $ws4
 
 # Worskapce 8
-assign [class="Mailspring"] $ws8
+assign [class="Mailspring"] $ws9
 
 # Workspace 9
-for_window [class="Spotify"] move to workspace $ws9
+for_window [class="Spotify"] move to workspace $ws10

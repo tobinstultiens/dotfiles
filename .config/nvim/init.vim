@@ -13,6 +13,8 @@ Plug 'itchyny/lightline.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'rust-lang/rustfmt'
+Plug 'rust-lang/rust.vim'
 
 call plug#end()
 
@@ -36,3 +38,6 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
+
+" Rust autoformat on save
+let g:rustfmt_autosave = 1
