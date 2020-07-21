@@ -47,7 +47,7 @@ get_session(){
         enlightenment) dbus_args+=(enlightenment_start) ;;
         fluxbox) dbus_args+=(startfluxbox) ;;
         gnome) dbus_args+=(gnome-session) ;;
-        i3|i3wm) dbus_args+=(i3 --shmlog-size 0) ;;
+        i3|i3wm) dbus_args+=(i3-gaps --shmlog-size 0) ;;
         jwm) dbus_args+=(jwm) ;;
         kde) dbus_args+=(startkde) ;;
         lxde) dbus_args+=(startlxde) ;;

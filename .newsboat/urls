@@ -1,74 +1,75 @@
 "---REDDIT---"
 "--MK--"
-https://www.reddit.com/r/MechanicalKeyboards/top.rss?limit=25&t=week
-https://www.reddit.com/r/ErgoMechKeyboards/top.rss?limit=20&t=week
-https://kbdfans.com/collections/diy-kit.atom
+https://www.reddit.com/r/MechanicalKeyboards/top.rss?limit=25&t=week "Reddit" "MechanicalKeyboards"
+https://www.reddit.com/r/ErgoMechKeyboards/top.rss?limit=20&t=week "Reddit" "MechanicalKeyboards"
+https://kbdfans.com/collections/diy-kit.atom "MechanicalKeyboards"
 "--UNIX--"
-https://www.reddit.com/r/linuxmasterrace/top.rss?limit=25&t=week
-https://www.reddit.com/r/unixporn/top.rss?limit=25&t=week
-"--PROGRAMMING--"
+https://www.reddit.com/r/linuxmasterrace/top.rss?limit=25&t=week "Reddit" "Unix"
+https://www.reddit.com/r/unixporn/top.rss?limit=25&t=week "Reddit" "Unix"
 "---YOUTUBE---"
-https://www.youtube.com/feeds/videos.xml?user=PewDiePie
-https://www.youtube.com/feeds/videos.xml?channel_id=UCWiY6fYdxuEe78r-0uFCnhA
-https://www.youtube.com/feeds/videos.xml?channel_id=UCywhnhPP3dAw7huG_y0hdEg "Brandon Rogers"
-https://www.youtube.com/feeds/videos.xml?channel_id=UCDK9qD5DAQML-pzrtA7A4oA
-https://www.youtube.com/feeds/videos.xml?channel_id=UCFYwikSUjLzDt0F_bu6Od4Q
-https://www.youtube.com/feeds/videos.xml?channel_id=UCw03U5DZGLqvv5elJvXvR0Q
-https://www.youtube.com/feeds/videos.xml?user=penguinz0
-https://www.youtube.com/feeds/videos.xml?user=microboyd
-https://www.youtube.com/feeds/videos.xml?channel_id=UC0kYGyq4kzEAoolkOA6JhAA
-https://www.youtube.com/feeds/videos.xml?channel_id=UCr3cBLTYmIK9kY0F_OdFWFQ
-https://www.youtube.com/feeds/videos.xml?channel_id=UCfbnTUxUech4P1XgYUwYuKA
-https://www.youtube.com/feeds/videos.xml?channel_id=UCR1D15p_vdP3HkrH8wgjQRw
-https://www.youtube.com/feeds/videos.xml?channel_id=UC8Q7XEy86Q7T-3kNpNjYgwA
-https://www.youtube.com/feeds/videos.xml?channel_id=UCSdma21fnJzgmPodhC9SJ3g
-https://www.youtube.com/feeds/videos.xml?channel_id=UCX6OQ3DkcsbYNE6H8uQQuVA
-https://www.youtube.com/feeds/videos.xml?channel_id=UCxsQFG_8Dbt1sZhLReL2mUw
-https://www.youtube.com/feeds/videos.xml?channel_id=UCQD3awTLw9i8Xzh85FKsuJA
-https://www.youtube.com/feeds/videos.xml?channel_id=UCtMVHI3AJD4Qk4hcbZnI9ZQ
-https://www.youtube.com/feeds/videos.xml?channel_id=UCo8bcnLyZH8tBIH9V1mLgqQ
-https://www.youtube.com/feeds/videos.xml?channel_id=UCj6CFdE3LSddaoszxq604TQ
-https://www.youtube.com/feeds/videos.xml?channel_id=UCsvn_Po0SmunchJYOWpOxMg
-https://www.youtube.com/feeds/videos.xml?channel_id=UCTSRIY3GLFYIpkR2QwyeklA
-https://www.youtube.com/feeds/videos.xml?channel_id=UCvWU1K29wCZ8j1NsXsRrKnA
-https://www.youtube.com/feeds/videos.xml?channel_id=UCpIafFPGutTAKOBHMtGen7g
-https://www.youtube.com/feeds/videos.xml?channel_id=UCMdGPato0IC5-zZjJIf-P9w
-https://www.youtube.com/feeds/videos.xml?channel_id=UCmEu9Y8nodUV0jvsR9NYLJA
+"--COMEDY--"
+https://www.youtube.com/feeds/videos.xml?user=PewDiePie "YT" "Comedy" "Gaming"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCWiY6fYdxuEe78r-0uFCnhA "YT" "Comedy"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCywhnhPP3dAw7huG_y0hdEg "YT" "Comedy"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCDK9qD5DAQML-pzrtA7A4oA "YT" "Comedy"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCFYwikSUjLzDt0F_bu6Od4Q "YT" "Comedy" "Gaming"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCw03U5DZGLqvv5elJvXvR0Q "YT" "Comedy"
+https://www.youtube.com/feeds/videos.xml?user=penguinz0 "YT" "Comedy" "Gaming"
+https://www.youtube.com/feeds/videos.xml?user=microboyd "YT" "Comedy"
+https://www.youtube.com/feeds/videos.xml?channel_id=UC0kYGyq4kzEAoolkOA6JhAA "YT" "Comedy"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCr3cBLTYmIK9kY0F_OdFWFQ "YT" "Comedy"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCfbnTUxUech4P1XgYUwYuKA "YT" "Comedy"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCR1D15p_vdP3HkrH8wgjQRw "YT" "Comedy"
+https://www.youtube.com/feeds/videos.xml?channel_id=UC8Q7XEy86Q7T-3kNpNjYgwA "YT" "Comedy"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCSdma21fnJzgmPodhC9SJ3g "YT" "Comedy" "Gaming"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCX6OQ3DkcsbYNE6H8uQQuVA "YT" "Comedy"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCxsQFG_8Dbt1sZhLReL2mUw "YT" "Comedy"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCo8bcnLyZH8tBIH9V1mLgqQ "YT" "Comedy"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCj6CFdE3LSddaoszxq604TQ "YT" "Comedy"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCsvn_Po0SmunchJYOWpOxMg "YT" "Comedy" "Gaming"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCTSRIY3GLFYIpkR2QwyeklA "YT" "Comedy"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCpIafFPGutTAKOBHMtGen7g "YT" "Comedy"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCMdGPato0IC5-zZjJIf-P9w "YT" "Comedy" "Gaming"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCQD3awTLw9i8Xzh85FKsuJA "YT" "Comedy" "Gaming"
 "--MK--"
-https://www.youtube.com/feeds/videos.xml?user=jseom
-https://www.youtube.com/feeds/videos.xml?channel_id=UCFtOX-21N1earf-K58C7HjQ
-https://www.youtube.com/feeds/videos.xml?channel_id=UCllGwtW6scxAjM28fIgEozg
+https://www.youtube.com/feeds/videos.xml?user=jseom "YT" "MechanicalKeyboards"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCFtOX-21N1earf-K58C7HjQ "YT" "MechanicalKeyboards"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCllGwtW6scxAjM28fIgEozg "YT" "MechanicalKeyboards"
 "--TECH--"
-https://www.youtube.com/feeds/videos.xml?channel_id=UCXuqSBlHAE6Xw-yeJA0Tunw
-https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA
-https://www.youtube.com/feeds/videos.xml?channel_id=UCld68syR8Wi-GY_n4CaoJGA
-https://www.youtube.com/feeds/videos.xml?channel_id=UCfMJ2MchTSW2kWaT0kK94Yw
-https://www.youtube.com/feeds/videos.xml?channel_id=UC0e3QhIYukixgh5VVpKHH9Q
-https://www.youtube.com/feeds/videos.xml?channel_id=UCtHaxi4GTYDpJgMSGy7AeSw
+https://www.youtube.com/feeds/videos.xml?channel_id=UCXuqSBlHAE6Xw-yeJA0Tunw "YT" "Tech"
+https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA "YT" "Unix" "Tech"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCld68syR8Wi-GY_n4CaoJGA "YT" "Unix" "Tech"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCfMJ2MchTSW2kWaT0kK94Yw "YT" "Tech"
+https://www.youtube.com/feeds/videos.xml?channel_id=UC0e3QhIYukixgh5VVpKHH9Q "YT" "Gaming" "Tech"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCtHaxi4GTYDpJgMSGy7AeSw "YT" "Tech"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCtMVHI3AJD4Qk4hcbZnI9ZQ "YT" "Gaming" "Tech"
 "--LEAGUE OF LEGENDS--"
-https://www.youtube.com/feeds/videos.xml?channel_id=UCfSVMX8vs7xA_hqFcuFqgwQ
-https://www.youtube.com/feeds/videos.xml?channel_id=UCv15TN2zf239kI0vqzAlGlA
-https://www.youtube.com/feeds/videos.xml?user=RememberTheBeat
-https://www.youtube.com/feeds/videos.xml?user=TheFinkVids
-https://www.youtube.com/feeds/videos.xml?channel_id=UC0aFOAetT4Hur0qmOnmmbBA
-https://www.youtube.com/feeds/videos.xml?channel_id=UCuSrv3qgQA7SSi6R9bWag5A
-https://www.youtube.com/feeds/videos.xml?channel_id=UCbz_aqiqO2HcAx01iJM5WGA
+https://www.youtube.com/feeds/videos.xml?channel_id=UCfSVMX8vs7xA_hqFcuFqgwQ "YT" "Gaming" "League"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCv15TN2zf239kI0vqzAlGlA "YT" "Gaming" "League"
+https://www.youtube.com/feeds/videos.xml?user=RememberTheBeat "YT" "Gaming" "League"
+https://www.youtube.com/feeds/videos.xml?user=TheFinkVids "YT" "Gaming" "League"
+https://www.youtube.com/feeds/videos.xml?channel_id=UC0aFOAetT4Hur0qmOnmmbBA "YT" "Gaming" "League"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCuSrv3qgQA7SSi6R9bWag5A "YT" "Gaming" "League"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCbz_aqiqO2HcAx01iJM5WGA "YT" "Gaming" "League"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCUTXYARYwmf7XvVOU4qPUYw "YT" "Gaming" "League"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCvWU1K29wCZ8j1NsXsRrKnA "YT" "Gaming" "League"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCmEu9Y8nodUV0jvsR9NYLJA "YT" "Gaming" "League"
 "--ANIME--"
-https://www.youtube.com/feeds/videos.xml?channel_id=UCvohL2eaDa7TAImOJaYl5dQ
-https://www.youtube.com/feeds/videos.xml?channel_id=UCtGoikgbxP4F3rgI9PldI9g
-https://www.youtube.com/feeds/videos.xml?channel_id=UC3ETCazlHenpXEsrEJH-k5A
-https://www.youtube.com/feeds/videos.xml?channel_id=UCcmxOGYGF51T1XsqQLewGtQ
-https://www.youtube.com/feeds/videos.xml?channel_id=UC7dF9qfBMXrSlaaFFDvV_Yg
+https://www.youtube.com/feeds/videos.xml?channel_id=UCvohL2eaDa7TAImOJaYl5dQ "YT" "Anime"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCtGoikgbxP4F3rgI9PldI9g "YT" "Anime"
+https://www.youtube.com/feeds/videos.xml?channel_id=UC3ETCazlHenpXEsrEJH-k5A "YT" "Anime"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCcmxOGYGF51T1XsqQLewGtQ "YT" "Anime"
+https://www.youtube.com/feeds/videos.xml?channel_id=UC7dF9qfBMXrSlaaFFDvV_Yg "YT" "Anime"
 "--REVIEWER--"
-https://www.youtube.com/feeds/videos.xml?user=IHEOfficial
+https://www.youtube.com/feeds/videos.xml?user=IHEOfficial "YT" "Reviewer"
 "--MUSIC--"
-https://www.youtube.com/feeds/videos.xml?channel_id=UCNZqFeSHt3mGvEpWF5ulBpg
-https://www.youtube.com/feeds/videos.xml?channel_id=UCCvt0Jc0ghFegppbyRdMPTg
-https://www.youtube.com/feeds/videos.xml?channel_id=UCI4fJYWKcGa8MvnvLw0qysQ
+https://www.youtube.com/feeds/videos.xml?channel_id=UCNZqFeSHt3mGvEpWF5ulBpg "YT" "Music"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCCvt0Jc0ghFegppbyRdMPTg "YT" "Music"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCI4fJYWKcGa8MvnvLw0qysQ "YT" "Music"
 "--POLITICS--"
-https://www.youtube.com/feeds/videos.xml?channel_id=UCGSGPehp0RWfca-kENgBJ9Q
+https://www.youtube.com/feeds/videos.xml?channel_id=UCGSGPehp0RWfca-kENgBJ9Q "YT" "Politics"
 "--FOOD--"
-https://www.youtube.com/feeds/videos.xml?channel_id=UChBEbMKI1eCcejTtmI32UEw
-https://www.youtube.com/feeds/videos.xml?channel_id=UCJHA_jMfCvEnv-3kRjTCQXw
-https://www.youtube.com/feeds/videos.xml?user=ltdan1504
-https://www.youtube.com/feeds/videos.xml?channel_id=UCk-69xtxuCDuVF7CaaGeXQA
+https://www.youtube.com/feeds/videos.xml?channel_id=UChBEbMKI1eCcejTtmI32UEw "YT" "Food"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCJHA_jMfCvEnv-3kRjTCQXw "YT" "Food"
+https://www.youtube.com/feeds/videos.xml?user=ltdan1504 "YT" "Food"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCk-69xtxuCDuVF7CaaGeXQA "YT" "Food"

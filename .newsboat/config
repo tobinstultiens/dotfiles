@@ -18,4 +18,4 @@ highlight article ":.*\\(embedded flash\\)$" magenta default
 
 browser "surf"
 
-macro w set browser "mpv %u" ; open-in-browser ; set browser "surf"
+macro w set browser "i3-swallow mpv %u" ; open-in-browser ; set browser "surf"
