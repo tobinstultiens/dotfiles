@@ -47,6 +47,10 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 bindsym $mod+p exec amixer set Capture toggle
 
+# Bookmark Shortcut
+bindsym $mod+b exec ~/.scripts/dmenu-bm
+bindsym $mod+Shift+b exec ~/.scripts/dmenu-bm -n
+
 # Flameshot shortcut
 bindsym Print exec flameshot gui
 
