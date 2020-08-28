@@ -138,9 +138,13 @@ map DD delete
 map dd cut
 
 # Movement
+# Nas
 map gnt cd /mnt/stultnas/Tobin
 map gna cd /mnt/stultnas/Tobin/Anime
 map gns cd /mnt/stultnas/Tobin/Series
+
+# Scripts
+map gs cd ~/Projects/Shell
 
 # Dragon mapping
 map dr dragon

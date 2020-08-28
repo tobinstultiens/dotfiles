@@ -51,6 +51,9 @@ bindsym $mod+p exec amixer set Capture toggle
 bindsym $mod+b exec ~/.scripts/dmenu-bm
 bindsym $mod+Shift+b exec ~/.scripts/dmenu-bm -n
 
+# Config marker Shortcuts
+bindsym $mod+c exec config-dmenu
+
 # Flameshot shortcut
 bindsym Print exec flameshot gui
 

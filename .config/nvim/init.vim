@@ -15,8 +15,15 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'rust-lang/rustfmt'
 Plug 'rust-lang/rust.vim'
+Plug 'vimwiki/vimwiki'
 
 call plug#end()
+
+" Vim wiki
+set nocompatible
+filetype plugin on
+syntax on
+let mapleader = ","
 
 set relativenumber
 set tabstop=2 shiftwidth=2 noet
