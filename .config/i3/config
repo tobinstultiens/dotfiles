@@ -54,6 +54,9 @@ bindsym $mod+Shift+b exec ~/.scripts/dmenu-bm -n
 # Config marker Shortcuts
 bindsym $mod+c exec config-dmenu
 
+# Open file manager
+bindsym $mod+t exec $TERMINAL -e lf
+
 # Flameshot shortcut
 bindsym Print exec flameshot gui
 
