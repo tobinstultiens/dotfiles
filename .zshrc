@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/tobins/.oh-my-zsh"
+export ZSH="/home/tobin/.oh-my-zsh"
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 . ~/.config/aliasrc
 
@@ -15,9 +15,3 @@ ZSH_THEME="avit"
 plugins=(z zsh-autosuggestions fzf)
 
 source $ZSH/oh-my-zsh.sh
-
-# Default programs:
-export EDITOR="nvim"
-export TERMINAL="konsole"
-export BROWSER="firefox"
-export READER="zathura"

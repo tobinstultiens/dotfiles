@@ -8,7 +8,7 @@ export PATH="$PATH:$HOME/.dotnet/tools/"
 
 # Default programs:
 export EDITOR="nvim"
-export TERMINAL="konsole"
+export TERMINAL="st"
 export BROWSER="firefox"
 export READER="zathura"
 
