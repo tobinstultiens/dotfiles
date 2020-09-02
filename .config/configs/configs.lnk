@@ -1,0 +1,10 @@
+i3|$HOME/.config/i3/config
+aliasrc|$HOME/.config/aliasrc
+dunst|$HOME/.config/dunst/dunstrc
+lf|$HOME/.config/lf/lfrc
+nvim|$HOME/.config/nvim/init.vim
+picom|$HOME/.config/picom/picom.conf
+tmux|$HOME/.config/tmux.conf
+newsboat-config|$HOME/.newsboat/config
+newsboat-urls|$HOME/.newsboat/urls
+zprofile|$HOME/.zprofile
