@@ -18,8 +18,13 @@ Plug 'rust-lang/rust.vim'
 Plug 'vimwiki/vimwiki'
 Plug 'lervag/vimtex'
 Plug 'KeitaNakamura/tex-conceal.vim'
+Plug 'romainl/vim-cool'
+Plug 'heavenshell/vim-pydocstring', { 'do': 'make install' }
 
 call plug#end()
+
+" Clipboard
+"set clipboard+=unnamedplus
 
 " Vim wiki
 set nocompatible
@@ -63,3 +68,6 @@ hi Conceal ctermbg=none
 setlocal spell
 set spelllang=en_us,nl_nl
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
+
+" Python
+let g:pydocstring_formatter = 'numpy'
