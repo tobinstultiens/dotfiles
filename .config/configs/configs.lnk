@@ -8,3 +8,4 @@ tmux|$HOME/.config/tmux.conf
 newsboat-config|$HOME/.newsboat/config
 newsboat-urls|$HOME/.newsboat/urls
 zprofile|$HOME/.zprofile
+zshrc|$HOME/.zshrc

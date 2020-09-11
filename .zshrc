@@ -14,4 +14,6 @@ ZSH_THEME="avit"
 
 plugins=(z zsh-autosuggestions fzf)
 
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#99aaae"
+
 source $ZSH/oh-my-zsh.sh

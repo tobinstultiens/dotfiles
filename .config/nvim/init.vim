@@ -20,6 +20,7 @@ Plug 'lervag/vimtex'
 Plug 'KeitaNakamura/tex-conceal.vim'
 Plug 'romainl/vim-cool'
 Plug 'heavenshell/vim-pydocstring', { 'do': 'make install' }
+Plug 'vim-test/vim-test'
 
 call plug#end()
 
@@ -71,3 +72,4 @@ inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
 " Python
 let g:pydocstring_formatter = 'numpy'
+nmap <silent> t<C-n> :TestNearest<CR>
