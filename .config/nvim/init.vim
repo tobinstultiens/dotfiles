@@ -21,8 +21,15 @@ Plug 'KeitaNakamura/tex-conceal.vim'
 Plug 'romainl/vim-cool'
 Plug 'heavenshell/vim-pydocstring', { 'do': 'make install' }
 Plug 'vim-test/vim-test'
+Plug 'vim-scripts/indentpython.vim'
 
 call plug#end()
+
+" Move between splits
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 " Clipboard
 "set clipboard+=unnamedplus

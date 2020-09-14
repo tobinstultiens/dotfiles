@@ -9,3 +9,4 @@ newsboat-config|$HOME/.newsboat/config
 newsboat-urls|$HOME/.newsboat/urls
 zprofile|$HOME/.zprofile
 zshrc|$HOME/.zshrc
+gitignore_global|$HOME/.gitignore_global
