@@ -145,13 +145,16 @@ bindsym $mod+minus scratchpad show
 set $ws1 "1: Main"
 set $ws2 "2: Secondary"
 set $ws3 "3: Chats"
-set $ws4 "4: Virtual"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
+set $ws4 "4: Chats"
+set $ws5 "5:"
+set $ws6 "6:"
+set $ws7 "7:"
+set $ws8 "8: Virtual"
 set $ws9 "9: Mail"
 set $ws10 "10: Spotify"
+
+set $maindisplay DP1
+set $seconddisplay HDMI2
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -216,28 +219,28 @@ bindsym $mod+r mode "resize"
 bar {
     font pango:DejaVu Sans Mono, FontAwesome 11
     position top
-    tray_output eDP1
+    tray_output $maindisplay
     status_command /usr/share/bumblebee-status/bumblebee-status \
-        -m battery cpu memory disk pasink pasource date time dunst \
+        -m cpu memory disk pasink pasource date time dunst \
         -p time.format="%H:%M" \
 	-t solarized-powerline
 }
 
 # Window setup
-exec xrandr --output eDP1 --auto --pos 0x0 --output HDMI1 --auto --pos 1920x0
+exec xrandr --output $maindisplay --auto --pos 0x0 --output $seconddisplay --auto --pos 2560x360
 for_window [class=".*"] border pixel 0
 
 # Window setup workspaces
-workspace $ws1 output eDP1
-workspace $ws3 output eDP1
-workspace $ws5 output eDP1
-workspace $ws7 output eDP1
-workspace $ws9 output eDP1
-workspace $ws2 output HDMI1
-workspace $ws4 output HDMI1
-workspace $ws6 output HDMI1
-workspace $ws8 output HDMI1
-workspace $ws10 output HDMI1
+workspace $ws1 output $maindisplay
+workspace $ws3 output $maindisplay
+workspace $ws5 output $maindisplay
+workspace $ws7 output $maindisplay
+workspace $ws9 output $maindisplay
+workspace $ws2 output $seconddisplay
+workspace $ws4 output $seconddisplay
+workspace $ws6 output $seconddisplay
+workspace $ws8 output $seconddisplay
+workspace $ws10 output $seconddisplay
 
 # Setup Wallpaper
 exec_always feh --bg-scale /home/tobins/Pictures/Backgrounds/anime-city-lights-night-rain-umbrella-sky-5k-ou-2560x1440.jpg --bg-fill /home/tobins/Pictures/Backgrounds/1920x1080/8fa9975a9e6f6251ee55a4a26f06d440.jpg
