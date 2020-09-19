@@ -153,8 +153,8 @@ set $ws8 "8: Virtual"
 set $ws9 "9: Mail"
 set $ws10 "10: Spotify"
 
-set $maindisplay DP1
-set $seconddisplay HDMI2
+set $maindisplay HDMI2
+set $seconddisplay HDMI3
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -266,13 +266,10 @@ assign [class="idea"] $ws1
 assign [class="discord"] $ws3
 assign [class="whatsdesk"] $ws3
 
-# Worskpace 4
-assign [class="Virt-manager"] $ws4
-
-# Worskapce 8
+# Worskapce 9
 assign [class="Mailspring"] $ws9
 
-# Workspace 9
+# Workspace 10
 for_window [class="Spotify"] move to workspace $ws10
 
 # Gaps
