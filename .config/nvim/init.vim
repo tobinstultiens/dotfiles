@@ -23,7 +23,7 @@ Plug 'heavenshell/vim-pydocstring', { 'do': 'make install' }
 Plug 'vim-test/vim-test'
 Plug 'vim-scripts/indentpython.vim'
 Plug 'xavierchow/vim-swagger-preview'
-Plug 'ludovicchabant/vim-gutentags'
+Plug 'ludovicchabant/vim-gutentags', { 'commit': '31c0ead' }
 
 call plug#end()
 
@@ -33,18 +33,13 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-" Set tags
-set autochdir
-
-" Clipboard
-"set clipboard+=unnamedplus
-
 " Vim wiki
 set nocompatible
 filetype plugin on
 syntax on
 let mapleader = ","
 
+" General Settings
 set relativenumber
 set tabstop=2 shiftwidth=2 noet
 colorscheme gruvbox
@@ -73,15 +68,3 @@ let g:rustfmt_autosave = 1
 let g:tex_flavor='latex'
 let g:vimtex_view_method='zathura'
 let g:vimtex_quickfix_mode=0
-
-set conceallevel=1
-let g:tex_conceal='abdmg'
-hi Conceal ctermbg=none
-
-setlocal spell
-set spelllang=en_us,nl_nl
-inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
-
-" Python
-let g:pydocstring_formatter = 'numpy'
-nmap <silent> t<C-n> :TestNearest<CR>
