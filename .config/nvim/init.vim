@@ -22,6 +22,8 @@ Plug 'romainl/vim-cool'
 Plug 'heavenshell/vim-pydocstring', { 'do': 'make install' }
 Plug 'vim-test/vim-test'
 Plug 'vim-scripts/indentpython.vim'
+Plug 'xavierchow/vim-swagger-preview'
+Plug 'ludovicchabant/vim-gutentags'
 
 call plug#end()
 
@@ -30,6 +32,9 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+" Set tags
+set autochdir
 
 " Clipboard
 "set clipboard+=unnamedplus
