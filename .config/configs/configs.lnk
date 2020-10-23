@@ -10,3 +10,4 @@ newsboat-urls|$HOME/.newsboat/urls
 zprofile|$HOME/.zprofile
 zshrc|$HOME/.zshrc
 gitignore_global|$HOME/.gitignore_global
+barrier|$HOME/.config/Debauchee/Barrier.conf

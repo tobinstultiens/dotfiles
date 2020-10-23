@@ -24,6 +24,7 @@ Plug 'vim-test/vim-test'
 Plug 'vim-scripts/indentpython.vim'
 Plug 'xavierchow/vim-swagger-preview'
 Plug 'ludovicchabant/vim-gutentags', { 'commit': '31c0ead' }
+Plug 'norcalli/nvim-colorizer'
 
 call plug#end()
 
@@ -48,9 +49,38 @@ let g:lightline = {
       \ 'colorscheme': 'solarized',
       \ }
 
-" Mappings
-nmap <leader>gd <Plug>(coc-definition)
-nmap <leader>gr <Plug>(coc-references)
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Coc Mappings
+nmap <leader> gd <Plug>(coc-definition)
+nmap <leader> gy <Plug>(coc-type-definition)
+nmap <leader> gi <Plug>(coc-implementation)
+nmap <leader> gr <Plug>(coc-references)
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Show documentation
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" fzf file finder mapping
 nnoremap <C-p> :GFiles<CR>
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
