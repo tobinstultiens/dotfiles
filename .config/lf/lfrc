@@ -28,7 +28,7 @@ cmd open ${{
 	image/vnd.djvu|application/pdf|application/octet-stream) i3-swallow zathura $fx >/dev/null 2>&1 ;;
     text/*) $EDITOR $fx;;
 	image/x-xcf|image/svg+xml) setsid -f gimp $f >/dev/null 2>&1 ;;
-	image/*) feh $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\)\(_large\)*$" | setsid -f sxiv -aio 2>/dev/null | lf-select ;;
+	image/*) i3-swallow sxiv $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\)\(_large\)*$" | setsid -f sxiv -aio 2>/dev/null | lf-select ;;
 	audio/*) i3-swallow mpv --audio-display=no $f ;;
 	video/*) setsid -f i3-swallow mpv $f -quiet >/dev/null 2>&1 ;;
 	application/pdf|application/vnd*|application/epub*) i3-swallow zathura $fx >/dev/null 2>&1 ;;
@@ -143,8 +143,9 @@ map gnt cd /mnt/stultnas/Tobin
 map gna cd /mnt/stultnas/Tobin/Anime
 map gns cd /mnt/stultnas/Tobin/Series
 
-# Scripts
+# Projects
 map gs cd ~/Projects/Shell
+map gpp cd ~/Projects/Personal\ Projects
 
 # Books
 map gb cd ~/Documents/Books
