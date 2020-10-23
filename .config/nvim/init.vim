@@ -22,6 +22,9 @@ Plug 'romainl/vim-cool'
 Plug 'heavenshell/vim-pydocstring', { 'do': 'make install' }
 Plug 'vim-test/vim-test'
 Plug 'vim-scripts/indentpython.vim'
+Plug 'xavierchow/vim-swagger-preview'
+Plug 'ludovicchabant/vim-gutentags', { 'commit': '31c0ead' }
+Plug 'norcalli/nvim-colorizer'
 
 call plug#end()
 
@@ -31,15 +34,13 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-" Clipboard
-"set clipboard+=unnamedplus
-
 " Vim wiki
 set nocompatible
 filetype plugin on
 syntax on
 let mapleader = ","
 
+" General Settings
 set relativenumber
 set tabstop=2 shiftwidth=2 noet
 colorscheme gruvbox
@@ -48,9 +49,38 @@ let g:lightline = {
       \ 'colorscheme': 'solarized',
       \ }
 
-" Mappings
-nmap <leader>gd <Plug>(coc-definition)
-nmap <leader>gr <Plug>(coc-references)
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Coc Mappings
+nmap <leader> gd <Plug>(coc-definition)
+nmap <leader> gy <Plug>(coc-type-definition)
+nmap <leader> gi <Plug>(coc-implementation)
+nmap <leader> gr <Plug>(coc-references)
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Show documentation
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" fzf file finder mapping
 nnoremap <C-p> :GFiles<CR>
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
@@ -68,15 +98,3 @@ let g:rustfmt_autosave = 1
 let g:tex_flavor='latex'
 let g:vimtex_view_method='zathura'
 let g:vimtex_quickfix_mode=0
-
-set conceallevel=1
-let g:tex_conceal='abdmg'
-hi Conceal ctermbg=none
-
-setlocal spell
-set spelllang=en_us,nl_nl
-inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
-
-" Python
-let g:pydocstring_formatter = 'numpy'
-nmap <silent> t<C-n> :TestNearest<CR>
