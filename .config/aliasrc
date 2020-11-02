@@ -4,12 +4,14 @@
 command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d"
 
 alias \
-		slp="systemctl suspend && customi3lock && exit" \
+		slp="systemctl suspend" \
+		slpl="systemctl suspend && customi3lock" \
+		slple="systemctl suspend && customi3lock && exit" \
+		slpe="systemctl suspend && exit" \
 		p="sudo pacman" \
 		virt="virt-manager && exit" \
 		news="newsboat" \
 		v="nvim" \
-		cutycapt="CutyCapt" \
 
 # Git commands
 alias \
