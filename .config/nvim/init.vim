@@ -24,7 +24,8 @@ Plug 'vim-test/vim-test'
 Plug 'vim-scripts/indentpython.vim'
 Plug 'xavierchow/vim-swagger-preview'
 Plug 'ludovicchabant/vim-gutentags', { 'commit': '31c0ead' }
-Plug 'norcalli/nvim-colorizer'
+Plug 'norcalli/nvim-colorizer.lua'
+Plug 'mhinz/vim-startify'
 
 call plug#end()
 
