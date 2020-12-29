@@ -14,7 +14,16 @@ alias \
 		v="nvim" \
 
 # Git commands
+# Skip worktree related commands
 alias \
 		gskip="git update-index --skip-worktree" \
 		gnoskip="git update-index --no-skip-worktree" \
 		gcheck="git ls-files -v|grep '^S'" \
+
+# Committing
+alias \
+		ga="git add" \
+		gc="git commit -m" \
+		gca="git commit -am" \
+		gs="git status" \
+		gd="git diff" \
