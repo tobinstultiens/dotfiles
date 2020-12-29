@@ -1,7 +1,6 @@
 # interpreter for shell commands (needs to be POSIX compatible)
 set shell sh
 set icons
-set color256
 set shellopts '-eu'
 set ifs "\n"
 set scrolloff 10
