@@ -104,3 +104,4 @@ let g:vimtex_quickfix_mode=0
 
 " Vim which key
 nnoremap <silent> <leader> :<c-u>WhichKey  ','<CR>
+

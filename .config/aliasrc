@@ -4,6 +4,7 @@
 command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d"
 
 alias \
+		config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'\
 		slp="systemctl suspend" \
 		slpl="systemctl suspend && customi3lock" \
 		slple="systemctl suspend && customi3lock && exit" \
