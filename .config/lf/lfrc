@@ -146,7 +146,8 @@ map gns cd /mnt/stultnas/Tobin/Series
 map gs cd ~/Projects/Shell
 map gpp cd ~/Projects/Personal\ Projects
 
-# Books
+# Documents
+map gd cd ~/Documents
 map gb cd ~/Documents/Books
 
 # Dragon mapping

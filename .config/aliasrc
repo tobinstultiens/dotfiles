@@ -23,7 +23,8 @@ alias \
 # Committing
 alias \
 		ga="git add" \
-		gc="git commit -m" \
-		gca="git commit -am" \
+		gc="git commit" \
+		gca="git commit -a" \
 		gs="git status" \
 		gd="git diff" \
+		gp="git push" \

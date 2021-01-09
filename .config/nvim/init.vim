@@ -15,7 +15,6 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'rust-lang/rustfmt'
 Plug 'rust-lang/rust.vim'
-Plug 'vimwiki/vimwiki'
 Plug 'lervag/vimtex'
 Plug 'KeitaNakamura/tex-conceal.vim'
 Plug 'romainl/vim-cool'
@@ -27,6 +26,8 @@ Plug 'rbgrouleff/bclose.vim'
 Plug 'ptzz/lf.vim'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'mhinz/vim-startify'
+Plug 'liuchengxu/vim-which-key'
+Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 
 call plug#end()
 
@@ -100,3 +101,6 @@ let g:rustfmt_autosave = 1
 let g:tex_flavor='latex'
 let g:vimtex_view_method='zathura'
 let g:vimtex_quickfix_mode=0
+
+" Vim which key
+nnoremap <silent> <leader> :<c-u>WhichKey  ','<CR>
