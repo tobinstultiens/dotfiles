@@ -141,6 +141,7 @@ map dd cut
 map gnt cd /mnt/stultnas/Tobin
 map gna cd /mnt/stultnas/Tobin/Anime
 map gns cd /mnt/stultnas/Tobin/Series
+map gnc cd /mnt/stultnas/Tobin/Converted
 
 # Projects
 map gs cd ~/Projects/Shell
