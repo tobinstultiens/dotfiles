@@ -48,6 +48,7 @@ cmd mkfile ${{
 }}
 
 cmd dragon %dragon-drag-and-drop -a -x $fx
+cmd dlfile %dragon-drag-and-drop --target
 
 # define a custom 'rename' command without prompt for overwrite
 # cmd rename %[ -e $1 ] && printf "file exists" || mv $f $1
@@ -153,3 +154,4 @@ map gb cd ~/Documents/Books
 
 # Dragon mapping
 map dr dragon
+map dl dlfile
