@@ -9,7 +9,7 @@ export PATH="$PATH:$HOME/.dotnet/tools/"
 # Default programs:
 export EDITOR="nvim"
 export TERMINAL="st"
-export BROWSER="firefox"
+export BROWSER="brave"
 export READER="zathura"
 
 # This is the list for lf icons:
