@@ -1,0 +1,24 @@
+# -*- mode: snippet -*-
+# name: vue
+# uuid: vue
+# key: vue
+# condition: t
+# --
+<template>
+  $1
+</template>
+
+<script lang="ts">
+import Vue from 'vue';
+import Component from 'vue-class-component';
+
+@Component({
+  props: { },
+  methods: {
+  }
+})
+export default class ${0:`(f-base buffer-file-name)`} extends Vue {}
+</script>
+
+<style scoped>
+</style>
