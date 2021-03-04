@@ -28,4 +28,5 @@ alias \
 		gca="git commit -a" \
 		gs="git status" \
 		gd="git diff" \
-		gp="git push" \
+		gp="git pull" \
+		gP="git push" \
