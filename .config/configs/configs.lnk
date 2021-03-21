@@ -14,3 +14,4 @@ zathura|$HOME/.config/zathura/zathurarc
 barrier|$HOME/.config/Debauchee/Barrier.conf
 gitignore_global|$HOME/.config/git/ignore
 default_apps|$HOME/.config/mimeapps.list
+env|$HOME/.config/env
