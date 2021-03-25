@@ -38,9 +38,9 @@ fi
 
 get_session(){
     local dbus_args=(--sh-syntax --exit-with-session)
-    case $1 in
+    case bspwm in
         awesome) dbus_args+=(awesome) ;;
-        bspwm) dbus_args+=(bspwm) ;;
+        bspwm) dbus_args+=(bspwm-session) ;;
         budgie) dbus_args+=(budgie-desktop) ;;
         cinnamon) dbus_args+=(cinnamon-session) ;;
         deepin) dbus_args+=(startdde) ;;
@@ -61,4 +61,5 @@ get_session(){
     echo "dbus-launch ${dbus_args[*]}"
 }
 
-exec $(get_session)
+#exec $(get_session)
+exec bspwm
