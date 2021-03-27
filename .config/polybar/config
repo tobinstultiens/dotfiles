@@ -28,7 +28,7 @@ alert                = #FF0000
 [bar/example]
 monitor=${env:MONITOR:}
 width = 100%
-height = 22
+height = 20
 #offset-x = 10%
 #offset-y = 1%
 #adius = 0.0
@@ -50,21 +50,21 @@ padding-right = 0
 module-margin-left  = 0
 module-margin-right = 0
 
-font-0 = SpaceMono Nerd Font:style=Medium:size=8;1
-font-1 = SpaceMono Nerd Font:style=Medium:size=18;4
+font-0 = SpaceMono Nerd Font:style=Medium:size=12;1
+font-1 = SpaceMono Nerd Font:style=Medium:size=16;4
 font-2 = SpaceMono Nerd Font:style=Medium:size=12;4
 font-3 = SpaceMono Nerd Font:style=Medium:size=7;4
 
-modules-left    = launch arrowDarkLeft cpu arrowLightLeft memory arrowDarkLeft  bspwm arrowLightLeft 
+modules-left    = cpu arrowLightLeft memory arrowDarkLeft  bspwm arrowLightLeft
 modules-center  = 
-modules-right   = arrowLightRight  wlan eth arrowDarkRight battery arrowLightRight xkeyboard arrowDarkRight alsa arrowLightRight date 
+modules-right   = arrowDarkRight alsa arrowLightRight date
 
-#tray-position = none
+tray-position = right
 #tray-detached = false
 #tray-maxsize = 16
-#tray-padding = 0
+tray-padding = 5
 #tray-scale = 1.0
-#tray-background = #0063ff
+tray-background = #0063ff
 
 wm-restack = bspwm
 #wm-restack = i3
@@ -231,7 +231,7 @@ format-volume-background = ${colors.background}
 #;format-volume-underline  = ${colors.background}
 format-volume-padding    = 2
 
-label-volume = %percentage:4%%
+label-volume = %percentage:2%%
 label-volume-foreground = ${colors.foreground}
 
 format-muted-background = ${colors.arrow3}
@@ -250,59 +250,6 @@ ramp-volume-foreground = ${colors.foreground}
 ramp-headphones-0 = 
 ramp-headphones-1 = 
 
-[module/battery]
-type = internal/battery
-
-full-at = 99
-battery = BAT0
-adapter = AC
-
-poll-interval = 2
-time-format = %H:%M
-
-format-charging      = <animation-charging> <label-charging>
-format-charging-foreground = ${colors.foreground}
-format-charging-background = ${colors.background}
-format-charging-padding     = 2
-
-format-discharging   = <ramp-capacity> <label-discharging>
-format-discharging-foreground = ${colors.foreground}
-format-discharging-background = ${colors.arrow4}
-#format-discharging-underline  = ${colors.background}
-format-discharging-padding    = 2
-
-format-full                   = <ramp-capacity> <label-full>
-format-full-foreground = ${colors.foreground}
-format-full-background = ${colors.arrow4}
-#format-discharging-underline  = ${colors.background}
-format-full-padding    = 2
-
-label-charging    = " %percentage%%"
-label-discharging = " %percentage%%"
-
-label-full = " %percentage%%" 
-
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 = 
-ramp-capacity-3 = 
-ramp-capacity-4 = 
-ramp-capacity-5 = 
-ramp-capacity-6 = 
-ramp-capacity-7 = 
-ramp-capacity-8 = 
-ramp-capacity-9 = 
-
-animation-charging-0 = 
-animation-charging-1 = 
-animation-charging-2 = 
-animation-charging-3 = 
-animation-charging-4 = 
-animation-charging-5 = 
-animation-charging-6 = 
-
-animation-charging-framerate = 750
-
 [settings]
 screenchange-reload = true
 #compositing-background = xor
@@ -316,15 +263,6 @@ margin-top = 0
 margin-bottom = 0
 
 # vim:ft=dosini 
-
-[module/launch]
-type = custom/text
-content = 
-content-foreground  = ${colors.foreground}
-content-background = ${colors.background}
-content-padding = 2
-click-left = rofi -show run -theme office
-click-right = rofi -show window -theme office
 
 [module/arrowLightRight]
 type = custom/text
