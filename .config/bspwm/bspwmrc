@@ -7,6 +7,11 @@ pgrep -x firefox > /dev/null || firefox &
 pgrep -x discord > /dev/null || discord &
 pgrep -x whatsdesk > /dev/null || whatsdesk &
 pgrep -x mailspring > /dev/null || mailspring &
+pgrep -x /usr/lib/geoclue-2.0/demos/agent> /dev/null || /usr/lib/geoclue-2.0/demos/agent &
+pgrep -x redshift-gtk> /dev/null || redshift-gtk &
+pgrep -x picom > /dev/null || picom &
+pgrep -x todoist > /dev/null || todoist &
+pgrep -x /opt/urserver/urserver > /dev/null || /opt/urserver/urserver --daemon &
 
 #polybar bspwm &
 $HOME/.config/polybar/launch.sh

@@ -57,7 +57,7 @@ font-3 = SpaceMono Nerd Font:style=Medium:size=7;4
 
 modules-left    = cpu arrowLightLeft memory arrowDarkLeft  bspwm arrowLightLeft
 modules-center  = 
-modules-right   = arrowDarkRight alsa arrowLightRight date
+modules-right   = arrowDarkRight pulseaudio-control arrowLightRight date
 
 tray-position = right
 #tray-detached = false
@@ -292,3 +292,21 @@ content = "%{T3}%{T-}"
 content-foreground  = ${colors.background}
 content-background  = ${colors.background-alt}
 content-padding = 0
+
+[module/pulseaudio-control]
+type = custom/script
+tail = true
+format-underline = ${colors.cyan}
+label-padding = 1
+label-foreground = ${colors.foreground}
+
+# Icons mixed from Font Awesome 5 and Material Icons
+# You can copy-paste your options for each possible action, which is more
+# trouble-free but repetitive, or apply only the relevant ones (for example
+# --sink-blacklist is only needed for next-sink).
+exec = pulseaudio-control --icons-volume " , " --icon-muted " " --sink-nicknames-from "device.description" --sink-nickname "alsa_output.pci-0000_00_1f.3.analog-surround-21:  Speakers" --sink-nickname "alsa_output.usb-SteelSeries_SteelSeries_Arctis_7-00.stereo-game:  Headphones" listen
+click-right = exec $TERMINAL -e pulsemixer &
+click-left = pulseaudio-control togmute
+click-middle = pulseaudio-control --sink-blacklist "alsa_output.pci-0000_01_00.1.hdmi-stereo-extra2" next-sink
+scroll-up = pulseaudio-control --volume-max 130 up
+scroll-down = pulseaudio-control --volume-max 130 down
