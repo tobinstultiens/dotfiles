@@ -27,9 +27,15 @@ bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 bspc config focus_follows_pointer true
 
-#bspc rule -a firefox desktop='^6'
-wmctrl -r Firefox -t 5
+# Use wmctrl to set them to the right window
+wmctrl -r todoist -t 0
+while IFS= read -r line; do
+    wmctrl -ir $line -t 5
+done <<< $(wmctrl -l | awk '/Firefox/{print $1}')
+wmctrl -r mailspring -t 8
 wmctrl -r Spotify -t 9
+
+# Set bspc rules
 bspc rule -a Emacs state=tiled
 bspc rule -a discord desktop='^8'
 bspc rule -a whatsdesk desktop='^8'
