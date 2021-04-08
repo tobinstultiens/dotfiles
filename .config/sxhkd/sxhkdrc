@@ -145,5 +145,11 @@ alt + p
 alt + i
 	pulse-switch
 
+alt + c
+	config-dmenu
+
+alt + b
+	dmenu-bm
+
 Print
 	flameshot gui

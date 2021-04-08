@@ -37,6 +37,7 @@ wmctrl -r Spotify -t 9
 
 # Set bspc rules
 bspc rule -a Emacs state=tiled
+bspc rule -a BloonsTD6 state=tiled
 bspc rule -a discord desktop='^8'
 bspc rule -a whatsdesk desktop='^8'
 bspc rule -a mailspring desktop='^9'

@@ -24,13 +24,13 @@ map O $mimeopen --ask $f
 # text files and a file opener for the rest.
 cmd open ${{
   case $(file --mime-type $f -b) in
-	image/vnd.djvu|application/pdf|application/octet-stream) i3-swallow zathura $fx >/dev/null 2>&1 ;;
+	image/vnd.djvu|application/pdf|application/octet-stream) zathura $fx >/dev/null 2>&1 ;;
     text/*) $EDITOR $fx;;
 	image/x-xcf|image/svg+xml) setsid -f gimp $f >/dev/null 2>&1 ;;
-	image/*) i3-swallow sxiv $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\)\(_large\)*$" | setsid -f sxiv -aio 2>/dev/null | lf-select ;;
-	audio/*) i3-swallow mpv --audio-display=no $f ;;
-	video/*) setsid -f i3-swallow mpv $f -quiet >/dev/null 2>&1 ;;
-	application/pdf|application/vnd*|application/epub*) i3-swallow zathura $fx >/dev/null 2>&1 ;;
+	image/*) sxiv $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\)\(_large\)*$" | setsid -f sxiv -aio 2>/dev/null | lf-select ;;
+	audio/*) mpv --audio-display=no $f ;;
+	video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
+	application/pdf|application/vnd*|application/epub*) zathura $fx >/dev/null 2>&1 ;;
         *) for f in $fx; do setsid -f $OPENER $f >/dev/null 2>&1; done;;
     esac
 }}
