@@ -20,6 +20,7 @@ alias \
 		gskip="git update-index --skip-worktree" \
 		gnoskip="git update-index --no-skip-worktree" \
 		gcheck="git ls-files -v|grep '^S'" \
+		#gskipr="find . -type d \( -name bin -o -path name \) -prune -false -o -name "*.Development.json" -exec git update-index --skip-worktree "{}" \;"\
 
 # Committing
 alias \

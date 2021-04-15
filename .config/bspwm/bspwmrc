@@ -3,7 +3,7 @@
 sxhkd &
 xset -dpms s off
 pgrep -x spotify > /dev/null || spotify &
-pgrep -x firefox > /dev/null || firefox &
+pgrep -x chromium > /dev/null || chromium &
 pgrep -x discord > /dev/null || discord &
 pgrep -x whatsdesk > /dev/null || whatsdesk &
 pgrep -x mailspring > /dev/null || mailspring &
@@ -32,6 +32,9 @@ wmctrl -r todoist -t 0
 while IFS= read -r line; do
     wmctrl -ir $line -t 5
 done <<< $(wmctrl -l | awk '/Firefox/{print $1}')
+while IFS= read -r line; do
+    wmctrl -ir $line -t 5
+done <<< $(wmctrl -l | awk '/Chromium/{print $1}')
 wmctrl -r mailspring -t 8
 wmctrl -r Spotify -t 9
 
