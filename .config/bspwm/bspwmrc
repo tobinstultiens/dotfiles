@@ -16,7 +16,7 @@ pgrep -x /opt/urserver/urserver > /dev/null || /opt/urserver/urserver --daemon &
 #polybar bspwm &
 $HOME/.config/polybar/launch.sh
 
-bspc monitor HDMI2 -d I III V VII IX
+bspc monitor HDMI-1-4 -d I III V VII IX
 bspc monitor HDMI3 -d II IV VI VIII X
 
 bspc config border_width         2
@@ -46,5 +46,5 @@ bspc rule -a whatsdesk desktop='^8'
 bspc rule -a mailspring desktop='^9'
 bspc rule -a spotify desktop='^10'
 
-xrandr --output HDMI2 --auto --pos 0x0 --output HDMI3 --auto --pos 2560x360
-feh --bg-scale /home/tobins/Pictures/Backgrounds/anime-city-lights-night-rain-umbrella-sky-5k-ou-2560x1440.jpg --bg-fill /home/tobins/Pictures/Backgrounds/1920x1080/8fa9975a9e6f6251ee55a4a26f06d440.jpg
+xrandr --output HDMI-1-4 --auto --pos 0x0 --output HDMI3 --auto --pos 2560x360
+feh --bg-fill /home/tobins/Pictures/Backgrounds/1920x1080/8fa9975a9e6f6251ee55a4a26f06d440.jpg --bg-scale /home/tobins/Pictures/Backgrounds/anime-city-lights-night-rain-umbrella-sky-5k-ou-2560x1440.jpg
