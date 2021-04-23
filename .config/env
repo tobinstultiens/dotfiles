@@ -1,0 +1,9 @@
+#!/bin/zsh
+
+export _Z_DATA="$XDG_DATA_HOME/z/.z"
+export ANDROID_SDK_ROOT="$XDG_DATA_HOME/android"
+export MINIKUBE_IN_STYLE=false
+export _JAVA_AWT_WM_NONREPARENTING=1
+export XSECURELOCK_SAVER=saver_mpv
+#export ZDOTDIR="$HOME/.config/zsh"
+#export HISTFILE="$XDG_DATA_HOME/zsh/history"
