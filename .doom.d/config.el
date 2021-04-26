@@ -66,3 +66,9 @@
 (add-to-list 'auto-mode-alist '("\\.vue\\'" . genehack-vue-mode))
 (add-hook 'genehack-vue-mode-hook #'eglot-ensure)
 (add-to-list 'eglot-server-programs '(genehack-vue-mode "vls"))
+
+;; Format on save eslint
+(eval-after-load 'js2-mode
+  '(add-hook 'js2-mode-hook (lambda () (add-hook 'after-save-hook 'prettier-eslint nil t))))
+  '(add-hook 'react-mode-hook (lambda () (add-hook 'after-save-hook 'prettier-eslint nil t)))
+  '(add-hook 'genehack-vue-mode-hook (lambda () (add-hook 'after-save-hook 'prettier-eslint nil t)))
