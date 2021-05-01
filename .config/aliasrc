@@ -13,6 +13,7 @@ alias \
 		virt="virt-manager && exit" \
 		news="newsboat" \
 		v="nvim" \
+		window="xprop | grep WM_CLASS"
 
 # Git commands
 # Skip worktree related commands
