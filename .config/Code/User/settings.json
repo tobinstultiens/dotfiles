@@ -10,7 +10,8 @@
         "javascript"
     ],
     "[vue]": {
-        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+        "editor.tabSize": 2
     },
     "[typescript]": {
         "editor.defaultFormatter": "dbaeumer.vscode-eslint",
@@ -19,5 +20,7 @@
     "files.exclude": {
         "**/node_modules": true
     },
-    "diffEditor.ignoreTrimWhitespace": false
+    "diffEditor.ignoreTrimWhitespace": false,
+    "vim.enableNeovim": true,
+    "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim"
 }

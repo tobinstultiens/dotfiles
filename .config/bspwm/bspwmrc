@@ -1,8 +1,8 @@
 #! /bin/sh
 
 # Set Variables
-mainmonitor=HDMI-0
-secondarymonitor=HDMI3
+mainmonitor=HDMI-1-0
+secondarymonitor=HDMI-3
 
 sxhkd &
 xset -dpms s off
@@ -54,4 +54,5 @@ bspc rule -a mailspring desktop='^9'
 bspc rule -a spotify desktop='^10'
 
 xrandr --output $mainmonitor --auto --pos 0x0 --output $secondarymonitor --auto --pos 2560x360
-feh --bg-scale /home/tobins/Pictures/Backgrounds/anime-city-lights-night-rain-umbrella-sky-5k-ou-2560x1440.jpg --bg-fill /home/tobins/Pictures/Backgrounds/1920x1080/8fa9975a9e6f6251ee55a4a26f06d440.jpg
+#feh --bg-scale /home/tobins/Pictures/Backgrounds/anime-city-lights-night-rain-umbrella-sky-5k-ou-2560x1440.jpg --bg-fill /home/tobins/Pictures/Backgrounds/1920x1080/8fa9975a9e6f6251ee55a4a26f06d440.jpg
+feh --bg-scale /home/tobins/Pictures/Backgrounds/1920x1080/8fa9975a9e6f6251ee55a4a26f06d440.jpg --bg-fill /home/tobins/Pictures/Backgrounds/anime-city-lights-night-rain-umbrella-sky-5k-ou-2560x1440.jpg

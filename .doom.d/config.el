@@ -59,13 +59,13 @@
 (setq mmm-js-mode-enter-hook (lambda () (setq syntax-ppss-table nil)))
 (setq mmm-typescript-mode-enter-hook (lambda () (setq syntax-ppss-table nil)))
 
-(require 'eglot)
-(require 'web-mode)
-(define-derived-mode genehack-vue-mode web-mode "ghVue"
-  "A major mode derived from web-mode, for editing .vue files with LSP support.")
-(add-to-list 'auto-mode-alist '("\\.vue\\'" . genehack-vue-mode))
-(add-hook 'genehack-vue-mode-hook #'eglot-ensure)
-(add-to-list 'eglot-server-programs '(genehack-vue-mode "vls"))
+;(require 'eglot)
+;(require 'web-mode)
+;(define-derived-mode genehack-vue-mode web-mode "ghVue"
+;  "A major mode derived from web-mode, for editing .vue files with LSP support.")
+;(add-to-list 'auto-mode-alist '("\\.vue\\'" . genehack-vue-mode))
+;(add-hook 'genehack-vue-mode-hook #'eglot-ensure)
+;(add-to-list 'eglot-server-programs '(genehack-vue-mode "vls"))
 
 ;; Format on save eslint
 (eval-after-load 'js2-mode
