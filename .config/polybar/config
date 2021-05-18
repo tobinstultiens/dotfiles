@@ -332,6 +332,6 @@ format = Tasks: <label>
 exec = todoist-cli sync && todoist-cli l --filter overdue | grep "00:00" | wc -l
 #exec-if = bash ~/Projects/Shell/todoist-scripts/polybar-todoist
 
-click-left = xdotool key ctrl+alt+q
+click-left = todoist
 #click-middle = xdotool key ctrl+alt+q
-click-right = xdotool key ctrl+alt+a
+#click-right = xdotool key ctrl+alt+a
