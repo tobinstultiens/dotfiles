@@ -16,6 +16,7 @@ pgrep -x redshift-gtk> /dev/null || redshift-gtk &
 pgrep -x picom > /dev/null || picom &
 pgrep -x todoist > /dev/null || todoist &
 pgrep -x /opt/urserver/urserver > /dev/null || /opt/urserver/urserver --daemon &
+kdeconnect-cli --pair --device 1db7c78dd7125b39
 
 #polybar bspwm &
 $HOME/.config/polybar/launch.sh
@@ -36,6 +37,7 @@ wmctrl -r todoist -t 0
 while IFS= read -r line; do
     wmctrl -ir $line -t 5
 done <<< $(wmctrl -l | awk '/Firefox/{print $1}')
+
 while IFS= read -r line; do
     wmctrl -ir $line -t 5
 done <<< $(wmctrl -l | awk '/Chromium/{print $1}')
