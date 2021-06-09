@@ -327,7 +327,7 @@ scroll-down = bash ~/.config/polybar/scripts/mic-volume.sh dec-vol
 
 [module/todoist]
 type = custom/script
-interval = 60
+interval = 180
 format = Tasks: <label>
 exec = todoist-cli sync && todoist-cli l --filter overdue | grep "00:00" | wc -l
 #exec-if = bash ~/Projects/Shell/todoist-scripts/polybar-todoist
