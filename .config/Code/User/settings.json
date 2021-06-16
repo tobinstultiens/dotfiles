@@ -1,5 +1,5 @@
 {
-    "editor.lineNumbers": "on",
+    "editor.lineNumbers": "relative",
     "eslint.alwaysShowStatus": true,
     "eslint.format.enable": true,
     "eslint.lintTask.enable": true,
