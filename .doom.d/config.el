@@ -72,3 +72,5 @@
   '(add-hook 'js2-mode-hook (lambda () (add-hook 'after-save-hook 'prettier-eslint nil t))))
   '(add-hook 'react-mode-hook (lambda () (add-hook 'after-save-hook 'prettier-eslint nil t)))
   '(add-hook 'genehack-vue-mode-hook (lambda () (add-hook 'after-save-hook 'prettier-eslint nil t)))
+
+(setq org-latex-packages-alist '("\\hypersetup{colorlinks=true,linkcolor=blue}"))
