@@ -24,6 +24,7 @@ autoload -U edit-command-line
 zle -N edit-command-line
 bindkey '^xe' edit-command-line
 bindkey '^x^e' edit-command-line
+eval $(thefuck --alias)
 # Vi style:
 #zle -N edit-command-line
 #bindkey -M vicmd v edit-command-line
