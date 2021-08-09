@@ -16,6 +16,7 @@ pgrep -x redshift-gtk> /dev/null || redshift-gtk &
 pgrep -x picom > /dev/null || picom &
 pgrep -x todoist > /dev/null || todoist &
 pgrep -x /opt/urserver/urserver > /dev/null || /opt/urserver/urserver --daemon &
+pgrep bspswallow || bspswallow &
 #kdeconnect-cli --pair --device 1db7c78dd7125b39
 
 #polybar bspwm &

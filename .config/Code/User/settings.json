@@ -7,7 +7,8 @@
         "source.fixAll.eslint": true
     },
     "eslint.validate": [
-        "javascript"
+        "javascript",
+        "typescript"
     ],
     "[vue]": {
         "editor.defaultFormatter": "dbaeumer.vscode-eslint",
@@ -46,5 +47,6 @@
     },
     "javascript.preferences.importModuleSpecifier": "relative",
     "typescript.preferences.importModuleSpecifier": "relative",
-    "vim.useSystemClipboard": true
+    "vim.useSystemClipboard": true,
+    "editor.formatOnSave": true
 }

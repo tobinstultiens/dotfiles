@@ -17,6 +17,11 @@ plugins=(z command-time zsh-autosuggestions fzf)
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#99aaae"
 export ANDROID_HOME=/home/tobins/Android/Sdk
 export CHROME_EXECUTABLE=/bin/google-chrome-stable
+export PATH=$PATH:$ANDROID_HOME/tools 
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH/:$ANDROID_HOME/platform-tools
+export PATH=$PATH/:$ANDROID_HOME/platform-tools
+export PATH=$PATH:$HOME/.scripts
 
 # Enable Ctrl-x-e to edit command line
 autoload -U edit-command-line

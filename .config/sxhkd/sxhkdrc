@@ -148,6 +148,9 @@ alt + p
 alt + i
 	pulse-switch
 
+alt + f
+	exec $TERMINAL -e lf
+
 alt + c
 	config-dmenu
 
