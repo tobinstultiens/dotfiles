@@ -3,6 +3,15 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 
+# Flutter
+export ANDROID_HOME=/home/tobins/Android/Sdk
+export CHROME_EXECUTABLE=/bin/google-chrome-stable
+export PATH=$PATH:$ANDROID_HOME/tools 
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH/:$ANDROID_HOME/platform-tools
+export PATH=$PATH/:$ANDROID_HOME/platform-tools
+export PATH=$PATH:$HOME/.scripts
+
 # Set dotnet tools
 export PATH="$PATH:$HOME/.dotnet/tools/"
 
