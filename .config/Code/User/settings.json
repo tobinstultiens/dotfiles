@@ -24,7 +24,6 @@
     "diffEditor.ignoreTrimWhitespace": false,
     "vim.enableNeovim": true,
     "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
-    "editor.tabSize": 8,
     "editor.cursorStyle": "line",
     "editor.insertSpaces": false,
     "editor.wordSeparators": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?-",
