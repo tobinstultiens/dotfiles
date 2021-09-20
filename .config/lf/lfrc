@@ -151,8 +151,8 @@ map gps cd ~/Projects/School
 map gpo cd ~/Projects/Open Source
 
 # Documents
-map gd cd ~/Documents
-map gb cd ~/Documents/Books
+map gds cd ~/Documents/School
+map gdb cd ~/Documents/Books
 
 # Dragon mapping
 map dr dragon
