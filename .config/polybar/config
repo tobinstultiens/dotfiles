@@ -56,7 +56,7 @@ font-2 = SpaceMono Nerd Font:style=Medium:size=12;4
 font-3 = SpaceMono Nerd Font:style=Medium:size=7;4
 
 modules-left    = cpu arrowLightLeft memory arrowDarkLeft  bspwm arrowLightLeft
-modules-center  = todoist
+#modules-center  = todoist
 modules-right   = arrowLightRight pulseaudio-control arrowDarkRight mic-volume arrowLightRight date
 
 tray-position = right
