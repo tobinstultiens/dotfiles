@@ -51,10 +51,12 @@ wmctrl -r Spotify -t 9
 bspc rule -a Emacs state=tiled
 bspc rule -a BloonsTD6 state=tiled
 bspc rule -a steam_app_528230 state=tiled
+bspc rule -a Android* state=float
 bspc rule -a discord desktop='^8'
 bspc rule -a whatsdesk desktop='^8'
 bspc rule -a mailspring desktop='^9'
 bspc rule -a spotify desktop='^10'
+bspc config external_rules_command ./android
 
 xrandr --output $mainmonitor --auto --pos 0x0 --output $secondarymonitor --auto --pos 2560x360
 feh --bg-scale /home/tobins/Pictures/Backgrounds/anime-city-lights-night-rain-umbrella-sky-5k-ou-2560x1440.jpg --bg-fill /home/tobins/Pictures/Backgrounds/1920x1080/8fa9975a9e6f6251ee55a4a26f06d440.jpg
