@@ -48,5 +48,6 @@
     "typescript.preferences.importModuleSpecifier": "relative",
     "vim.useSystemClipboard": true,
     "editor.formatOnSave": true,
-    "liveshare.notebooks.allowGuestExecuteCells": true
+    "liveshare.notebooks.allowGuestExecuteCells": true,
+    "jupyter.askForKernelRestart": false
 }
