@@ -3,6 +3,7 @@
 # Set Variables
 mainmonitor=HDMI-0
 secondarymonitor=HDMI3
+DESKTOPINTEGRATION=false
 
 sxhkd &
 xset -dpms s off
