@@ -6,7 +6,7 @@ secondarymonitor=HDMI3
 DESKTOPINTEGRATION=false
 
 sxhkd &
-xset -dpms s off
+xset s 1200 1200
 pgrep -x spotify > /dev/null || spotify &
 pgrep -x chromium > /dev/null || chromium &
 pgrep -x discord > /dev/null || discord &
