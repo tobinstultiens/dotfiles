@@ -49,5 +49,9 @@
     "vim.useSystemClipboard": true,
     "editor.formatOnSave": true,
     "liveshare.notebooks.allowGuestExecuteCells": true,
-    "jupyter.askForKernelRestart": false
+    "jupyter.askForKernelRestart": false,
+    "python.formatting.autopep8Args": [
+        "--ignore",
+        "E402"
+    ]
 }
