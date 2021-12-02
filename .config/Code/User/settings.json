@@ -15,8 +15,8 @@
         "editor.tabSize": 2
     },
     "[typescript]": {
-        "editor.defaultFormatter": "dbaeumer.vscode-eslint",
-        "editor.tabSize": 8
+        "editor.defaultFormatter": "vscode.typescript-language-features",
+        "editor.tabSize": 4
     },
     "files.exclude": {
         "**/node_modules": true
