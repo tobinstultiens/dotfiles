@@ -44,6 +44,7 @@ done <<< $(wmctrl -l | awk '/Firefox/{print $1}')
 while IFS= read -r line; do
     wmctrl -ir $line -t 5
 done <<< $(wmctrl -l | awk '/Chromium/{print $1}')
+wmctrl -r todoist -t 6
 wmctrl -r discord -t 7
 wmctrl -r whatsdesk -t 7
 wmctrl -r mailspring -t 8
