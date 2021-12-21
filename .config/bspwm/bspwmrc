@@ -16,7 +16,6 @@ pgrep -x /usr/lib/geoclue-2.0/demos/agent> /dev/null || /usr/lib/geoclue-2.0/dem
 pgrep -x redshift-gtk> /dev/null || redshift-gtk &
 pgrep -x picom > /dev/null || picom &
 pgrep -x todoist > /dev/null || todoist &
-pgrep -x /opt/urserver/urserver > /dev/null || /opt/urserver/urserver --daemon &
 pgrep -x cadmus > /dev/null || cadmus &
 pgrep bspswallow || bspswallow &
 #kdeconnect-cli --pair --device 1db7c78dd7125b39
