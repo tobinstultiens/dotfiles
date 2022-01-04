@@ -74,3 +74,22 @@
   '(add-hook 'genehack-vue-mode-hook (lambda () (add-hook 'after-save-hook 'prettier-eslint nil t)))
 
 (setq org-latex-packages-alist '("\\hypersetup{colorlinks=true,linkcolor=blue}"))
+
+(setq org-publish-use-timestamps-flag nil)
+(setq org-export-with-broken-links t)
+(setq org-publish-project-alist
+      '(("cooking"
+         :base-directory "~/org/cooking/"
+         :base-extension "org"
+         :publishing-directory "~/org/cooking/html/"
+         :recursive t
+         :publishing-function org-html-publish-to-html
+         :headline-levels 4
+         :auto-preamble t)
+        ("org-static"
+         :base-directory "~/org/website"
+         :base-extension "pdf\\|js\\|jpg\\|png\\|gif"
+         :publishing-directory "~/publich_html/"
+         :recurcive t
+         :publishing-function org-publish-attachment)
+        ))
