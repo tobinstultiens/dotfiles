@@ -93,20 +93,3 @@
          :recurcive t
          :publishing-function org-publish-attachment)
         ))
-
-(require 'keytar)
-(keytar-install)
-(require 'lsp-grammarly)
-
-
-(use-package lsp-grammarly
-  :ensure t
-  :hook (text-mode . (lambda ()
-                       (require 'lsp-grammarly)
-                       (lsp))))  ; or lsp-deferred
-
-(use-package lsp-grammarly
-  :ensure t
-  :hook (org-mode . (lambda ()
-                       (require 'lsp-grammarly)
-                       (lsp))))  ; or lsp-deferred
