@@ -79,9 +79,9 @@
 (setq org-export-with-broken-links t)
 (setq org-publish-project-alist
       '(("cooking"
-         :base-directory "~/org/cooking/"
+         :base-directory "~/Projects/Personal/Cooking/"
          :base-extension "org"
-         :publishing-directory "~/org/cooking/html/"
+         :publishing-directory "~/Projects/Personal/Cooking/html/"
          :recursive t
          :publishing-function org-html-publish-to-html
          :headline-levels 4
@@ -93,3 +93,9 @@
          :recurcive t
          :publishing-function org-publish-attachment)
         ))
+
+;; set font size
+;;(setq doom-font (font-spec  :size 14)
+      ;;doom-variable-pitch-font (font-spec :family "Fira Sans") ; inherits `doom-font''s :size
+      ;;doom-unicode-font (font-spec :size 14)
+      ;;doom-big-font (font-spec :size 19))

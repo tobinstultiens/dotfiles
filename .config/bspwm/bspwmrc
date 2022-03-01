@@ -19,6 +19,7 @@ pgrep -x todoist > /dev/null || todoist &
 pgrep -x cadmus > /dev/null || cadmus &
 pgrep bspswallow || bspswallow &
 #kdeconnect-cli --pair --device 1db7c78dd7125b39
+kdeconnect-cli --refresh
 
 #polybar bspwm &
 $HOME/.config/polybar/launch.sh
