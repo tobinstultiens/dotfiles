@@ -11,7 +11,7 @@ pgrep -x spotify > /dev/null || spotify &
 pgrep -x chromium > /dev/null || chromium &
 pgrep -x discord > /dev/null || discord &
 pgrep -x whatsdesk > /dev/null || whatsdesk &
-pgrep -x mailspring > /dev/null || mailspring &
+pgrep -x thunderbird > /dev/null || thunderbird &
 pgrep -x /usr/lib/geoclue-2.0/demos/agent> /dev/null || /usr/lib/geoclue-2.0/demos/agent &
 pgrep -x redshift-gtk> /dev/null || redshift-gtk &
 pgrep -x picom > /dev/null || picom &
@@ -47,7 +47,7 @@ done <<< $(wmctrl -l | awk '/Chromium/{print $1}')
 wmctrl -r todoist -t 6
 wmctrl -r discord -t 7
 wmctrl -r whatsdesk -t 7
-wmctrl -r mailspring -t 8
+wmctrl -r thunderbird -t 8
 wmctrl -r Spotify -t 9
 
 # Set bspc rules
@@ -58,7 +58,7 @@ bspc rule -a steam_app_528230 state=tiled
 bspc rule -a Android* state=float
 bspc rule -a discord desktop='^8'
 bspc rule -a whatsdesk desktop='^8'
-bspc rule -a mailspring desktop='^9'
+bspc rule -a thunderbird desktop='^9'
 bspc rule -a spotify desktop='^10'
 bspc config external_rules_command ./android
 
