@@ -59,19 +59,19 @@
 (setq mmm-js-mode-enter-hook (lambda () (setq syntax-ppss-table nil)))
 (setq mmm-typescript-mode-enter-hook (lambda () (setq syntax-ppss-table nil)))
 
-;(require 'eglot)
-;(require 'web-mode)
-;(define-derived-mode genehack-vue-mode web-mode "ghVue"
-;  "A major mode derived from web-mode, for editing .vue files with LSP support.")
-;(add-to-list 'auto-mode-alist '("\\.vue\\'" . genehack-vue-mode))
-;(add-hook 'genehack-vue-mode-hook #'eglot-ensure)
-;(add-to-list 'eglot-server-programs '(genehack-vue-mode "vls"))
+                                        ;(require 'eglot)
+                                        ;(require 'web-mode)
+                                        ;(define-derived-mode genehack-vue-mode web-mode "ghVue"
+                                        ;  "A major mode derived from web-mode, for editing .vue files with LSP support.")
+                                        ;(add-to-list 'auto-mode-alist '("\\.vue\\'" . genehack-vue-mode))
+                                        ;(add-hook 'genehack-vue-mode-hook #'eglot-ensure)
+                                        ;(add-to-list 'eglot-server-programs '(genehack-vue-mode "vls"))
 
 ;; Format on save eslint
 (eval-after-load 'js2-mode
   '(add-hook 'js2-mode-hook (lambda () (add-hook 'after-save-hook 'prettier-eslint nil t))))
-  '(add-hook 'react-mode-hook (lambda () (add-hook 'after-save-hook 'prettier-eslint nil t)))
-  '(add-hook 'genehack-vue-mode-hook (lambda () (add-hook 'after-save-hook 'prettier-eslint nil t)))
+'(add-hook 'react-mode-hook (lambda () (add-hook 'after-save-hook 'prettier-eslint nil t)))
+'(add-hook 'genehack-vue-mode-hook (lambda () (add-hook 'after-save-hook 'prettier-eslint nil t)))
 
 (setq org-latex-packages-alist '("\\hypersetup{colorlinks=true,linkcolor=blue}"))
 
@@ -95,7 +95,22 @@
         ))
 
 ;; set font size
-;;(setq doom-font (font-spec  :size 14)
-      ;;doom-variable-pitch-font (font-spec :family "Fira Sans") ; inherits `doom-font''s :size
-      ;;doom-unicode-font (font-spec :size 14)
-      ;;doom-big-font (font-spec :size 19))
+(setq doom-font (font-spec :size 14)
+      doom-variable-pitch-font (font-spec :family "Source Code Pro") ; inherits `doom-font''s :size
+      doom-unicode-font (font-spec :size 14)
+      doom-big-font (font-spec :size 19))
+
+;; Follow Hugo links
+(defun org-hugo-follow (link)
+  "Follow Hugo link shortcodes"
+  (org-link-open-as-file
+   (string-trim "{{% ref test.org %}}" "{{% ref " "%}}")))
+
+;; New link type for Org-Hugo internal links
+(org-link-set-parameters "hugo"
+                         :complete (lambda ()
+                                     (concat "{{% ref */"
+                                             (file-name-nondirectory
+                                              (read-file-name "File: "))
+                                             " %}}"))
+                         :follow #'org-hugo-follow)

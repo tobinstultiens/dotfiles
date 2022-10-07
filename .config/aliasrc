@@ -6,14 +6,20 @@ command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d"
 alias \
 		config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'\
 		slp="systemctl suspend" \
-		slpl="systemctl suspend && customi3lock" \
-		slple="systemctl suspend && customi3lock && exit" \
+		slpl="systemctl suspend && xsecurelock" \
+		slple="systemctl suspend && xsecurelock && exit" \
 		slpe="systemctl suspend && exit" \
 		p="sudo pacman" \
 		virt="virt-manager && exit" \
 		news="newsboat" \
 		v="nvim" \
-		window="xprop | grep WM_CLASS"
+		window="xprop | grep WM_CLASS"\
+		cp="rsync -ahv --progress"\
+	
+# Find game filter function
+findGame() {
+	find ~/.local/share/Steam/steamapps/ -maxdepth 1 -type f -name '*.acf' -exec awk -F '"' '/"appid|name/{ printf $4 "|" } END { print "" }' {} \; | column -t -s '|' | sort -k 2 | grep -i $1
+}
 
 # Git commands
 # Skip worktree related commands

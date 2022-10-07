@@ -145,13 +145,10 @@ map gns cd /mnt/stultnas/Tobin/Series
 map gnc cd /mnt/stultnas/Tobin/Converted
 
 # Projects
-map gs cd ~/Projects/Shell
-map gpp cd ~/Projects/Personal\ Projects
-map gps cd ~/Projects/School
-map gpo cd ~/Projects/Open Source
+map gpp cd ~/Projects/Personal
+map gpo cd ~/Projects/OpenSource
 
 # Documents
-map gds cd ~/Documents/School
 map gdb cd ~/Documents/Books
 
 # Dragon mapping

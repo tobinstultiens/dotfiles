@@ -18,11 +18,11 @@ export PATH="$PATH:$HOME/.dotnet/tools/"
 # Default programs:
 export EDITOR="nvim"
 export TERMINAL="st"
-export BROWSER="chromium"
+export BROWSER="firefox"
 export READER="zathura"
 
 # Set browser
-BROWSER_DESKTOP="chromium.desktop"
+BROWSER_DESKTOP="firefox.desktop"
 xdg-mime default $BROWSER_DESKTOP x-scheme-handler/http
 xdg-mime default $BROWSER_DESKTOP x-scheme-handler/https
 

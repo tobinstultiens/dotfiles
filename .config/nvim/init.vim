@@ -105,3 +105,5 @@ let g:vimtex_quickfix_mode=0
 " Vim which key
 nnoremap <silent> <leader> :<c-u>WhichKey  ','<CR>
 
+" Make startify use NERDTreeBookmarks
+let g:startify_bookmarks = systemlist("cut -sd' ' -f 2- ~/.NERDTreeBookmarks")

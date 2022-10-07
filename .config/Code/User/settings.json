@@ -18,11 +18,14 @@
         "editor.defaultFormatter": "vscode.typescript-language-features",
         "editor.tabSize": 4
     },
+    "[latex]": {
+        "editor.wordWrap": "on"
+    },
     "files.exclude": {
         "**/node_modules": true
     },
     "diffEditor.ignoreTrimWhitespace": false,
-    "vim.enableNeovim": true,
+    // "vim.enableNeovim": true,
     "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
     "editor.cursorStyle": "line",
     "editor.insertSpaces": false,
@@ -53,5 +56,13 @@
     "python.formatting.autopep8Args": [
         "--ignore",
         "E402"
+    ],
+    "latex-workshop.view.pdf.viewer": "tab",
+    "cSpell.userWords": [
+        "Prodrive"
+    ],
+    "editor.fontFamily": "Source Code Pro",
+    "settingsSync.ignoredSettings": [
+        "editor.fontFamily"
     ]
 }
