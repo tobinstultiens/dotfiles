@@ -8,7 +8,7 @@ DESKTOPINTEGRATION=false
 sxhkd &
 xset s 1200 1200
 pgrep -x spotify > /dev/null || spotify &
-pgrep -x chromium > /dev/null || chromium &
+pgrep -x firefox > /dev/null || firefox &
 pgrep -x discord > /dev/null || discord &
 pgrep -x whatsdesk > /dev/null || whatsdesk &
 pgrep -x thunderbird > /dev/null || thunderbird &

@@ -8,28 +8,38 @@ Plug 'morhetz/gruvbox'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-surround'
-Plug 'dense-analysis/ale'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
 Plug 'itchyny/lightline.vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'rust-lang/rustfmt'
-Plug 'rust-lang/rust.vim'
+" LaTeX
 Plug 'lervag/vimtex'
 Plug 'KeitaNakamura/tex-conceal.vim'
+" Disables search higlighting when you are done searching
 Plug 'romainl/vim-cool'
+" Python
 Plug 'heavenshell/vim-pydocstring', { 'do': 'make install' }
-Plug 'vim-test/vim-test'
 Plug 'vim-scripts/indentpython.vim'
+" Test runner
+Plug 'vim-test/vim-test'
+" Swagger
 Plug 'xavierchow/vim-swagger-preview'
-Plug 'rbgrouleff/bclose.vim'
+" Integrates lf
 Plug 'ptzz/lf.vim'
+" Color higlighter
 Plug 'norcalli/nvim-colorizer.lua'
+" Start menu
 Plug 'mhinz/vim-startify'
-Plug 'liuchengxu/vim-which-key'
-Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 
 call plug#end()
+
+lua require('plug')
+lua require('config')
+
+" Lf
+let g:lf_map_keys = 0
+map <leader>ff :Lf<CR>
 
 " Move between splits
 nnoremap <C-J> <C-W><C-J>
@@ -41,7 +51,7 @@ nnoremap <C-H> <C-W><C-H>
 set nocompatible
 filetype plugin on
 syntax on
-let mapleader = ","
+let mapleader = " "
 
 " General Settings
 set relativenumber
@@ -52,39 +62,12 @@ let g:lightline = {
       \ 'colorscheme': 'solarized',
       \ }
 
-" Use <c-space> to trigger completion.
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
-
-" Coc Mappings
-nmap <leader> gd <Plug>(coc-definition)
-nmap <leader> gy <Plug>(coc-type-definition)
-nmap <leader> gi <Plug>(coc-implementation)
-nmap <leader> gr <Plug>(coc-references)
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
-
-" Show documentation
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
-endfunction
-
-" Add `:Format` command to format current buffer.
-command! -nargs=0 Format :call CocAction('format')
-
 " fzf file finder mapping
 nnoremap <C-p> :GFiles<CR>
+
+" Remappings using leader
+nnoremap <Leader>g :G<CR>
+nnoremap <Leader>m :Mason<CR>
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -102,8 +85,8 @@ let g:tex_flavor='latex'
 let g:vimtex_view_method='zathura'
 let g:vimtex_quickfix_mode=0
 
-" Vim which key
-nnoremap <silent> <leader> :<c-u>WhichKey  ','<CR>
-
 " Make startify use NERDTreeBookmarks
 let g:startify_bookmarks = systemlist("cut -sd' ' -f 2- ~/.NERDTreeBookmarks")
+
+" Vim which key
+set timeoutlen=500
