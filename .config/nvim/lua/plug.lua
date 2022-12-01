@@ -1,5 +1,8 @@
 return require('packer').startup(function()
-	-- other plugins...
+	-- Which key
+	use {
+		"folke/which-key.nvim",
+	}
 
 	use 'williamboman/mason.nvim'    
 	use 'williamboman/mason-lspconfig.nvim'

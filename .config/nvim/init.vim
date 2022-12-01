@@ -35,11 +35,9 @@ Plug 'mhinz/vim-startify'
 call plug#end()
 
 lua require('plug')
-lua require('config')
 
 " Lf
 let g:lf_map_keys = 0
-map <leader>ff :Lf<CR>
 
 " Move between splits
 nnoremap <C-J> <C-W><C-J>
@@ -77,9 +75,6 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 
-" Rust autoformat on save
-let g:rustfmt_autosave = 1
-
 " LaTeX
 let g:tex_flavor='latex'
 let g:vimtex_view_method='zathura'
@@ -90,3 +85,7 @@ let g:startify_bookmarks = systemlist("cut -sd' ' -f 2- ~/.NERDTreeBookmarks")
 
 " Vim which key
 set timeoutlen=500
+
+lua require('config')
+lua require('opts')
+lua require('keys')

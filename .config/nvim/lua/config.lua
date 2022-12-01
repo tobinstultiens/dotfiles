@@ -42,46 +42,6 @@ vim.diagnostic.config({
     },
 })
 
---Set completeopt to have a better completion experience
--- :help completeopt
--- menuone: popup even when there's only one match
--- noinsert: Do not insert text until a selection is made
--- noselect: Do not select, force to select one from the menu
--- shortness: avoid showing extra messages when using completion
--- updatetime: set updatetime for CursorHold
-vim.opt.completeopt = {'menuone', 'noselect', 'noinsert'}
-vim.opt.shortmess = vim.opt.shortmess + { c = true}
-vim.api.nvim_set_option('updatetime', 300) 
-
-vim.cmd([[
-set signcolumn=yes
-autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
-]])
-
--- Treesitter folding 
-vim.wo.foldmethod = 'expr'
-vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
-
--- Vimspector options
-vim.cmd([[
-let g:vimspector_sidebar_width = 85
-let g:vimspector_bottombar_height = 15
-let g:vimspector_terminal_maxwidth = 70
-]])
-
--- Vimspector
-vim.cmd([[
-nmap <F9> <cmd>call vimspector#Launch()<cr>
-nmap <F5> <cmd>call vimspector#StepOver()<cr>
-nmap <F8> <cmd>call vimspector#Reset()<cr>
-nmap <F11> <cmd>call vimspector#StepOver()<cr>")
-nmap <F12> <cmd>call vimspector#StepOut()<cr>")
-nmap <F10> <cmd>call vimspector#StepInto()<cr>")
-]])
--- map('n', "Db", ":call vimspector#ToggleBreakpoint()<cr>")
--- map('n', "Dw", ":call vimspector#AddWatch()<cr>")
--- map('n', "De", ":call vimspector#Evaluate()<cr>")
-
 -- Completion Plugin Setup
 local cmp = require'cmp'
 cmp.setup({
@@ -151,25 +111,9 @@ require('nvim-treesitter.configs').setup {
   }
 }
 
--- Telescope keys
-local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>fp', builtin.find_files, {})
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
-
--- Hop configurations
-local hop = require('hop')
-local directions = require('hop.hint').HintDirection
-vim.keymap.set('', 'f', function()
-  hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
-end, {remap=true})
-vim.keymap.set('', 'F', function()
-  hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
-end, {remap=true})
-vim.keymap.set('', 't', function()
-  hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
-end, {remap=true})
-vim.keymap.set('', 'T', function()
-  hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
-end, {remap=true})
+require('telescope').setup{}
+require("which-key").setup {
+	-- your configuration comes here
+	-- or leave it empty to use the default settings
+	-- refer to the configuration section below
+}
