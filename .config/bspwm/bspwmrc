@@ -60,6 +60,7 @@ bspc rule -a steam_app_528230 state=tiled
 bspc rule -a Android* state=float
 bspc rule -a Vampire_Survivors state=floating rectangle=1200+800+0+0
 bspc rule -a "steam_app_3480" state=floating rectangle=1200+1200+0+0
+bspc rule -a Steam state=floating manage=on layer=normal
 
 bspc rule -a discord desktop='^8'
 bspc rule -a whatsdesk desktop='^8'

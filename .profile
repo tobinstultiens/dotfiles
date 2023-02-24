@@ -1,1 +1,2 @@
 . ~/.zprofile
+. "$HOME/.cargo/env"

@@ -11,6 +11,16 @@ rt.setup({
       -- Code action groups
       vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
     end,
+		settings = {
+			["rust-analyzer"] = {
+				lens = {
+					enable = true,
+				},
+				checkonsave = {
+					command = "clippy",
+				},
+			},
+		},
   },
 }) 
 
@@ -110,6 +120,7 @@ require('nvim-treesitter.configs').setup {
     max_file_lines = nil,
   }
 }
+vim.opt.foldenable = false 
 
 require('telescope').setup{}
 require("which-key").setup {
