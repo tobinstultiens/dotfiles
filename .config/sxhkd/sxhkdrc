@@ -161,10 +161,5 @@ Print
 	flameshot gui
 
 # Switch monitor input to laptop
-alt + s
-  sudo ddcutil -b 7 setvcp 0x60 0x11
-  sudo ddcutil -b 4 setvcp 0x60 0x11
-
-alt + shift + s
-  sudo ddcutil -b 7 setvcp 0x60 0x0f
-  sudo ddcutil -b 4 setvcp 0x60 0x12
+alt + ctrl + shift + s
+	$HOME/.config/sxhkd/switch-monitor-input.sh
