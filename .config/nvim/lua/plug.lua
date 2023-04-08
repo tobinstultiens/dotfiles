@@ -28,6 +28,14 @@ return require('packer').startup(function()
 	use 'hrsh7th/cmp-buffer'                            
 	use 'hrsh7th/vim-vsnip'
 
+	-- Tpoe
+	use 'tpope/vim-surround'
+	use 'tpope/vim-commentary'
+	use 'tpope/vim-fugitive'
+
+	-- Theme
+	use { "ellisonleao/gruvbox.nvim" }
+
 	-- Treesitter
 	use 'nvim-treesitter/nvim-treesitter'
 
@@ -51,6 +59,12 @@ return require('packer').startup(function()
 	    require('session-lens').setup({--[[your custom config--]]})
 	  end
 	}
+
+	-- Disables search higlighting when you are done searching
+	use 'romainl/vim-cool'
+
+	-- Color hightlighter
+	use 'norcalli/nvim-colorizer.lua'
 
 	-- Vimspector
 	use 'puremourning/vimspector'

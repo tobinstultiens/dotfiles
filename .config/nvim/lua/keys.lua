@@ -28,7 +28,8 @@ wk.register({
 	d = {
 		name = "Debugger",
 	},
-	g = "Git",
+	g = {"<cmd>G<cr>","Git"},
+	m = {"<cmd>Mason<cr>","Mason"},
 	t = {
 		name = "File Explorer"
 	},
@@ -53,6 +54,12 @@ nmap <leader>db <cmd>call vimspector#ToggleBreakpoint()<cr>
 nmap <leader>dw <cmd>call vimspector#AddWatch()<cr>
 nmap <leader>de <cmd>call vimspector#Evaluate()<cr>
 ]])
+
+-- Move between windows
+vim.keymap.set("n", "<C-J>", "<C-W><C-J>")
+vim.keymap.set("n", "<C-K>", "<C-W><C-K>")
+vim.keymap.set("n", "<C-L>", "<C-W><C-L>")
+vim.keymap.set("n", "<C-H>", "<C-W><C-H>")
 
 -- Telescope keys
 local builtin = require('telescope.builtin')
