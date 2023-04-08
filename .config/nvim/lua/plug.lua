@@ -72,6 +72,17 @@ return require('packer').startup(function()
 	-- Vim floating terminal
 	use 'voldikss/vim-floaterm'
 
+	-- Lualine
+	use {
+  	'nvim-lualine/lualine.nvim',
+  	requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+	}
+	-- Buffer line
+	use {
+		'akinsho/bufferline.nvim', 
+		tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons'
+	}
+
 	-- Telescope
 	use {
 		'nvim-telescope/telescope.nvim', tag = '0.1.0',

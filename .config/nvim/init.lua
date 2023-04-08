@@ -159,5 +159,33 @@ require("which-key").setup {
 	-- refer to the configuration section below
 }
 
+require('lualine').setup()
+
+-- Bufferline setup
+vim.opt.termguicolors = true
+require("bufferline").setup{}
+
 -- File Explorer
 require("nvim-tree").setup()
+
+-- Load opts and keys
+require('opts')
+require('keys')
+require('plug')
+
+-- Theme
+vim.o.background = "dark"
+vim.cmd([[
+colorscheme gruvbox
+let g:lightline = {
+      \ 'colorscheme': 'solarized',
+      \ }
+]])
+
+-- Set defaults
+vim.g.mapleader= " "
+vim.wo.number=true
+vim.cmd("set tabstop=2 shiftwidth=2 noet")
+
+-- Vim which key
+vim.o.timeoutlen = 500
