@@ -8,10 +8,10 @@ wk.register({
 		g = "Find greps",
 		b = "Find buffers",
 		h = "Find help tags",
-		t = {"<cmd>NvimTreeToggle<cr>", "Toggle Tree"},
+		-- t = {"<cmd>NvimTreeToggle<cr>", "Toggle Tree"},
 		o = {"<cmd>NvimTreeFocus<cr>", "Focus Tree"},
 		l = {"<cmd>NvimTreeFindFile<cr>", "Find file in Tree"},
-		c = {"<cmd>NvimTreeCollapse<cr>", "Collapse"},
+		-- c = {"<cmd>NvimTreeCollapse<cr>", "Collapse"},
 	},
 	w = {
 		name = "Windows",
@@ -34,6 +34,13 @@ wk.register({
 	g = "Git",
 	t = {
 		name = "File Explorer"
+	},
+	p = {
+		name = "Projects",
+		p = {"<cmd>SearchSession<cr>","Search Sessions"},
+		s = {"<cmd>SaveSession<cr>", "Save Session"},
+		r = {"<cmd>RestoreSession<cr>", "Restore Session"},
+		d = {"<cmd>DeleteSession<cr>", "Delete Session"},
 	}
 }, {prefix = "<leader>"})
 

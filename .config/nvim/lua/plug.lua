@@ -34,6 +34,24 @@ return require('packer').startup(function()
 	-- File Explorer
 	use { 'nvim-tree/nvim-tree.lua' }
 
+	-- Session manager
+	use {
+  	'rmagatti/auto-session',
+  	config = function()
+    	require("auto-session").setup {
+      	log_level = "error",
+      	auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/"},
+    	}
+  	end
+	}
+	use {
+	  'rmagatti/session-lens',
+	  requires = {'rmagatti/auto-session', 'nvim-telescope/telescope.nvim'},
+	  config = function()
+	    require('session-lens').setup({--[[your custom config--]]})
+	  end
+	}
+
 	-- Vimspector
 	use 'puremourning/vimspector'
 
