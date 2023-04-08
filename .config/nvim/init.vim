@@ -5,8 +5,6 @@ Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 Plug 'morhetz/gruvbox'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
@@ -18,12 +16,8 @@ Plug 'lervag/vimtex'
 Plug 'KeitaNakamura/tex-conceal.vim'
 " Disables search higlighting when you are done searching
 Plug 'romainl/vim-cool'
-" Swagger
-Plug 'xavierchow/vim-swagger-preview'
 " Color higlighter
 Plug 'norcalli/nvim-colorizer.lua'
-" Start menu
-Plug 'mhinz/vim-startify'
 
 call plug#end()
 
@@ -45,7 +39,7 @@ let g:lightline = {
       \ }
 
 " fzf file finder mapping
-nnoremap <C-p> :GFiles<CR>
+"nnoremap <C-p> :GFiles<CR>
 
 " Remappings using leader
 nnoremap <Leader>g :G<CR>
@@ -68,9 +62,6 @@ let g:UltiSnipsEditSplit="vertical"
 let g:tex_flavor='latex'
 let g:vimtex_view_method='zathura'
 let g:vimtex_quickfix_mode=0
-
-" Make startify use NERDTreeBookmarks
-let g:startify_bookmarks = systemlist("cut -sd' ' -f 2- ~/.NERDTreeBookmarks")
 
 " Vim which key
 set timeoutlen=500

@@ -20,10 +20,7 @@ wk.register({
 		k = {"<C-W><C-K>","Move up the window"},
 		l = {"<C-W><C-L>","Move to the right window"},
 		w = {"<C-W><C-W>","Switch windows"},
-		t = {
-			name = "Tabs",
-			n = {"<C-W>T","New Tab"},
-		},
+		t = {"<C-W>T","New Tab"},
 	},
 	l = {
 		name = "Lsp actions",
@@ -41,7 +38,7 @@ wk.register({
 		s = {"<cmd>SaveSession<cr>", "Save Session"},
 		r = {"<cmd>RestoreSession<cr>", "Restore Session"},
 		d = {"<cmd>DeleteSession<cr>", "Delete Session"},
-	}
+	},
 }, {prefix = "<leader>"})
 
 -- Vimspector
@@ -62,6 +59,7 @@ local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
+vim.keymap.set('n', '<C-p>', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 
 -- FloaTerm configuration

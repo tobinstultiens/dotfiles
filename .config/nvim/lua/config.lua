@@ -142,7 +142,17 @@ require('nvim-treesitter.configs').setup {
 }
 vim.opt.foldenable = false 
 
-require('telescope').setup{}
+-- Telescope
+local actions = require "telescope.actions"
+require("telescope").setup{ 
+	defaults = { 
+		mappings = { 
+			i = { 
+				["<Esc>"] = actions.close, 
+			}, 
+		}, 
+	}, 
+}
 require("which-key").setup {
 	-- your configuration comes here
 	-- or leave it empty to use the default settings
