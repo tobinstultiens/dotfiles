@@ -35,3 +35,4 @@ eval $(thefuck --alias)
 #bindkey -M vicmd v edit-command-line
 
 source $ZSH/oh-my-zsh.sh
+source /usr/share/nvm/init-nvm.sh

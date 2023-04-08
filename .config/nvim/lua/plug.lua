@@ -4,8 +4,11 @@ return require('packer').startup(function()
 		"folke/which-key.nvim",
 	}
 
+	-- Mason
 	use 'williamboman/mason.nvim'    
 	use 'williamboman/mason-lspconfig.nvim'
+	use "jose-elias-alvarez/null-ls.nvim"
+  use "jay-babu/mason-null-ls.nvim"
 
 	-- Rust tools 
 	use 'neovim/nvim-lspconfig' 
@@ -28,6 +31,9 @@ return require('packer').startup(function()
 	-- Treesitter
 	use 'nvim-treesitter/nvim-treesitter'
 
+	-- File Explorer
+	use { 'nvim-tree/nvim-tree.lua' }
+
 	-- Vimspector
 	use 'puremourning/vimspector'
 
@@ -41,6 +47,7 @@ return require('packer').startup(function()
 		requires = { {'nvim-lua/plenary.nvim'} }
 	}
 
+	-- Hop
 	use {
 		'phaazon/hop.nvim',
 		branch = 'v2', -- optional but strongly recommended

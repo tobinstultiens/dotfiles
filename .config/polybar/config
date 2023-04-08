@@ -26,7 +26,7 @@ secondary            = #6F6F6F
 alert                = #FF0000
 
 [bar/example]
-monitor=${env:MONITOR:HDMI3}
+monitor=${env:MONITOR:DP-02}
 width = 100%
 height = 20
 #offset-x = 10%

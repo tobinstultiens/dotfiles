@@ -1,12 +1,12 @@
 #! /bin/sh
 
 # Set Variables
-mainmonitor=DP-4
-secondarymonitor=HDMI-0
+mainmonitor=DP-0
+secondarymonitor=DP-2
 DESKTOPINTEGRATION=false
 
 sxhkd &
-xset s 1200 1200
+xset s 120 120
 pgrep -x spotify > /dev/null || spotify &
 pgrep -x firefox > /dev/null || firefox &
 pgrep -x discord > /dev/null || discord &
@@ -69,7 +69,8 @@ bspc rule -a spotify desktop='^10'
 
 
 bspc config external_rules_command ./android
+bspc config automatic_scheme longest_side
 
-#xrandr --output $mainmonitor --auto --pos 0x0 --output $secondarymonitor --auto --pos 2560x360
-feh --bg-scale /home/tobins/Pictures/Backgrounds/2560x1440/cyber-city-anime-artwork.jpg --bg-fill /home/tobins/Pictures/Backgrounds/1920x1080/Anime-Retro-Desktop-Wallpaper-106387.jpg
+#xrandr --output $mainmonitor --auto --pos 0x0 --rate 165 --output $secondarymonitor --auto --pos 3440x0 --rate 60
+feh --bg-scale /home/tobins/Pictures/Backgrounds/3440x1440/JapanStreetNight.jpg --bg-fill /home/tobins/Pictures/Backgrounds/2560x1440/cyber-city-anime-artwork.jpg 
 #feh --bg-scale /home/tobins/Pictures/Backgrounds/1920x1080/Anime-Retro-Desktop-Wallpaper-106387.jpg --bg-fill /home/tobins/Pictures/Backgrounds/2560x1440/cyber-city-anime-artwork.jpg 

@@ -18,15 +18,8 @@ Plug 'lervag/vimtex'
 Plug 'KeitaNakamura/tex-conceal.vim'
 " Disables search higlighting when you are done searching
 Plug 'romainl/vim-cool'
-" Python
-Plug 'heavenshell/vim-pydocstring', { 'do': 'make install' }
-Plug 'vim-scripts/indentpython.vim'
-" Test runner
-Plug 'vim-test/vim-test'
 " Swagger
 Plug 'xavierchow/vim-swagger-preview'
-" Integrates lf
-Plug 'ptzz/lf.vim'
 " Color higlighter
 Plug 'norcalli/nvim-colorizer.lua'
 " Start menu
@@ -35,9 +28,6 @@ Plug 'mhinz/vim-startify'
 call plug#end()
 
 lua require('plug')
-
-" Lf
-let g:lf_map_keys = 0
 
 " Vim wiki
 set nocompatible
@@ -65,11 +55,6 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-" Move between splits
-nnoremap <Leader>wj <C-W><C-J>
-nnoremap <Leader>wk <C-W><C-K>
-nnoremap <Leader>wl <C-W><C-L>
-nnoremap <Leader>wh <C-W><C-H>
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<tab>"

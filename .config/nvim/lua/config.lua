@@ -1,5 +1,25 @@
+-- File Explorer related
+-- disable netrw at the very start of your init.lua (strongly advised)
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 -- Rust tools
+-- Mason Setup
 require("mason").setup()
+-- Null ls setup (Formatter)
+require("mason-null-ls").setup({
+    ensure_installed = {
+        -- Opt to list sources here, when available in mason.
+    },
+    automatic_installation = false,
+    automatic_setup = true, -- Recommended, but optional
+})
+require("null-ls").setup({
+    sources = {
+        -- Anything not supported by mason.
+    }
+})
+
+require 'mason-null-ls'.setup_handlers() -- If `automatic_setup` is true.
 
 local rt = require("rust-tools")
 
@@ -128,3 +148,6 @@ require("which-key").setup {
 	-- or leave it empty to use the default settings
 	-- refer to the configuration section below
 }
+
+-- File Explorer
+require("nvim-tree").setup()

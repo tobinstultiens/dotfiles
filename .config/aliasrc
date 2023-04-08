@@ -5,10 +5,10 @@ command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d"
 
 alias \
 		config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'\
-		slp="sudo ddcutil -b 4 setvcp D6 05 && systemctl suspend" \
-		slpl="sudo ddcutil -b 4 setvcp D6 05 && systemctl suspend && xsecurelock" \
-		slple="sudo ddcutil -b 4 setvcp D6 05 && systemctl suspend && xsecurelock && exit" \
-		slpe="sudo ddcutil -b 4 setvcp D6 05 && systemctl suspend && exit" \
+		slp="systemctl suspend" \
+		slpl="systemctl suspend && xsecurelock" \
+		slple="systemctl suspend && xsecurelock && exit" \
+		slpe="systemctl suspend && exit" \
 		p="sudo pacman" \
 		virt="virt-manager && exit" \
 		news="newsboat" \
