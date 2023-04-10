@@ -2,6 +2,7 @@
 -- disable netrw at the very start of your init.lua (strongly advised)
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+require('plug')
 -- Rust tools
 -- Mason Setup
 require("mason").setup()
@@ -19,7 +20,9 @@ require("null-ls").setup({
     }
 })
 
-require 'mason-null-ls'.setup_handlers() -- If `automatic_setup` is true.
+require("mason-null-ls").setup({
+    automatic_setup = true,
+})
 
 local rt = require("rust-tools")
 
@@ -159,7 +162,9 @@ require("which-key").setup {
 	-- refer to the configuration section below
 }
 
-require('lualine').setup()
+require('lualine').setup{
+	options = { theme = 'gruvbox_dark' }
+}
 
 -- Bufferline setup
 vim.opt.termguicolors = true
@@ -171,7 +176,6 @@ require("nvim-tree").setup()
 -- Load opts and keys
 require('opts')
 require('keys')
-require('plug')
 
 -- Theme
 vim.o.background = "dark"
