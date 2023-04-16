@@ -1,31 +1,19 @@
-configuration {
-    show-icons:                     true;
-    drun-display-format:            "{name}";
-    drun-match-fields:              "name";
-}
-
-@import "launcher"
+@import "grid"
 
 window {
-    height:                         360;
+    height:                         env(ROFI_GAME_LAUNCHER_HEIGHT, 360);
+    width:                          100%;
+
+    location:                       south;
+    anchor:                         south;
+
+    border:                         4px 0px 0px 0px;
 }
 
 listview {
-    padding:                        12px;
+    padding:                        0px;
     dynamic:                        true;
-    columns:                        9;
-}
-
-@media (min-width: 2400) {
-    listview {
-        columns:                    12;
-    }
-}
-
-@media (min-width: 3440) {
-    listview {
-        columns:                    16;
-    }
+    columns:                        env(ROFI_GAME_LAUNCHER_N_ENTRIES, 16);
 }
 
 element-icon {

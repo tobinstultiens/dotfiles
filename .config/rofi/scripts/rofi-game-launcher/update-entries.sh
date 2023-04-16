@@ -3,20 +3,20 @@
 # Generates .desktop entries for all installed Steam games with box art for
 # the icons to be used with a specifically configured Rofi launcher
 
-SCRIPT_DIR=$(dirname $(realpath $0))
+SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 
-STEAM_ROOT=$HOME/.local/share/Steam
-APP_PATH=$HOME/.cache/rofi-game-launcher/applications
+STEAM_ROOT="$HOME/.local/share/Steam"
+APP_PATH="$HOME/.cache/rofi-game-launcher/applications"
 
 # Fetch all Steam library folders.
 steam-libraries() {
     echo "$STEAM_ROOT"
 
     # Additional library folders are recorded in libraryfolders.vdf
-    libraryfolders=$STEAM_ROOT/steamapps/libraryfolders.vdf
+    local libraryfolders="$STEAM_ROOT/steamapps/libraryfolders.vdf"
     # Match directories listed in libraryfolders.vdf (or at least all strings
     # that look like directories)
-    grep -oP "(?<=\")/.*(?=\")" $libraryfolders
+    grep -oP "(?<=\")/.*(?=\")" "$libraryfolders"
 }
 
 # Generate the contents of a .desktop file for a Steam game.
@@ -25,7 +25,7 @@ desktop-entry() {
 cat <<EOF
 [Desktop Entry]
 Name=$2
-Exec=$SCRIPT_DIR/game-splash-menu.sh $1
+Exec=$SCRIPT_DIR/splash-menu.sh $1
 Icon=$3
 Terminal=false
 Type=Application
@@ -59,7 +59,7 @@ update-game-entries() {
         fi
 
         for manifest in "$library"/steamapps/appmanifest_*.acf; do
-            appid=$(basename "$manifest" | tr -dc "[0-9]")
+            appid=$(basename "$manifest" | tr -dc "0-9")
             entry=$APP_PATH/${appid}.desktop
 
             # Don't update existing entries unless doing a full refresh
@@ -72,8 +72,9 @@ update-game-entries() {
             boxart=$STEAM_ROOT/appcache/librarycache/${appid}_library_600x900.jpg
 
             # Search for custom boxart set through the Steam library
-            for boxart_custom in $STEAM_ROOT/userdata/*/config/grid/${appid}p.{png,jpg}; do
-                [ -e $boxart_custom ] && boxart=$boxart_custom
+            boxart_custom_candidates=("$STEAM_ROOT"/userdata/*/config/grid/"${appid}"p.{png,jpg})
+            for boxart_custom in "${boxart_custom_candidates[@]}"; do
+                [ -e "$boxart_custom" ] && boxart="$boxart_custom"
             done
 
             # Filter out non-game entries (e.g. Proton versions or soundtracks) by
@@ -92,4 +93,4 @@ update-game-entries() {
     done
 }
 
-update-game-entries $@
+update-game-entries "$@"

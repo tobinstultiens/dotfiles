@@ -1,41 +1,50 @@
+configuration {
+    show-icons:                     true;
+    window-format:                  "{t}";
+    window-match-fields:            "title";
+}
+
 @import "colors.rasi"
 
 window {
-    height:                         240;
-    width:                          100%;
-    location:                       south;
-    anchor:                         south;
+    height:                         100%;
+    width:                          400;
+    location:                       east;
+    anchor:                         east;
     transparency:                   "real";
     background-color:               @background-transparent;
-    border:                         5px 0px 0px 0px;
+    border:                         0px 0px 0px 4px;
     border-color:                   @primary;
 }
 
 mainbox {
     children:                       [inputbar-box, listview];
-    padding:                        12px 0px 0px 0px;
+    padding:                        0px 0px;
 }
 
 listview {
+    background-color:               transparent;
     padding:                        0px;
     dynamic:                        true;
 }
 
 inputbar-box {
     children:                       [inputbar-side, inputbar, dummy];
+    margin:                         0px 0px -2px 0px;
     orientation:                    horizontal;
     expand:                         false;
 }
 
 inputbar-side {
+    margin:                         29px -100% 0px 0px;
     border:                         5px 0px 0px 0px;
     border-color:                   @primary;
-    margin:                         16px -100% 0px 0px;
+    background-color:               transparent;
 }
 
 inputbar {
     children:                       [textbox-prompt, entry];
-    margin:                         0px 0px 0px 0px;
+    margin:                         12px 0px;
     background-color:               @primary;
     border:                         5px;
     border-color:                   @primary;
@@ -43,7 +52,7 @@ inputbar {
 }
 
 textbox-prompt {
-    font:                           "Font Awesome 18";
+    font:                           "Symbols Nerd Font Mono 18";
     text-color:                     @background;
     padding:                        0px 4px 0px 2px;
     horizontal-align:               0.5;
@@ -65,28 +74,33 @@ entry {
 }
 
 element {
-    children:                       [dummy, element-box, dummy];
-    padding:                        0px;
+    children:                       [element-icon, element-text];
+    padding:                        4px;
+    margin:                         8px 24px;
     orientation:                    horizontal;
-    border:                         0;
+    border:                         5px;
     border-color:                   transparent;
+    border-radius:                  8;
 }
 
-element-box {
-    children:                       [element-icon, element-text];
-    orientation:                    vertical;
-    expand:                         false;
+element selected {
+    border-color:                   @primary;
+}
+
+element normal.urgent, element alternate.urgent {
+    border-color:                   @urgent;
+}
+
+element normal.active, element alternate.active {
+    border-color:                   @secondary;
 }
 
 element-icon {
-    padding:                        8px;
-    border:                         4px;
-    border-color:                   transparent;
-    border-radius:                  8;
-    size:                           96;
+    padding:                        0px;
+    size:                           32;
 }
 
 element-text {
     horizontal-align:               0;
-    width:                          200px;
+    vertical-align:                 0.5;
 }
