@@ -166,3 +166,6 @@ Print
 # Open bitwarden with rofi(don't lock vault)
 alt + t
 	bwmenu --auto-lock -1
+
+alt + g
+	~/.config/rofi/scripts/rofi-wrapper.sh games
