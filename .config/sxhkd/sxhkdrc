@@ -8,7 +8,13 @@ super + Return
 
 # program launcher
 super + d
-	rofi -show run
+	~/.config/rofi/scripts/rofi-wrapper.sh run
+
+super + Tab
+	~/.config/rofi/scripts/rofi-wrapper.sh window
+
+super + o
+	~/.config/rofi/scripts/rofi-wrapper.sh options
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -70,16 +76,12 @@ super + {_,shift + }c
 super + bracket{left,right}
 	bspc desktop -f {prev,next}.local
 
-# focus the last node/desktop
-super + {grave,Tab}
-	bspc {node,desktop} -f last
-
-# focus the older or newer node in the focus history
-super + {o,i}
-	bspc wm -h off; \
-	bspc node {older,newer} -f; \
-	bspc wm -h on
-
+# # focus the older or newer node in the focus history
+# super + {o,i}
+# 	bspc wm -h off; \
+# 	bspc node {older,newer} -f; \
+# 	bspc wm -h on
+ 
 # focus or send to the given desktop
 super + {_,shift + }{1-9,0}
 	bspc {desktop -f,node -d} '^{1-9,10}'
