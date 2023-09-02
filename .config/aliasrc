@@ -39,3 +39,6 @@ alias \
 		gf="git fetch" \
 		gF="git pull" \
 		gp="git push" \
+
+alias \
+		ls="nnn -de"\

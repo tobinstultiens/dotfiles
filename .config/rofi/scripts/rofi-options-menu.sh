@@ -8,13 +8,15 @@ declare -A operation icon confirm
 create-menu-entries() {
     local entry_struct
     local menu=(
-        # Entry        Icon Operation                   Require confirmation
-        '("Lock"       ""  "xsecurelock"                "false")'
-        '("Logout"     "󰍃"  "bspc quit"                  "true")'
-        '("Suspend"    ""  "systemctl suspend"          "true")'
-        '("Reboot"     ""  "reboot"                     "true")'
-        '("Shutdown"   ""  "shutdown now"               "true")'
-        '("Screenshot" ""  "flameshot gui --delay 2000" "false")'
+        # Entry        Icon Operation                   								Require confirmation
+        '("Lock"       ""  "xsecurelock"                								"false")'
+        '("Steam"      "󰓓"  "killall steam"              								"false")'
+        '("Reload"     ""  "bspc wm -r"                 								"true")'
+        '("Logout"     "󰍃"  "bspc quit"                  								"true")'
+        '("Reboot"     ""  "reboot"                     								"true")'
+        '("Shutdown"   ""  "shutdown now"               								"true")'
+        '("Suspend"    ""  "systemctl suspend && xsecurelock"          "true")'
+        '("Screenshot" ""  "flameshot gui --delay 2000" 								"false")'
     )
 
     # Create associative arrays out of the fake multidimensional array

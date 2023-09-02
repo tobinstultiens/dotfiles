@@ -23,6 +23,7 @@ export PATH=$PATH/:$ANDROID_HOME/platform-tools
 export PATH=$PATH/:$ANDROID_HOME/platform-tools
 export PATH=$PATH:$HOME/.scripts
 
+
 # Enable Ctrl-x-e to edit command line
 autoload -U edit-command-line
 # Emacs style

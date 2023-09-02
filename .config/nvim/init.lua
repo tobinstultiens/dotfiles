@@ -7,7 +7,7 @@ require('plug')
 -- Mason Setup
 require("mason").setup()
 -- Null ls setup (Formatter)
-require("mason-null-ls").setup({
+require("mason-lspconfig").setup({
     ensure_installed = {
         -- Opt to list sources here, when available in mason.
     },
@@ -19,6 +19,9 @@ require("null-ls").setup({
         -- Anything not supported by mason.
     }
 })
+
+local lspconfig = require "lspconfig"
+lspconfig.ansiblels.setup {}
 
 require("mason-null-ls").setup({
     automatic_setup = true,
@@ -132,6 +135,7 @@ cmp.setup({
 require('nvim-treesitter.configs').setup {
   ensure_installed = { "lua", "rust", "toml" },
   auto_install = true,
+	auto_close = true,
   highlight = {
     enable = true,
     additional_vim_regex_highlighting=false,

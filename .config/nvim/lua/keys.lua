@@ -40,6 +40,11 @@ wk.register({
 		r = {"<cmd>RestoreSession<cr>", "Restore Session"},
 		d = {"<cmd>DeleteSession<cr>", "Delete Session"},
 	},
+	b = {
+		name = "Buffers",
+		c = {"<cmd>bd"},
+		s = {"<cmd>w"},
+	},
 }, {prefix = "<leader>"})
 
 -- Vimspector
@@ -63,11 +68,11 @@ vim.keymap.set("n", "<C-H>", "<C-W><C-H>")
 
 -- Telescope keys
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-vim.keymap.set('n', '<C-p>', builtin.buffers, {})
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+vim.keymap.set('n', '<leader>ff', builtin.find_files, {desc = "Find files"})
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, {desc = "Find in greps"})
+vim.keymap.set('n', '<leader>fb', builtin.buffers, {desc = "Find in buffers"})
+vim.keymap.set('n', '<C-p>', builtin.buffers, {desc = "Find in buffers"})
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, {desc = "Find in tags"})
 
 -- FloaTerm configuration
 vim.keymap.set('n', "<leader>ft", ":FloatermNew --name=myfloat --height=0.8 --width=0.7 --autoclose=2 fish <CR> ", {desc = "Reset Floating window session"})

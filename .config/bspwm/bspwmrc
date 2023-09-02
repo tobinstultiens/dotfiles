@@ -9,7 +9,6 @@ sxhkd &
 xset s 120 120
 pgrep -x spotify > /dev/null || spotify &
 pgrep -x firefox > /dev/null || firefox &
-pgrep -x discord > /dev/null || discord &
 pgrep -x whatsdesk > /dev/null || whatsdesk &
 pgrep -x thunderbird > /dev/null || thunderbird &
 pgrep -x /usr/lib/geoclue-2.0/demos/agent> /dev/null || /usr/lib/geoclue-2.0/demos/agent &
@@ -19,6 +18,7 @@ pgrep -x todoist > /dev/null || todoist &
 pgrep -x cadmus > /dev/null || cadmus &
 pgrep -x polkit-dumb-agent > /dev/null || pulkit-dumb-agent &
 pgrep -x barrier > /dev/null || barrier &
+pgrep -x steam > /dev/null || LD_PRELOAD="/home/tobins/.local/share/Steam/sdl_block_screensaver_inhibit.so" SDL_VIDEO_ALLOW_SCREENSAVER=1 steam &
 pgrep bspswallow || bspswallow &
 #kdeconnect-cli --pair --device 1db7c78dd7125b39
 kdeconnect-cli --refresh

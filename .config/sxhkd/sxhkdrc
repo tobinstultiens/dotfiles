@@ -154,7 +154,7 @@ alt + i
 
 # Start file explorer
 alt + f
-	exec $TERMINAL -e lf
+	exec $TERMINAL -e nnn
 
 # Make Screenshot
 Print
@@ -162,8 +162,8 @@ Print
 
 # Switch monitor input to laptop
 #### In case this is ever needed again
-#alt + ctrl + shift + s
-	#$HOME/.config/sxhkd/switch-monitor-input.sh
+super + alt + 2
+	$HOME/.config/sxhkd/switch-monitor-input.sh
 
 # Open bitwarden with rofi(don't lock vault)
 alt + t
