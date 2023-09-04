@@ -135,7 +135,6 @@ cmp.setup({
 require('nvim-treesitter.configs').setup {
   ensure_installed = { "lua", "rust", "toml" },
   auto_install = true,
-	auto_close = true,
   highlight = {
     enable = true,
     additional_vim_regex_highlighting=false,
@@ -175,7 +174,13 @@ vim.opt.termguicolors = true
 require("bufferline").setup{}
 
 -- File Explorer
-require("nvim-tree").setup()
+require("nvim-tree").setup{
+	actions = {
+		open_file = {
+			quit_on_open = true,
+		},
+	},
+}
 
 -- Load opts and keys
 require('opts')
