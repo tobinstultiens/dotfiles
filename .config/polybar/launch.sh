@@ -13,7 +13,7 @@ PRIMARY=$(xrandr --query | grep " connected" | grep "primary" | cut -d" " -f1)
 OTHERS=$(xrandr --query | grep " connected" | grep -v "primary" | cut -d" " -f1)
 
 # Launch on second monitor
-MONITOR=DP-2 polybar --reload $BAR_NAME &
+MONITOR=DP-4 polybar --reload $BAR_NAME &
 sleep 1
 
 

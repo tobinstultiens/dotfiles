@@ -34,31 +34,14 @@ return require('packer').startup(function()
 	use 'tpope/vim-fugitive'
 
 	-- Theme
-	use { "ellisonleao/gruvbox.nvim" }
+	-- use { "ellisonleao/gruvbox.nvim" }
+	use { "catppuccin/nvim", as = "catppuccin" }
 
 	-- Treesitter
 	use 'nvim-treesitter/nvim-treesitter'
 
 	-- File Explorer
 	use { 'nvim-tree/nvim-tree.lua' }
-
-	-- Session manager
-	use {
-  	'rmagatti/auto-session',
-  	config = function()
-    	require("auto-session").setup {
-      	log_level = "error",
-      	auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/"},
-    	}
-  	end
-	}
-	use {
-	  'rmagatti/session-lens',
-	  requires = {'rmagatti/auto-session', 'nvim-telescope/telescope.nvim'},
-	  config = function()
-	    require('session-lens').setup({--[[your custom config--]]})
-	  end
-	}
 
 	-- Disables search higlighting when you are done searching
 	use 'romainl/vim-cool'
@@ -99,4 +82,7 @@ return require('packer').startup(function()
 			require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
 		end
 	}
+
+	-- Tmux
+	use 'christoomey/vim-tmux-navigator'
 end)

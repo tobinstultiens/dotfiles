@@ -166,7 +166,7 @@ require("which-key").setup {
 }
 
 require('lualine').setup{
-	options = { theme = 'gruvbox_dark' }
+	options = { theme = 'catppuccin' }
 }
 
 -- Bufferline setup
@@ -185,15 +185,6 @@ require("nvim-tree").setup{
 -- Load opts and keys
 require('opts')
 require('keys')
-
--- Theme
-vim.o.background = "dark"
-vim.cmd([[
-colorscheme gruvbox
-let g:lightline = {
-      \ 'colorscheme': 'solarized',
-      \ }
-]])
 
 -- Set defaults
 vim.g.mapleader= " "

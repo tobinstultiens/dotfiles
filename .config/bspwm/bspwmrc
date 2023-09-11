@@ -2,7 +2,7 @@
 
 # Set Variables
 mainmonitor=DP-0
-secondarymonitor=DP-2
+secondarymonitor=DP-4
 DESKTOPINTEGRATION=false
 
 sxhkd &

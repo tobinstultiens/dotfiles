@@ -23,6 +23,10 @@ export PATH=$PATH/:$ANDROID_HOME/platform-tools
 export PATH=$PATH/:$ANDROID_HOME/platform-tools
 export PATH=$PATH:$HOME/.scripts
 
+# When quitting nnn open the file.
+if [ -f /usr/share/nnn/quitcd/quitcd.bash_sh_zsh ]; then
+    source /usr/share/nnn/quitcd/quitcd.bash_sh_zsh
+fi
 
 # Enable Ctrl-x-e to edit command line
 autoload -U edit-command-line
