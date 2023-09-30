@@ -5,17 +5,17 @@ return require('packer').startup(function()
 	}
 
 	-- Mason
-	use 'williamboman/mason.nvim'    
+	use 'williamboman/mason.nvim'
 	use 'williamboman/mason-lspconfig.nvim'
 	use "jose-elias-alvarez/null-ls.nvim"
   use "jay-babu/mason-null-ls.nvim"
 
 	-- Rust tools 
-	use 'neovim/nvim-lspconfig' 
+	use 'neovim/nvim-lspconfig'
 	use 'simrat39/rust-tools.nvim'
 
 	-- Completion framework:
-	use 'hrsh7th/nvim-cmp' 
+	use 'hrsh7th/nvim-cmp'
 
 	-- LSP completion source:
 	use 'hrsh7th/cmp-nvim-lsp'
@@ -23,15 +23,17 @@ return require('packer').startup(function()
 	-- Useful completion sources:
 	use 'hrsh7th/cmp-nvim-lua'
 	use 'hrsh7th/cmp-nvim-lsp-signature-help'
-	use 'hrsh7th/cmp-vsnip'                             
-	use 'hrsh7th/cmp-path'                              
-	use 'hrsh7th/cmp-buffer'                            
+	use 'hrsh7th/cmp-vsnip'
+	use 'hrsh7th/cmp-path'
+	use 'hrsh7th/cmp-buffer'
 	use 'hrsh7th/vim-vsnip'
 
-	-- Tpoe
+	-- Snippets
+	use "rafamadriz/friendly-snippets"
+
+	-- Tpope
 	use 'tpope/vim-surround'
 	use 'tpope/vim-commentary'
-	use 'tpope/vim-fugitive'
 
 	-- Theme
 	-- use { "ellisonleao/gruvbox.nvim" }
@@ -62,7 +64,7 @@ return require('packer').startup(function()
 	}
 	-- Buffer line
 	use {
-		'akinsho/bufferline.nvim', 
+		'akinsho/bufferline.nvim',
 		tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons'
 	}
 
@@ -85,4 +87,13 @@ return require('packer').startup(function()
 
 	-- Tmux
 	use 'christoomey/vim-tmux-navigator'
+
+	-- Git
+	use 'NeogitOrg/neogit'
+
+	-- fsharp
+	use 'adelarsq/neofsharp.vim'
+
+	-- elixir
+	use({ "elixir-tools/elixir-tools.nvim", tag = "stable", requires = { "nvim-lua/plenary.nvim" }})
 end)

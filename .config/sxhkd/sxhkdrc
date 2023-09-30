@@ -161,9 +161,11 @@ Print
 	flameshot gui
 
 # Switch monitor input to laptop
-#### In case this is ever needed again
+super + alt + 1
+	$HOME/.config/sxhkd/switch-monitor-input.sh 1
+
 super + alt + 2
-	$HOME/.config/sxhkd/switch-monitor-input.sh
+	$HOME/.config/sxhkd/switch-monitor-input.sh 2
 
 # Open bitwarden with rofi(don't lock vault)
 alt + t

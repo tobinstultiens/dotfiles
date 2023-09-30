@@ -10,7 +10,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="avit"
-set -o vi
+#set -o vi
 
 plugins=(z command-time zsh-autosuggestions fzf)
 

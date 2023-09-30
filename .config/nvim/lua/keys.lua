@@ -28,7 +28,7 @@ wk.register({
 	d = {
 		name = "Debugger",
 	},
-	g = {"<cmd>G<cr>","Git"},
+	g = {"<cmd>Neogit<cr>", "Git"},
 	m = {"<cmd>Mason<cr>","Mason"},
 	t = {
 		name = "File Explorer"
@@ -58,6 +58,13 @@ nmap <leader>di <cmd>call vimspector#StepInto()<cr>
 nmap <leader>db <cmd>call vimspector#ToggleBreakpoint()<cr>
 nmap <leader>dw <cmd>call vimspector#AddWatch()<cr>
 nmap <leader>de <cmd>call vimspector#Evaluate()<cr>
+]])
+
+vim.cmd([[
+imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
 ]])
 
 -- Move between windows

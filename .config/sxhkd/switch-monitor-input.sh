@@ -14,11 +14,21 @@ pcSwitch(){
 
 # Retrieve information on what input is being used.
 PC=$(sudo ddcutil -b 7 getvcp 0x60)
-LAPTOP=$(sudo ddcutil -b 4 getvcp 0x60)
+LAPTOP=$(sudo ddcutil -b 5 getvcp 0x60)
 
-if [[ "$PC" == *"DisplayPort-1"* ]]; then
-	laptopSwitch
-elif [[ "$PC" == *"HDMI-1"* ]]; then
-	pcSwitch
-fi
-
+case $1 in
+	1)
+		if [[ "$LAPTOP" == *"Invalid"* ]]; then
+			(sudo ddcutil -b 5 setvcp 0x60 0x0f)
+		elif [[ "$LAPTOP" == *"DisplayPort-1"* ]]; then
+			(sudo ddcutil -b 5 setvcp 0x60 0x13)
+		fi
+		;;
+	2)
+		if [[ "$PC" == *"DisplayPort-1"* ]]; then
+			laptopSwitch
+		elif [[ "$PC" == *"HDMI-1"* ]]; then
+			pcSwitch
+		fi
+		;;
+esac
