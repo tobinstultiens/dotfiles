@@ -1,34 +1,44 @@
 #!/bin/sh
+monitorfile="monitor.dat"
 
-# Set the display inputs to laptop
-laptopSwitch(){
-	(sudo ddcutil -b 7 setvcp 0x60 0x11)
-	#(sudo ddcutil -b 4 setvcp 0x60 0x11)
+if [ ! -f "$monitorfile" ]; then
+	MONITOR1="PC"
+	MONITOR2="PC"
+else
+	MONITORS=$(cat "$monitorfile")
+	arrIN=(${MONITORS//|/ })
+	MONITOR1=${arrIN[0]}
+	MONITOR2=${arrIN[1]}
+fi
+
+store_values() {
+	echo "${MONITOR1}|${MONITOR2}" > "$monitorfile"
 }
-
-# Set the display inputs to pc
-pcSwitch(){
-	(sudo ddcutil -b 7 setvcp 0x60 0x0f)
-	#(sudo ddcutil -b 4 setvcp 0x60 0x12)
-}
-
-# Retrieve information on what input is being used.
-PC=$(sudo ddcutil -b 7 getvcp 0x60)
-LAPTOP=$(sudo ddcutil -b 5 getvcp 0x60)
 
 case $1 in
 	1)
-		if [[ "$LAPTOP" == *"Invalid"* ]]; then
+		if [ "$MONITOR1" = "LAPTOP" ]; then
 			(sudo ddcutil -b 5 setvcp 0x60 0x0f)
-		elif [[ "$LAPTOP" == *"DisplayPort-1"* ]]; then
+			export MONITOR1="PC"
+		else
 			(sudo ddcutil -b 5 setvcp 0x60 0x13)
+			echo "$MONITOR1"
+			export MONITOR1="LAPTOP"
 		fi
 		;;
 	2)
-		if [[ "$PC" == *"DisplayPort-1"* ]]; then
-			laptopSwitch
-		elif [[ "$PC" == *"HDMI-1"* ]]; then
-			pcSwitch
+		if [ "$MONITOR2" = "LAPTOP" ]; then
+			(sudo ddcutil -b 7 setvcp 0x60 0x0f)
+			echo "Switch to PC"
+			MONITOR2="PC"
+		else
+			(sudo ddcutil -b 7 setvcp 0x60 0x11)
+			(sudo ddcutil -b 7 setvcp 0x60 0x11)
+			(sudo ddcutil -b 7 setvcp 0x60 0x11)
+			echo "Switch to Laptop"
+			MONITOR2="LAPTOP"
 		fi
 		;;
 esac
+
+store_values

@@ -17,11 +17,15 @@ plugins=(z command-time zsh-autosuggestions fzf)
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#99aaae"
 export ANDROID_HOME=/home/tobins/Android/Sdk
 export CHROME_EXECUTABLE=/bin/google-chrome-stable
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk/
 export PATH=$PATH:$ANDROID_HOME/tools 
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH/:$ANDROID_HOME/platform-tools
 export PATH=$PATH/:$ANDROID_HOME/platform-tools
 export PATH=$PATH:$HOME/.scripts
+export GLOBAL_MONITOR1="PC"
+export GLOBAL_MONITOR2="PC"
+export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
 
 # When quitting nnn open the file.
 if [ -f /usr/share/nnn/quitcd/quitcd.bash_sh_zsh ]; then
