@@ -7,19 +7,19 @@ killall -q polybar
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 BAR_NAME=example
-BAR_CONFIG=/home/$USER/.config/polybar/config.ini
+BAR_CONFIG=/home/$USER/.config/polybar/config-xmonad.ini
 
 PRIMARY=$(xrandr --query | grep " connected" | grep "primary" | cut -d" " -f1)
 OTHERS=$(xrandr --query | grep " connected" | grep -v "primary" | cut -d" " -f1)
 
 # Launch on second monitor
-MONITOR=DP-4 polybar --reload $BAR_NAME &
+MONITOR=DP-4 polybar --reload $BAR_NAME --config="$BAR_CONFIG" &
 sleep 1
 
 
 # Launch on all other monitors
 for m in $PRIMARY; do
- MONITOR=$m polybar --reload $BAR_NAME &
+ MONITOR=$m polybar --reload $BAR_NAME --config="$BAR_CONFIG" &
 done
 
 ## Launch Polybar, using default config location ~/.config/polybar/config
