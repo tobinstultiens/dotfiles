@@ -1,44 +1,51 @@
 #!/bin/sh
-monitorfile="monitor.dat"
 
-if [ ! -f "$monitorfile" ]; then
-	MONITOR1="PC"
-	MONITOR2="PC"
-else
-	MONITORS=$(cat "$monitorfile")
-	arrIN=(${MONITORS//|/ })
-	MONITOR1=${arrIN[0]}
-	MONITOR2=${arrIN[1]}
-fi
-
-store_values() {
-	echo "${MONITOR1}|${MONITOR2}" > "$monitorfile"
+retryUntilSwitchedMainPc() {
+	notify-send -e "Switching Monitor to PC"
+	while echo "$MONITOR" | grep -qv "DisplayPort-1" && echo "$MONITOR" | grep -q "Invalid"; do
+		notify-send -e "Switching Monitor"
+		(sudo ddcutil -b "$1" setvcp 0x60 "$2")
+		MONITOR=$(sudo ddcutil -b "$1" getvcp 0x60)
+	done
 }
+
+retryUntilSwitchedSecondPc() {
+	notify-send -e "Switching Monitor to PC"
+	while echo "$MONITOR" | grep -qv "DisplayPort-1"; do
+		notify-send -e "Switching Monitor"
+		(sudo ddcutil -b "$1" setvcp 0x60 "$2")
+		MONITOR=$(sudo ddcutil -b "$1" getvcp 0x60)
+	done
+}
+
+retryUntilSwitchedLaptop() {
+	notify-send -e "Switching Monitor to laptop"
+	while echo "$MONITOR" | grep -q "DisplayPort-1" ; do
+		notify-send -e "Switching Monitor"
+		(sudo ddcutil -b "$1" setvcp 0x60 "$2")
+		MONITOR=$(sudo ddcutil -b "$1" getvcp 0x60)
+	done
+}
+
 
 case $1 in
 	1)
-		if [ "$MONITOR1" = "LAPTOP" ]; then
-			(sudo ddcutil -b 5 setvcp 0x60 0x0f)
-			export MONITOR1="PC"
+		MONITOR=$(sudo ddcutil -b 5 getvcp 0x60)
+		if expr "$MONITOR" : '.*0x0f' >/dev/null; then
+			notify-send -e "Switching Monitor 1"
+			retryUntilSwitchedLaptop "5" "0x13"
 		else
-			(sudo ddcutil -b 5 setvcp 0x60 0x13)
-			echo "$MONITOR1"
-			export MONITOR1="LAPTOP"
+			notify-send -e "Switching Monitor 1"
+			retryUntilSwitchedMainPc "5" "0x0f"
 		fi
 		;;
 	2)
-		if [ "$MONITOR2" = "LAPTOP" ]; then
-			(sudo ddcutil -b 7 setvcp 0x60 0x0f)
-			echo "Switch to PC"
-			MONITOR2="PC"
+		MONITOR=$(sudo ddcutil -b 7 getvcp 0x60)
+		if expr "$MONITOR" : '.*0x0f' >/dev/null; then
+			retryUntilSwitchedLaptop "7" "0x11"
 		else
-			(sudo ddcutil -b 7 setvcp 0x60 0x11)
-			(sudo ddcutil -b 7 setvcp 0x60 0x11)
-			(sudo ddcutil -b 7 setvcp 0x60 0x11)
-			echo "Switch to Laptop"
-			MONITOR2="LAPTOP"
+			notify-send -e "Switching Monitor 2"
+			retryUntilSwitchedSecondPc "7" "0x0f"
 		fi
 		;;
 esac
-
-store_values
