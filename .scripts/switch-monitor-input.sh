@@ -1,5 +1,11 @@
 #!/bin/sh
 
+for pid in $(pidof -x "switch-monitor-input.sh"); do
+    if [ "$pid" != $$ ]; then
+        exit 1
+    fi
+done
+
 retryUntilSwitchedMainPc() {
 	notify-send -e "Switching Monitor to PC"
 	while echo "$MONITOR" | grep -qv "DisplayPort-1" && echo "$MONITOR" | grep -q "Invalid"; do

@@ -91,11 +91,11 @@ myConfig =
                         ("M-o", spawn "~/.config/rofi/scripts/rofi-wrapper.sh options"),
                         ("<Print>", spawn "flameshot gui"),
                         -- Monitor
-                        ("M-M1-1", spawn "$HOME/.config/sxhkd/switch-monitor-input.sh 1"),
-                        ("M-M1-2", spawn "$HOME/.config/sxhkd/switch-monitor-input.sh 2"),
+                        ("M-M1-1", spawn "$HOME/.scripts/switch-monitor-input.sh 1"),
+                        ("M-M1-2", spawn "$HOME/.scripts/switch-monitor-input.sh 2"),
                         -- Game launcher
                         ("M1-g", spawn "$HOME/.config/rofi/scripts/rofi-wrapper.sh games"),
-                        ("M1-c", spawn "st -e sh -c 'tmux a'"),
+                        ("M1-c", spawn "st -e sh -c '~/.scripts/tmux-launch.sh'"),
                         -- Audio
                         ("<XF86AudioRaiseVolume>", spawn "pulsemixer --change-volume +2"),
                         ("<XF86AudioLowerVolume>", spawn "pulsemixer --change-volume -2"),
