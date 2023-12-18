@@ -17,8 +17,8 @@ Config { overrideRedirect = False
        , iconRoot = "/home/sv/.config/xmobar/xpm/" --default: "."
        , allDesktops = True
        , commands = [ Run WeatherX "EHEH"
-        		[ ("clear", "🌣")
-           		, ("sunny", "🌣")
+        		[ ("clear", "☀")
+           		, ("sunny", "☼")
            		, ("mostly clear", "🌤")
            		, ("mostly sunny", "🌤")
            		, ("partly sunny", "⛅")

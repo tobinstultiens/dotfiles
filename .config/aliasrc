@@ -4,38 +4,42 @@
 command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d"
 
 alias \
-		config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'\
-		slp="systemctl suspend" \
-		slpl="systemctl suspend && xsecurelock" \
-		slple="systemctl suspend && xsecurelock && exit" \
-		slpe="systemctl suspend && exit" \
-		p="sudo pacman" \
-		virt="virt-manager && exit" \
-		news="newsboat" \
-		v="nvim" \
-		window="xprop | grep WM_CLASS"\
-		cp="rsync -ahv --progress"\
+	config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'\
+	slp="systemctl suspend" \
+	slpl="systemctl suspend && xsecurelock" \
+	slple="systemctl suspend && xsecurelock && exit" \
+	slpe="systemctl suspend && exit" \
+	p="sudo pacman" \
+	virt="virt-manager && exit" \
+	news="newsboat" \
+	v="nvim" \
+	window="xprop | grep WM_CLASS"\
+	cp="rsync -ahv --progress"\
 	
 # Find game filter function
 findGame() {
 	find ~/.local/share/Steam/steamapps/ -maxdepth 1 -type f -name '*.acf' -exec awk -F '"' '/"appid|name/{ printf $4 "|" } END { print "" }' {} \; | column -t -s '|' | sort -k 2 | grep -i $1
 }
 
+# Tmux
+# alias \
+	# tmux="tmux new -As0" \
+
 # Git commands
 # Skip worktree related commands
 alias \
-		gskip="git update-index --skip-worktree" \
-		gnoskip="git update-index --no-skip-worktree" \
-		gcheck="git ls-files -v|grep '^S'" \
-		#gskipr="find . -type d \( -name bin -o -path name \) -prune -false -o -name "*.Development.json" -exec git update-index --skip-worktree "{}" \;"\
+	gskip="git update-index --skip-worktree" \
+	gnoskip="git update-index --no-skip-worktree" \
+	gcheck="git ls-files -v|grep '^S'" \
+	#gskipr="find . -type d \( -name bin -o -path name \) -prune -false -o -name "*.Development.json" -exec git update-index --skip-worktree "{}" \;"\
 
 # Committing
 alias \
-		ga="git add" \
-		gc="git commit" \
-		gca="git commit -a" \
-		gs="git status" \
-		gd="git diff" \
-		gf="git fetch" \
-		gF="git pull" \
-		gp="git push" \
+	ga="git add" \
+	gc="git commit" \
+	gca="git commit -a" \
+	gs="git status" \
+	gd="git diff" \
+	gf="git fetch" \
+	gF="git pull" \
+	gp="git push" \
