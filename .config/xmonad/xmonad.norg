@@ -1,6 +1,21 @@
+@document.meta
+tangle: ./xmonad.hs
+@end
+
+* Introduction
+  This is my first try at creating a literature configuration using literature programming. This is done using {https://github.com/nvim-neorg/neorg}[Neorg].
+
+* Language qualifications
+  These are the language qualifications for the configuration file.
+
+@code haskell
 {-# LANGUAGE ImportQualifiedPost #-}
 {-# LANGUAGE QualifiedDo #-}
+@end
+* Import
+  This contains all of the imported packages for my configuration.
 
+@code haskell
 import Control.Monad (join, when)
 import Data.Maybe (maybeToList)
 import XMonad
@@ -20,16 +35,21 @@ import XMonad.Util.Hacks (javaHack, trayAbovePanelEventHook, trayPaddingEventHoo
 import XMonad.Util.Loggers
 import XMonad.Util.SpawnOnce
 import XMonad.Util.Ungrab
+@end 
 
+* Variables
+** Border
+   Here the border width and color are defined for the focused and unfocused windows.
+@code haskell
 myBorderWidth = 1
 
-myWorkspaces = [" 1 <fn=2>\xf111</fn>", "2 <fn=2>\xf111</fn>", "3 <fn=2>\xf111</fn>", "4 <fn=2>\xf111</fn>", "5 <fn=2>\xf111</fn>", "6 <fn=2>\xf111</fn>", "7 <fn=2>\xf111</fn>", "8 <fn=2>\xf111</fn>", "9 <fn=2>\xf111</fn>", "10 <fn=2>\xf111</fn>"]
-
--- Border colors for unfocused and focused windows, respectively.
 myNormalBorderColor = "#585b70"
 
 myFocusedBorderColor = "#cba6f7"
+@end 
 
+* Startup hook
+@code haskell
 myStartupHook :: X ()
 myStartupHook = do
   -- spawn "killall conky" -- kill current conky on each restart
@@ -53,10 +73,19 @@ myStartupHook = do
   spawnOnce "sleep 10 && discord"
   spawnOnce "sleep 2 && conky -c $HOME/.config/conky/macchiato.conf"
   spawnOnce "sleep 2 && xmonad --recompile"
+@end 
+
+* Workspace
+@code haskell
+myWorkspaces = [" 1 <fn=2>\xf111</fn>", "2 <fn=2>\xf111</fn>", "3 <fn=2>\xf111</fn>", "4 <fn=2>\xf111</fn>", "5 <fn=2>\xf111</fn>", "6 <fn=2>\xf111</fn>", "7 <fn=2>\xf111</fn>", "8 <fn=2>\xf111</fn>", "9 <fn=2>\xf111</fn>", "10 <fn=2>\xf111</fn>"]
 
 myWorkspaceSelected number =
   myWorkspaces !! (number - 1)
+@end 
 
+* Manage Hook
+  This contains settings for specific applications that is applied on launch.
+@code haskell
 myManageHook =
   composeAll
     [ className =? "Exe" --> doFullFloat, -- chrome flash
@@ -78,7 +107,11 @@ myManageHook =
       resource =? "feh" --> doIgnore,
       isFullscreen --> doFullFloat
     ]
+@end 
 
+* Configuration
+  Where the configurations are defined.
+@code haskell
 myConfig =
   def
     { modMask = mod4Mask, -- Rebind mod to the super key.
@@ -114,7 +147,11 @@ myConfig =
                         ("M1-t", spawn "bwmenu --auto-lock -i"),
                         ("M1-p", spawn "amixer set Capture toggle")
                       ]
+@end 
 
+* Xmobar
+  The xmobar.
+@code haskell
 myXmobarPP :: PP
 myXmobarPP =
   def
@@ -131,7 +168,10 @@ myXmobarPP =
 xmobarLeft = statusBarProp "xmobar -x 0 ~/.config/xmobar/xmobarrc" (pure myXmobarPP)
 
 xmobarRight = statusBarProp "xmobar -x 1 ~/.config/xmobar/xmobarrc" (pure myXmobarPP)
+@end 
 
+* Xmonad main
+@code haskell
 main :: IO ()
 main =
   xmonad
@@ -139,3 +179,4 @@ main =
     . ewmh
     . withEasySB (xmobarLeft <> xmobarRight) defToggleStrutsKey
     $ myConfig
+@end
