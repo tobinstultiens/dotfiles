@@ -13,6 +13,7 @@ import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
 import XMonad.Hooks.UrgencyHook
 import XMonad.Hooks.WindowSwallowing
+import XMonad.Layout.NoBorders
 import XMonad.StackSet qualified as W
 import XMonad.Util.EZConfig
 import XMonad.Util.Hacks (javaHack, trayAbovePanelEventHook, trayPaddingEventHook, trayPaddingXmobarEventHook, trayerAboveXmobarEventHook, trayerPaddingXmobarEventHook, windowedFullscreenFixEventHook)
@@ -32,7 +33,7 @@ myFocusedBorderColor = "#cba6f7"
 
 myStartupHook :: X ()
 myStartupHook = do
-  spawn "killall conky" -- kill current conky on each restart
+  -- spawn "killall conky" -- kill current conky on each restart
   spawnOnce "picom"
   spawnOnce "nm-applet"
   spawnOnce "volumeicon"
@@ -51,8 +52,8 @@ myStartupHook = do
   spawnOnce "LD_PRELOAD='/home/tobins/.local/share/Steam/sdl_block_screensaver_inhibit.so' SDL_VIDEO_ALLOW_SCREENSAVER=1 steam &"
   spawnOnce "barrier"
   spawnOnce "sleep 10 && discord"
-  spawn "sleep 2 && conky -c $HOME/.config/conky/macchiato.conf"
-  spawnOnce "sleep 2 && xmonad --restart"
+  spawnOnce "sleep 2 && conky -c $HOME/.config/conky/macchiato.conf"
+  spawnOnce "sleep 2 && xmonad --recompile"
 
 myWorkspaceSelected number =
   myWorkspaces !! (number - 1)
@@ -63,7 +64,10 @@ myManageHook =
       className =? "firefox" --> doShift (myWorkspaceSelected 6),
       className =? "Peek" --> doFloat,
       className =? "Barrier" --> doFloat,
+      className =? "leagueclientux.exe" --> doFloat,
+      -- className =? "league of legends.exe" --> doFullFloat,
       className =? "riotclientux.exe" --> doFloat,
+      -- className =? "riotclientux.exe" --> noBorders,
       className =? "Plugin-container" --> doFullFloat, -- firefox chrome flash
       className =? "spotify" --> doShift (myWorkspaceSelected 10),
       className =? "Todoist" --> doShift (myWorkspaceSelected 7),
@@ -85,10 +89,11 @@ myConfig =
       normalBorderColor = myNormalBorderColor,
       focusedBorderColor = myFocusedBorderColor,
       startupHook = myStartupHook,
-      manageHook = myManageHook <+> manageDocks
+      manageHook = myManageHook
     }
     `additionalKeysP` [ ("M-p", spawn "~/.config/rofi/scripts/rofi-wrapper.sh run"),
                         ("M-o", spawn "~/.config/rofi/scripts/rofi-wrapper.sh options"),
+                        ("M-q", spawn "xmonad --recompile"),
                         ("<Print>", spawn "flameshot gui"),
                         -- Monitor
                         ("M-M1-1", spawn "$HOME/.scripts/switch-monitor-input.sh 1"),

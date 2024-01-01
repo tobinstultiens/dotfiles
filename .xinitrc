@@ -38,7 +38,7 @@ fi
 
 get_session(){
     local dbus_args=(--sh-syntax --exit-with-session)
-    case bspwm in
+    case $1 in
         awesome) dbus_args+=(awesome) ;;
         bspwm) dbus_args+=(bspwm-session) ;;
         budgie) dbus_args+=(budgie-desktop) ;;
@@ -55,6 +55,7 @@ get_session(){
         mate) dbus_args+=(mate-session) ;;
         xfce) dbus_args+=(xfce4-session) ;;
         openbox) dbus_args+=(openbox-session) ;;
+        xmonad) dbus_args+=(xmonad) ;;
         *) dbus_args+=($DEFAULT_SESSION) ;;
     esac
 
@@ -62,4 +63,4 @@ get_session(){
 }
 
 # exec $(get_session)
-exec bspwm
+exec xmonad
