@@ -98,6 +98,7 @@ myManageHook =
       -- className =? "riotclientux.exe" --> noBorders,
       className =? "Plugin-container" --> doFullFloat, -- firefox chrome flash
       className =? "spotify" --> doShift (myWorkspaceSelected 10),
+      className =? "Spotify" --> doShift (myWorkspaceSelected 10),
       className =? "Todoist" --> doShift (myWorkspaceSelected 7),
       className =? "discord" --> doShift (myWorkspaceSelected 8),
       className =? "whatsdesk" --> doShift (myWorkspaceSelected 8),
