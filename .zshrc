@@ -45,3 +45,6 @@ eval $(thefuck --alias)
 
 source $ZSH/oh-my-zsh.sh
 source /usr/share/nvm/init-nvm.sh
+
+# opam configuration
+[[ ! -r /home/tobins/.opam/opam-init/init.zsh ]] || source /home/tobins/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null

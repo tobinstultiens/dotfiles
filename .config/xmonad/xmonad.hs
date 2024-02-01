@@ -20,12 +20,11 @@ import XMonad.Util.Hacks (javaHack, trayAbovePanelEventHook, trayPaddingEventHoo
 import XMonad.Util.Loggers
 import XMonad.Util.SpawnOnce
 import XMonad.Util.Ungrab
+import Data.Semigroup
+import XMonad.Hooks.DynamicProperty
 
 myBorderWidth = 1
 
-myWorkspaces = [" 1 <fn=2>\xf111</fn>", "2 <fn=2>\xf111</fn>", "3 <fn=2>\xf111</fn>", "4 <fn=2>\xf111</fn>", "5 <fn=2>\xf111</fn>", "6 <fn=2>\xf111</fn>", "7 <fn=2>\xf111</fn>", "8 <fn=2>\xf111</fn>", "9 <fn=2>\xf111</fn>", "10 <fn=2>\xf111</fn>"]
-
--- Border colors for unfocused and focused windows, respectively.
 myNormalBorderColor = "#585b70"
 
 myFocusedBorderColor = "#cba6f7"
@@ -45,7 +44,6 @@ myStartupHook = do
   spawnOnce "xset s 120 120"
   spawnOnce "whatsdesk"
   spawnOnce "thunderbird"
-  spawnOnce "todoist"
   spawnOnce "spotify"
   spawnOnce "kdeconnect-cli --refresh"
   spawnOnce "LD_PRELOAD='/home/tobins/.local/share/Steam/sdl_block_screensaver_inhibit.so' SDL_VIDEO_ALLOW_SCREENSAVER=1 steam &"
@@ -53,6 +51,8 @@ myStartupHook = do
   spawnOnce "sleep 10 && discord"
   spawnOnce "sleep 2 && conky -c $HOME/.config/conky/macchiato.conf"
   spawnOnce "sleep 2 && xmonad --recompile"
+
+myWorkspaces = [" 1 <fn=2>\xf111</fn>", "2 <fn=2>\xf111</fn>", "3 <fn=2>\xf111</fn>", "4 <fn=2>\xf111</fn>", "5 <fn=2>\xf111</fn>", "6 <fn=2>\xf111</fn>", "7 <fn=2>\xf111</fn>", "8 <fn=2>\xf111</fn>", "9 <fn=2>\xf111</fn>", "10 <fn=2>\xf111</fn>"]
 
 myWorkspaceSelected number =
   myWorkspaces !! (number - 1)
@@ -64,20 +64,21 @@ myManageHook =
       className =? "Peek" --> doFloat,
       className =? "Barrier" --> doFloat,
       className =? "leagueclientux.exe" --> doFloat,
-      -- className =? "league of legends.exe" --> doFullFloat,
       className =? "riotclientux.exe" --> doFloat,
-      -- className =? "riotclientux.exe" --> noBorders,
       className =? "Plugin-container" --> doFullFloat, -- firefox chrome flash
       className =? "spotify" --> doShift (myWorkspaceSelected 10),
+      className =? "Spotify" --> doShift (myWorkspaceSelected 10),
       className =? "Todoist" --> doShift (myWorkspaceSelected 7),
       className =? "discord" --> doShift (myWorkspaceSelected 8),
       className =? "whatsdesk" --> doShift (myWorkspaceSelected 8),
       className =? "thunderbird" --> doShift (myWorkspaceSelected 9),
       appName =? "Blish HUD" --> doIgnore,
-      -- , appName =? "Guild Wars 2"                       --> doFullScreen
       resource =? "feh" --> doIgnore,
       isFullscreen --> doFullFloat
     ]
+
+-- myHandleEventHook :: Event -> X All
+-- myHandleEventHook = dynamicPropertyChange "WM_NAME" (title =? "Spotify" --> doShift (myWorkspaceSelected 10))
 
 myConfig =
   def
@@ -89,6 +90,7 @@ myConfig =
       focusedBorderColor = myFocusedBorderColor,
       startupHook = myStartupHook,
       manageHook = myManageHook
+-- ,handleEventHook = myHandleEventHook
     }
     `additionalKeysP` [ ("M-p", spawn "~/.config/rofi/scripts/rofi-wrapper.sh run"),
                         ("M-o", spawn "~/.config/rofi/scripts/rofi-wrapper.sh options"),

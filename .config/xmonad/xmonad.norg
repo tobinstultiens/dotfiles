@@ -35,6 +35,8 @@ import XMonad.Util.Hacks (javaHack, trayAbovePanelEventHook, trayPaddingEventHoo
 import XMonad.Util.Loggers
 import XMonad.Util.SpawnOnce
 import XMonad.Util.Ungrab
+import Data.Semigroup
+import XMonad.Hooks.DynamicProperty
 @end 
 
 * Variables
@@ -65,7 +67,6 @@ myStartupHook = do
   spawnOnce "xset s 120 120"
   spawnOnce "whatsdesk"
   spawnOnce "thunderbird"
-  spawnOnce "todoist"
   spawnOnce "spotify"
   spawnOnce "kdeconnect-cli --refresh"
   spawnOnce "LD_PRELOAD='/home/tobins/.local/share/Steam/sdl_block_screensaver_inhibit.so' SDL_VIDEO_ALLOW_SCREENSAVER=1 steam &"
@@ -93,9 +94,7 @@ myManageHook =
       className =? "Peek" --> doFloat,
       className =? "Barrier" --> doFloat,
       className =? "leagueclientux.exe" --> doFloat,
-      -- className =? "league of legends.exe" --> doFullFloat,
       className =? "riotclientux.exe" --> doFloat,
-      -- className =? "riotclientux.exe" --> noBorders,
       className =? "Plugin-container" --> doFullFloat, -- firefox chrome flash
       className =? "spotify" --> doShift (myWorkspaceSelected 10),
       className =? "Spotify" --> doShift (myWorkspaceSelected 10),
@@ -104,11 +103,15 @@ myManageHook =
       className =? "whatsdesk" --> doShift (myWorkspaceSelected 8),
       className =? "thunderbird" --> doShift (myWorkspaceSelected 9),
       appName =? "Blish HUD" --> doIgnore,
-      -- , appName =? "Guild Wars 2"                       --> doFullScreen
       resource =? "feh" --> doIgnore,
       isFullscreen --> doFullFloat
     ]
 @end 
+* Handle Event Hook
+  @code haskell
+  -- myHandleEventHook :: Event -> X All
+  -- myHandleEventHook = dynamicPropertyChange "WM_NAME" (title =? "Spotify" --> doShift (myWorkspaceSelected 10))
+  @end
 
 * Configuration
   Where the configurations are defined.
@@ -123,6 +126,7 @@ myConfig =
       focusedBorderColor = myFocusedBorderColor,
       startupHook = myStartupHook,
       manageHook = myManageHook
+-- ,handleEventHook = myHandleEventHook
     }
     `additionalKeysP` [ ("M-p", spawn "~/.config/rofi/scripts/rofi-wrapper.sh run"),
                         ("M-o", spawn "~/.config/rofi/scripts/rofi-wrapper.sh options"),
