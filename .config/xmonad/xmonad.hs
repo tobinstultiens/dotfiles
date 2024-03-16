@@ -19,15 +19,31 @@ import XMonad.Util.EZConfig
 import XMonad.Util.Hacks (javaHack, trayAbovePanelEventHook, trayPaddingEventHook, trayPaddingXmobarEventHook, trayerAboveXmobarEventHook, trayerPaddingXmobarEventHook, windowedFullscreenFixEventHook)
 import XMonad.Util.Loggers
 import XMonad.Util.SpawnOnce
-import XMonad.Util.Ungrab
+import XMonad.Operations
 import Data.Semigroup
-import XMonad.Hooks.DynamicProperty
+import XMonad.Hooks.OnPropertyChange
 
 myBorderWidth = 1
 
 myNormalBorderColor = "#585b70"
 
 myFocusedBorderColor = "#cba6f7"
+
+addNETSupported :: Atom -> X ()
+addNETSupported x   = withDisplay $ \dpy -> do
+    r               <- asks theRoot
+    a_NET_SUPPORTED <- getAtom "_NET_SUPPORTED"
+    a               <- getAtom "ATOM"
+    liftIO $ do
+       sup <- (join . maybeToList) <$> getWindowProperty32 dpy a_NET_SUPPORTED r
+       when (fromIntegral x `notElem` sup) $
+         changeProperty32 dpy r a_NET_SUPPORTED a propModeAppend [fromIntegral x]
+
+addEWMHFullscreen :: X ()
+addEWMHFullscreen   = do
+    wms <- getAtom "_NET_WM_STATE"
+    wfs <- getAtom "_NET_WM_STATE_FULLSCREEN"
+    mapM_ addNETSupported [wms, wfs]
 
 myStartupHook :: X ()
 myStartupHook = do
@@ -50,7 +66,7 @@ myStartupHook = do
   spawnOnce "barrier"
   spawnOnce "sleep 10 && discord"
   spawnOnce "sleep 2 && conky -c $HOME/.config/conky/macchiato.conf"
-  spawnOnce "sleep 2 && xmonad --recompile"
+  -- spawnOnce "sleep 2 && xmonad --restart"
 
 myWorkspaces = [" 1 <fn=2>\xf111</fn>", "2 <fn=2>\xf111</fn>", "3 <fn=2>\xf111</fn>", "4 <fn=2>\xf111</fn>", "5 <fn=2>\xf111</fn>", "6 <fn=2>\xf111</fn>", "7 <fn=2>\xf111</fn>", "8 <fn=2>\xf111</fn>", "9 <fn=2>\xf111</fn>", "10 <fn=2>\xf111</fn>"]
 
@@ -79,6 +95,7 @@ myManageHook =
 
 -- myHandleEventHook :: Event -> X All
 -- myHandleEventHook = dynamicPropertyChange "WM_NAME" (title =? "Spotify" --> doShift (myWorkspaceSelected 10))
+myHandleEventHook = windowedFullscreenFixEventHook <> swallowEventHook (className =? "Alacritty"  <||> className =? "st-256color" <||> className =? "XTerm") (return True) <> trayerPaddingXmobarEventHook
 
 myConfig =
   def
@@ -88,13 +105,12 @@ myConfig =
       borderWidth = myBorderWidth,
       normalBorderColor = myNormalBorderColor,
       focusedBorderColor = myFocusedBorderColor,
-      startupHook = myStartupHook,
+      startupHook = myStartupHook >> addEWMHFullscreen,
       manageHook = myManageHook
--- ,handleEventHook = myHandleEventHook
+      ,handleEventHook = myHandleEventHook
     }
     `additionalKeysP` [ ("M-p", spawn "~/.config/rofi/scripts/rofi-wrapper.sh run"),
                         ("M-o", spawn "~/.config/rofi/scripts/rofi-wrapper.sh options"),
-                        ("M-q", spawn "xmonad --recompile"),
                         ("<Print>", spawn "flameshot gui"),
                         -- Monitor
                         ("M-M1-1", spawn "$HOME/.scripts/switch-monitor-input.sh 1"),
@@ -131,7 +147,6 @@ myXmobarPP =
     }
 
 xmobarLeft = statusBarProp "xmobar -x 0 ~/.config/xmobar/xmobarrc" (pure myXmobarPP)
-
 xmobarRight = statusBarProp "xmobar -x 1 ~/.config/xmobar/xmobarrc" (pure myXmobarPP)
 
 main :: IO ()

@@ -8,15 +8,16 @@ declare -A operation icon confirm
 create-menu-entries() {
     local entry_struct
     local menu=(
-        # Entry        Icon Operation                   								Require confirmation
-        '("Lock"       ""  "xsecurelock"                								"false")'
-        '("Steam"      "󰓓"  "killall steam"              								"false")'
-        '("Reload"     ""  "bspc wm -r"                 								"true")'
-        '("Logout"     "󰍃"  "bspc quit"                  								"true")'
-        '("Reboot"     ""  "reboot"                     								"true")'
-        '("Shutdown"   ""  "shutdown now"               								"true")'
-        '("Suspend"    ""  "systemctl suspend && xsecurelock"          "true")'
-        '("Screenshot" ""  "flameshot gui --delay 2000" 								"false")'
+        # Entry         Icon Operation                   								Require confirmation
+        '("Lock"        ""  "xsecurelock"                								"false")'
+        '("Screensaver" "♻"  "~/.scripts/switch-screensaver.sh"								"false")'
+        '("Steam"       ""   "LD_PRELOAD='/home/tobins/.local/share/Steam/sdl_block_screensaver_inhibit.so' SDL_VIDEO_ALLOW_SCREENSAVER=1 steam &"                                                                             "false")'
+        '("Reload"      ""  "bspc wm -r"                 								"true")'
+        '("Logout"      "󰍃"  "bspc quit"                  								"true")'
+        '("Reboot"      ""  "reboot"                     								"true")'
+        '("Shutdown"    ""  "shutdown now"               								"true")'
+        '("Suspend"     ""  "systemctl suspend && xsecurelock"                                                         "true")'
+        '("Screenshot"  ""  "flameshot gui --delay 2000" 								"false")'
     )
 
     # Create associative arrays out of the fake multidimensional array
@@ -44,7 +45,7 @@ rofi-select() {
     if [ "${confirm[$selection]}" == "true" ]; then
         rofi-confirm "$selection" && eval "${operation[$selection]}"
     else
-        eval '${operation[$selection]}'
+        eval "${operation[$selection]}"
     fi
 }
 
