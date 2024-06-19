@@ -9,9 +9,9 @@ create-menu-entries() {
     local entry_struct
     local menu=(
         # Entry         Icon Operation                   								Require confirmation
+        '("Screensaver" "♻"  "xset dpms force standby"								        "false")'
+        '("Switch Screensaver" "♻"  "~/.scripts/switch-screensaver.sh"							"false")'
         '("Lock"        ""  "xsecurelock"                								"false")'
-        '("Screensaver" "♻"  "~/.scripts/switch-screensaver.sh"								"false")'
-        '("Steam"       ""   "LD_PRELOAD='/home/tobins/.local/share/Steam/sdl_block_screensaver_inhibit.so' SDL_VIDEO_ALLOW_SCREENSAVER=1 steam &"                                                                             "false")'
         '("Reload"      ""  "bspc wm -r"                 								"true")'
         '("Logout"      "󰍃"  "bspc quit"                  								"true")'
         '("Reboot"      ""  "reboot"                     								"true")'

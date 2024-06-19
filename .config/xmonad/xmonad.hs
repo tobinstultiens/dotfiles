@@ -9,6 +9,7 @@ import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
+import XMonad.Hooks.Focus
 import XMonad.Layout.NoBorders
 import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
@@ -48,9 +49,11 @@ addEWMHFullscreen   = do
 myStartupHook :: X ()
 myStartupHook = do
   -- spawn "killall conky" -- kill current conky on each restart
+  spawn "killall trayer" -- kill current conky on each restart
   spawnOnce "picom"
   spawnOnce "nm-applet"
   spawnOnce "volumeicon"
+  spawnOnce "blueman-applet"
   spawnOnce "notify-log $HOME/.log/notify.log"
   -- spawn "~/.config/polybar/launch.sh"
   spawnOnce "firefox"
@@ -61,11 +64,14 @@ myStartupHook = do
   spawnOnce "whatsdesk"
   spawnOnce "thunderbird"
   spawnOnce "spotify"
+  spawnOnce "redshift-gtk"
   spawnOnce "kdeconnect-cli --refresh"
-  spawnOnce "LD_PRELOAD='/home/tobins/.local/share/Steam/sdl_block_screensaver_inhibit.so' SDL_VIDEO_ALLOW_SCREENSAVER=1 steam &"
+  spawnOnce "steam-screensaver-fix-native"
   spawnOnce "barrier"
   spawnOnce "sleep 10 && discord"
   spawnOnce "sleep 2 && conky -c $HOME/.config/conky/macchiato.conf"
+
+  spawn ("sleep 2 && trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --height 22")
   -- spawnOnce "sleep 2 && xmonad --restart"
 
 myWorkspaces = [" 1 <fn=2>\xf111</fn>", "2 <fn=2>\xf111</fn>", "3 <fn=2>\xf111</fn>", "4 <fn=2>\xf111</fn>", "5 <fn=2>\xf111</fn>", "6 <fn=2>\xf111</fn>", "7 <fn=2>\xf111</fn>", "8 <fn=2>\xf111</fn>", "9 <fn=2>\xf111</fn>", "10 <fn=2>\xf111</fn>"]
@@ -150,9 +156,13 @@ xmobarLeft = statusBarProp "xmobar -x 0 ~/.config/xmobar/xmobarrc" (pure myXmoba
 xmobarRight = statusBarProp "xmobar -x 1 ~/.config/xmobar/xmobarrc" (pure myXmobarPP)
 
 main :: IO ()
-main =
-  xmonad
-    . ewmhFullscreen
-    . ewmh
-    . withEasySB (xmobarLeft <> xmobarRight) defToggleStrutsKey
-    $ myConfig
+main = do
+        let ah :: ManageHook
+            ah = not <$> (className =? "Firefox" <||> className =? "Firefox-esr" <||> className =? "hearthstonedecktracker.exe" <||> className =? "*hearthstonedecktracker*" <||> className =? "HearthstoneOverlay")
+                    --> activateSwitchWs
+            xcf = setEwmhActivateHook ah
+                . ewmhFullscreen
+                . ewmh 
+                . withEasySB (xmobarLeft <> xmobarRight) defToggleStrutsKey 
+                $ myConfig
+        xmonad xcf
