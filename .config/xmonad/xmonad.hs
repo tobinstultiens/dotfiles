@@ -67,7 +67,7 @@ myStartupHook = do
   spawnOnce "redshift-gtk"
   spawnOnce "kdeconnect-cli --refresh"
   spawnOnce "steam-screensaver-fix-native"
-  spawnOnce "barrier"
+  spawnOnce "barriers"
   spawnOnce "sleep 10 && discord"
   spawnOnce "sleep 2 && conky -c $HOME/.config/conky/macchiato.conf"
 
