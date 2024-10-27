@@ -1,5 +1,8 @@
 #!/bin/sh
 
+LEFT_NUMBER=4
+RIGHT_NUMBER=6
+
 for pid in $(pidof -x "switch-monitor-input.sh"); do
     if [ "$pid" != $$ ]; then
         exit 1
@@ -36,22 +39,22 @@ retryUntilSwitchedLaptop() {
 
 case $1 in
 	1)
-		MONITOR=$(ddcutil -b 5 getvcp 0x60)
+		MONITOR=$(ddcutil -b $LEFT_NUMBER getvcp 0x60)
 		if expr "$MONITOR" : '.*0x0f' >/dev/null; then
 			notify-send -e "Switching Monitor 1"
-			retryUntilSwitchedLaptop "5" "0x13"
+			retryUntilSwitchedLaptop "$LEFT_NUMBER" "0x13"
 		else
 			notify-send -e "Switching Monitor 1"
-			retryUntilSwitchedMainPc "5" "0x0f"
+			retryUntilSwitchedMainPc "$LEFT_NUMBER" "0x0f"
 		fi
 		;;
 	2)
-		MONITOR=$(ddcutil -b 7 getvcp 0x60)
+		MONITOR=$(ddcutil -b $RIGHT_NUMBER getvcp 0x60)
 		if expr "$MONITOR" : '.*0x0f' >/dev/null; then
-			retryUntilSwitchedLaptop "7" "0x11"
+			retryUntilSwitchedLaptop "$RIGHT_NUMBER" "0x11"
 		else
 			notify-send -e "Switching Monitor 2"
-			retryUntilSwitchedSecondPc "7" "0x0f"
+			retryUntilSwitchedSecondPc "$RIGHT_NUMBER" "0x0f"
 		fi
 		;;
 esac

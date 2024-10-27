@@ -38,6 +38,7 @@ import XMonad.Util.SpawnOnce
 import XMonad.Operations
 import Data.Semigroup
 import XMonad.Hooks.OnPropertyChange
+import XMonad.Util.Hacks (fixSteamFlicker)
 @end 
 
 * Variables
@@ -149,7 +150,7 @@ myConfig =
       focusedBorderColor = myFocusedBorderColor,
       startupHook = myStartupHook >> addEWMHFullscreen,
       manageHook = myManageHook
-      ,handleEventHook = myHandleEventHook
+      ,handleEventHook = fixSteamFlicker <+> myHandleEventHook
     }
     `additionalKeysP` [ ("M-p", spawn "~/.config/rofi/scripts/rofi-wrapper.sh run"),
                         ("M-o", spawn "~/.config/rofi/scripts/rofi-wrapper.sh options"),
