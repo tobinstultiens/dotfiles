@@ -47,8 +47,8 @@ cmd mkfile ${{
   $EDITOR $ans
 }}
 
-cmd dragon %dragon-drag-and-drop -a -x $fx
-cmd dlfile %dragon-drag-and-drop --target
+cmd dragon %dragon-drop -a -x $fx
+cmd dlfile %dragon-drop --target
 
 # define a custom 'rename' command without prompt for overwrite
 # cmd rename %[ -e $1 ] && printf "file exists" || mv $f $1

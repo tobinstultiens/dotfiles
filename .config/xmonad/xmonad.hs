@@ -60,7 +60,7 @@ myStartupHook = do
   -- spawnOnce "trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --widthtype request --tint 0x002b36 --height 20 --alpha 0 --monitor 1 --transparent true -l"
   -- spawn "sleep 2 && trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --height 22"
   spawnOnce "feh --bg-scale /home/tobins/Pictures/Backgrounds/3440x1440/JapanStreetNight.jpg --bg-fill /home/tobins/Pictures/Backgrounds/2560x1440/cyber-city-anime-artwork.jpg"
-  spawnOnce "xset s 120 120"
+  spawnOnce "xset s 180 180"
   spawnOnce "whatsdesk"
   spawnOnce "thunderbird"
   spawnOnce "spotify"
@@ -122,7 +122,7 @@ myConfig =
                         ("M-M1-1", spawn "$HOME/.scripts/switch-monitor-input.sh 1"),
                         ("M-M1-2", spawn "$HOME/.scripts/switch-monitor-input.sh 2"),
                         -- Game launcher
-                        ("M1-g", spawn "$HOME/.config/rofi/scripts/rofi-wrapper.sh games"),
+                        ("M1-g", spawn "rofi -mode games -show games -theme games"),
                         ("M1-c", spawn "st -e sh -c '~/.scripts/tmux-launch.sh'"),
                         -- Audio
                         ("<XF86AudioRaiseVolume>", spawn "pulsemixer --change-volume +2"),

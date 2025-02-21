@@ -1,3 +1,4 @@
+alsa-utils
 ansible
 barrier
 base
@@ -11,13 +12,16 @@ ddcutil
 devour
 discord
 dmenu
+dragon-drop-git
 dunst
 efibootmgr
 feh
 feishin-bin
 firefox
 flameshot
+foot
 fzf
+ghcup-hs-bin
 git
 github-cli
 gparted
@@ -29,6 +33,7 @@ i3blocks
 i3lock
 i3status
 inetutils
+input-leap
 intel-ucode
 iwd
 jellyfin-media-player
@@ -37,6 +42,7 @@ kitty
 kvantum
 lf
 lib32-nvidia-utils
+libreoffice-fresh
 lightdm
 lightdm-gtk-greeter
 linux
@@ -57,6 +63,7 @@ npm
 nvidia-dkms
 nvidia-settings
 nvm
+obsidian
 opam
 openssh
 pavucontrol
@@ -68,6 +75,7 @@ pipewire-audio
 pipewire-pulse
 playerctl
 proton-ge-custom
+pulsemixer
 python-passlib
 python-pygments
 python-pyserial
@@ -75,7 +83,9 @@ qmk
 redshift
 reflector
 ripgrep
+river
 rofi
+rofi-games
 rsync
 rust
 smartmontools
@@ -86,6 +96,7 @@ sshpass
 steam-native-runtime
 steam-screensaver-fix
 sxiv
+teamspeak
 teensy_loader_cli
 thefuck
 thunderbird
@@ -94,6 +105,7 @@ trayer
 ttf-nerd-fonts-symbols
 usbutils
 vim
+waybar
 web-os-dev-manager-bin
 wget
 whatsdesk-bin
@@ -112,6 +124,7 @@ xmonad-recompile-hook-git
 xorg-server
 xorg-xinit
 xorg-xrandr
+xsel
 xterm
 yay
 yay-debug

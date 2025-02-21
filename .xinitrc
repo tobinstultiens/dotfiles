@@ -53,6 +53,7 @@ get_session(){
         lxde) dbus_args+=(startlxde) ;;
         lxqt) dbus_args+=(lxqt-session) ;;
         mate) dbus_args+=(mate-session) ;;
+        river) dbus_args+=(river) ;;
         xfce) dbus_args+=(xfce4-session) ;;
         openbox) dbus_args+=(openbox-session) ;;
         xmonad) dbus_args+=(xmonad) ;;
@@ -63,4 +64,4 @@ get_session(){
 }
 
 # exec $(get_session)
-exec xmonad
+exec river

@@ -80,10 +80,12 @@ update-game-entries() {
             # Filter out non-game entries (e.g. Proton versions or soundtracks) by
             # checking for boxart and other criteria
             if [ ! -f "$boxart" ]; then
+                [ -z $quiet ] && echo "Skipping due to boxart"
                 [ -z $quiet ] && echo "Skipping $title"
                 continue
             fi
             if echo "$title" | grep -qe "Soundtrack"; then
+                [ -z $quiet ] && echo "Skipping due to soundtrack"
                 [ -z $quiet ] && echo "Skipping $title"
                 continue
             fi
