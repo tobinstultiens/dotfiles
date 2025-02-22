@@ -25,9 +25,10 @@ ghcup-hs-bin
 git
 github-cli
 gparted
+grim
 htop
 hugo
-hyprland-git
+hyprland
 i3-wm
 i3blocks
 i3lock
@@ -95,6 +96,9 @@ sshfs
 sshpass
 steam-native-runtime
 steam-screensaver-fix
+sway
+swayidle
+swaylock
 sxiv
 teamspeak
 teensy_loader_cli
@@ -114,6 +118,7 @@ wine-ge-custom-bin-opt
 wine-mono
 winetricks-git
 wireless_tools
+wlopm
 wpa_supplicant
 xdg-utils
 xdotool

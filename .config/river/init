@@ -9,6 +9,17 @@
 # documentation.
 
 # Note: the "Super" modifier is also known as Logo, GUI, Windows, Mod4, etc.
+export SDL_VIDEODRIVER=wayland
+export _JAVA_AWT_WM_NONREPARENTING=1
+export QT_QPA_PLATFORM=wayland
+export XDG_CURRENT_DESKTOP=sway
+export XDG_SESSION_DESKTOP=sway
+
+ swayidle -w \
+                timeout 600 'swaylock -f -i ~/Pictures/Wallpapers/1354199.jpeg' \
+                timeout 180 "wlopm --off '*'" \
+                     resume "wlopm --on '*'" &
+                # before-sleep 'swaylock -f -c 000000'
 
 # Super+Shift+Return to start an instance of foot (https://codeberg.org/dnkl/foot)
 riverctl map normal Super+Shift Return spawn st
@@ -85,6 +96,7 @@ riverctl map normal Alt C spawn "st -e sh -c '~/.scripts/tmux-launch.sh'"
 riverctl map normal Alt P spawn "amixer set Capture toggle"
 riverctl map normal Super+Alt 1 spawn "$HOME/.scripts/switch-monitor-input.sh 1"
 riverctl map normal Super+Alt 2 spawn "$HOME/.scripts/switch-monitor-input.sh 2"
+riverctl map normal None Print spawn "flameshot gui"
 
 for i in $(seq 1 10)
 do
@@ -101,6 +113,13 @@ do
 
     # Super+Shift+Control+[1-9] to toggle tag [0-8] of focused view
     riverctl map normal Super+Shift+Control $i toggle-view-tags $tags
+    
+    if [[ i == 10 ]]; then
+        riverctl map normal Super 0 set-focused-tags $tags
+        riverctl map normal Super+Shift 0 set-view-tags $tags
+        riverctl map normal Super+Control 0 toggle-focused-tags $tags
+        riverctl map normal Super+Shift+Control 0 toggle-view-tags $tags
+    fi
 done
 
 # Super+Space to toggle float
