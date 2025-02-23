@@ -28,7 +28,10 @@ gparted
 grim
 htop
 hugo
+hypridle
 hyprland
+hyprlock
+hyprpaper
 i3-wm
 i3blocks
 i3lock
@@ -44,8 +47,6 @@ kvantum
 lf
 lib32-nvidia-utils
 libreoffice-fresh
-lightdm
-lightdm-gtk-greeter
 linux
 linux-firmware
 linux-headers
@@ -89,6 +90,7 @@ rofi
 rofi-games
 rsync
 rust
+sddm
 smartmontools
 solaar
 spotify
@@ -119,6 +121,7 @@ wine-mono
 winetricks-git
 wireless_tools
 wlopm
+wlsunset
 wpa_supplicant
 xdg-utils
 xdotool
