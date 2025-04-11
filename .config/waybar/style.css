@@ -43,7 +43,7 @@ window#waybar.empty #window {
   color: @fg-color;
 }
 
-#custom-spotify {
+#custom-media {
   border-radius: 10px;
   background-color: #1DB954;
   color: @fg-color;
@@ -53,7 +53,7 @@ window#waybar.empty #window {
   margin-right: 15px;
 }
 
-#window, #mpris, #tray, #memory, #clock, #backlight, #pulseaudio, #bluetooth, #network, #battery{
+#window, #mpris, #tray, #memory, #clock, #backlight, #pulseaudio, #upower, #cpu, #temperature, #bluetooth, #network, #battery{
   border-radius: 8px;
   background-color: @bg-color;
   color: @fg-color;
@@ -129,6 +129,13 @@ window#waybar.empty #window {
 #pulseaudio {
   padding-left: 5px;
   margin-left: 5px;
+}
+
+#upower {
+  padding-left: 5px;
+  margin-left: 5px;
+  background-color: @bg-color;
+  color: @fg-color;
 }
 
 #network.wifi {

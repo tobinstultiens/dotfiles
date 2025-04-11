@@ -82,7 +82,7 @@ myStartupHook = do
   spawnOnce "firefox"
   -- spawnOnce "trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --widthtype request --tint 0x002b36 --height 20 --alpha 0 --monitor 1 --transparent true -l"
   -- spawn "sleep 2 && trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --height 22"
-  spawnOnce "feh --bg-scale /home/tobins/Pictures/Backgrounds/3440x1440/JapanStreetNight.jpg --bg-fill /home/tobins/Pictures/Backgrounds/2560x1440/cyber-city-anime-artwork.jpg"
+  spawnOnce "feh --bg-scale /home/tobins/Pictures/Wallpapers/1357640.jpeg --bg-fill /home/tobins/Pictures/Wallpapers/973967.jpg"
   spawnOnce "xset s 180 180"
   spawnOnce "whatsdesk"
   spawnOnce "thunderbird"

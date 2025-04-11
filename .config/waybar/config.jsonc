@@ -14,16 +14,13 @@
         "hyprland/window",
     ],
     "modules-right": [
-        "mpd",
-        "idle_inhibitor",
+        "upower#controller",
         "pulseaudio",
-        "network",
         "cpu",
         "memory",
         "temperature",
         "clock",
         "tray",
-        "custom/power"
     ],
     "hyprland/workspaces": {
       "format": "<sub>{icon}</sub>\n{windows}",
@@ -38,6 +35,7 @@
         "nvim": "",
         "discord": "",
         "whatsdesk": "",
+        "Steam": "",
         "thunderbird": "",
         "spotify": "",
       },
@@ -162,5 +160,11 @@
 			"suspend": "systemctl suspend",
 			"hibernate": "systemctl hibernate"
 		}
-    }
+    },
+    "upower#controller": {
+        "native-path": "/org/bluez/hci0/dev_68_6C_E6_73_39_C9",
+        "tooltip": true,
+        "format": "󰊴 {percentage}",
+        "show-icon": false,
+    },
 }

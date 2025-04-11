@@ -1,17 +1,22 @@
 alsa-utils
 ansible
+arenatracker
 barrier
 base
 base-devel
 blueman
 bolt-launcher
+brightnessctl
 chaotic-keyring
 chaotic-mirrorlist
+cpio
 cronie
 ddcutil
+deskflow
 devour
 discord
 dmenu
+dotnet-sdk-8.0
 dragon-drop-git
 dunst
 efibootmgr
@@ -20,6 +25,7 @@ feishin-bin
 firefox
 flameshot
 foot
+fprintd
 fzf
 ghcup-hs-bin
 git
@@ -32,6 +38,8 @@ hypridle
 hyprland
 hyprlock
 hyprpaper
+hyprpolkitagent
+hyprshot
 i3-wm
 i3blocks
 i3lock
@@ -53,6 +61,7 @@ linux-headers
 luarocks
 lutris
 man-db
+meson
 mkinitcpio-firmware
 mpv
 nano
@@ -76,6 +85,7 @@ pipewire-alsa
 pipewire-audio
 pipewire-pulse
 playerctl
+polkit-kde-agent
 proton-ge-custom
 pulsemixer
 python-passlib
@@ -123,6 +133,7 @@ wireless_tools
 wlopm
 wlsunset
 wpa_supplicant
+xdg-desktop-portal-hyprland
 xdg-utils
 xdotool
 xmobar
