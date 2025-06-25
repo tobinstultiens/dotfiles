@@ -1,0 +1,32 @@
+;; Alternatively
+(defwindow sidebar
+  :monitor 0 ;; Optional for X11
+  :stacking "overlay"
+  :windowtype "dock"
+  :exclusive true
+  :geometry (geometry :x "2%" :y "2%" :width "20%" :height "92%")
+  (powermenu_layout))
+
+(defwidget powermenu_layout []
+  (box :class "layout-box" :space-evenly true :orientation "vertical"       
+    (box :valign "start" :halign "start" :space-evenly false :spacing 25
+      (label :class "title" :text "Widget menu"))
+    (box :space-evenly false :hexpand true :vexpand true :orientation "v"
+      (_scripts)
+      (_buttons 
+        :shutdown "poweroff" :reboot "reboot" :logout "loginctl kill-session self" 
+        :shutdown_icon "󰐥" :reboot_icon "󰦛" :logout_icon "󰿅"))))
+
+(defwidget _scripts []
+ (box :transition "slideright" :class "btns-box" :spacing 5 
+    (button :onclick "sudo ip link set enp0s31f6 down" "test")(label :text "Test2")(label :text "Test3")))
+    ;; (button :onclick "~/.scripts/switch-monitor-input.sh 2" "test")(label :text "Test2")(label :text "Test3")))
+
+(defwidget _buttons [shutdown shutdown_icon reboot reboot_icon logout logout_icon]
+  (box :class "btns-box" :spacing 5
+    :vexpand true :hexpand true
+    :valign "end" :halign "center"
+    :space-evenly false
+    (button :onclick shutdown shutdown_icon)
+    (button :onclick reboot reboot_icon)
+    (button :onclick logout logout_icon)))

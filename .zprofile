@@ -189,3 +189,8 @@ ex=:\
 *.pdf=:\
 *.nix=:\
 "
+
+
+# Added by Toolbox App
+export PATH="$PATH:/home/tobins/.local/share/JetBrains/Toolbox/scripts"
+
