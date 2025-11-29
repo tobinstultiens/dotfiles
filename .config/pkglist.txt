@@ -3,6 +3,8 @@ ansible
 aquamarine
 archipelagomw-bin
 arenatracker
+aspnet-runtime
+aspnet-runtime-8.0
 base
 base-devel
 bizhawk-bin
@@ -11,6 +13,7 @@ bolt-launcher
 brightnessctl
 chaotic-keyring
 chaotic-mirrorlist
+chromium
 cpio
 cronie
 ddcutil
@@ -18,6 +21,8 @@ deskflow
 devour
 discord
 dmenu
+docker
+docker-buildx
 dotnet-sdk-8.0
 dragon-drop-git
 dunst
@@ -31,11 +36,14 @@ flameshot
 foot
 fprintd
 fzf
+gamemode
 gamescope
 gbm
 ghcup-hs-bin
 git
+git-delta
 github-cli
+google-chrome
 gparted
 grim
 htop
@@ -43,10 +51,12 @@ hugo
 hyprcursor
 hyprgraphics
 hypridle
+hyprland-guiutils
 hyprland-protocols
-hyprland-qtutils
 hyprlang
+hyprlock
 hyprpicker
+hyprpolkitagent
 hyprshot
 hyprutils
 hyprwayland-scanner
@@ -58,11 +68,12 @@ inetutils
 input-leap-git
 intel-ucode
 iwd
-jellyfin-media-player
+jellyfin-media-player-git
 jetbrains-toolbox
 kdeconnect
 kitty
 kvantum
+lact
 lf
 lib32-nvidia-utils
 libreoffice-fresh
@@ -72,6 +83,7 @@ linux-headers
 luarocks
 lutris
 man-db
+mangohud
 meson
 mkinitcpio-firmware
 mpv
@@ -97,8 +109,6 @@ pipewire-alsa
 pipewire-audio
 pipewire-pulse
 playerctl
-polkit-kde-agent
-proton-ge-custom-bin
 protonplus
 pulsemixer
 python-image-go-nord
@@ -135,7 +145,10 @@ tmux
 trayer
 ttf-nerd-fonts-symbols
 umu-launcher
+unigine-heaven
 usbutils
+vesktop
+vial-appimage
 vim
 waybar
 web-os-dev-manager-bin

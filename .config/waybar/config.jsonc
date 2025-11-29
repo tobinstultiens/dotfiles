@@ -15,7 +15,9 @@
     ],
     "modules-right": [
         "upower#controller",
+        "upower#earbuds",
         "pulseaudio",
+        "network",
         "cpu",
         "memory",
         "temperature",
@@ -33,6 +35,7 @@
         "code": "󰨞",
         "tmux": "",
         "nvim": "",
+        "sh": "",
         "discord": "",
         "whatsdesk": "",
         "Steam": "",
@@ -40,15 +43,17 @@
         "thunderbird": "",
         "spotify": "",
         "jellyfin": "",
+        "class<jetbrains-rider>": ""
       },
     },
     "hyprland/window": {
+        "max-length": 150,
         "format": "{}",
         "rewrite": {
             "(.*) — Mozilla Firefox": "🌎 $1",
             "(.*) - Youtube": " $1",
             "(.*) - vim": " $1",
-            "(.*) - zsh": " [$1]",
+            "(.*) - sh": " [$1]",
             "(.*) - st": "> [$1]",
             "(.*) - tmux": "> [$1]"
         },
@@ -114,24 +119,24 @@
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
         "format-wifi": "{essid} ({signalStrength}%) ",
-        "format-ethernet": "{ipaddr}/{cidr} ",
-        "tooltip-format": "{ifname} via {gwaddr} ",
-        "format-linked": "{ifname} (No IP) ",
+        "format-ethernet": "󰁝{bandwidthUpBytes} 󰁅{bandwidthDownBytes} 󰈀",
+        "tooltip-format": "{ifname} via {gwaddr}",
+        "format-linked": "{ifname} (No IP) 󰈂",
         "format-disconnected": "Disconnected ⚠",
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
         "format": "{volume}% {icon} {format_source}",
-        "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
+        "format-bluetooth": "{volume}% {icon}| {format_source}",
+        "format-bluetooth-muted": " {icon}| {format_source}",
         "format-muted": " {format_source}",
         "format-source": "{volume}% ",
         "format-source-muted": "",
         "format-icons": {
             "headphone": "",
-            "hands-free": "",
-            "headset": "",
+            "hands-free": "󱡏",
+            "headset": "󱡏",
             "phone": "",
             "portable": "",
             "car": "",
@@ -167,6 +172,12 @@
         "native-path": "/org/bluez/hci0/dev_68_6C_E6_73_39_C9",
         "tooltip": true,
         "format": "󰊴 {percentage}",
+        "show-icon": false,
+    },
+    "upower#earbuds": {
+        "native-path": "/org/bluez/hci0/dev_AC_80_0A_22_A8_F9",
+        "tooltip": true,
+        "format": "󱡏 {percentage}",
         "show-icon": false,
     },
 }
