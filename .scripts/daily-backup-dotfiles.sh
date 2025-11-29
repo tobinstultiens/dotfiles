@@ -1,6 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
-. ~/.config/aliasrc
+echo "HOME is: $HOME" >> /home/tobins/git-daily-commit-log
 
-config commit -am "auto commit"
-config push
+GIT="/usr/bin/git --git-dir=/home/tobins/.cfg --work-tree=/home/tobins"
+
+$GIT commit -am "auto commit"
+$GIT push
