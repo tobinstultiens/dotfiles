@@ -2,5 +2,5 @@
 
 . ~/.config/aliasrc
 
-config commit -am "Daily Update"
+config commit -am "auto commit"
 config push
