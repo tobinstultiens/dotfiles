@@ -9,6 +9,7 @@ base
 base-devel
 bizhawk-bin
 blueman
+bluez-utils
 bolt-launcher
 brightnessctl
 chaotic-keyring
@@ -90,6 +91,7 @@ mpv
 nano
 neofetch
 neovim
+networkmanager
 noto-fonts
 noto-fonts-cjk
 noto-fonts-emoji
@@ -170,6 +172,7 @@ xmonad
 xmonad-contrib
 xmonad-recompile-hook-git
 xorg-server
+xorg-xhost
 xorg-xinit
 xorg-xrandr
 xsel
