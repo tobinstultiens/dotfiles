@@ -22,6 +22,7 @@ deskflow
 devour
 discord
 dmenu
+dmidecode
 docker
 docker-buildx
 dotnet-sdk-8.0
@@ -149,6 +150,7 @@ ttf-nerd-fonts-symbols
 umu-launcher
 unigine-heaven
 usbutils
+ventoy-bin
 vesktop
 vial-appimage
 vim
