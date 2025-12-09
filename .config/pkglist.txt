@@ -29,6 +29,7 @@ dotnet-sdk-8.0
 dragon-drop-git
 dunst
 efibootmgr
+ethtool
 eww
 fastfetch
 feh

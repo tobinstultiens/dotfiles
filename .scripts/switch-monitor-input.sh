@@ -1,7 +1,7 @@
 #!/bin/sh
 
-LEFT_NUMBER=4
-RIGHT_NUMBER=8
+LEFT_NUMBER=6
+RIGHT_NUMBER=7
 
 for pid in $(pidof -x "switch-monitor-input.sh"); do
     if [ "$pid" != $$ ]; then
