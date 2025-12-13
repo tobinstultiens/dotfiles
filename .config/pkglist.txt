@@ -185,5 +185,4 @@ yay-debug
 ydotool
 zathura
 zathura-pdf-mupdf
-zram-generator
 zsh
