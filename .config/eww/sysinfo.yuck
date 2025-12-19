@@ -1,0 +1,46 @@
+(defpoll cpu_usage :interval "2s"
+  "sh -c \"top -bn1 | grep 'Cpu(s)' | awk '{print 100 - $8}' | cut -d. -f1\"")
+
+(defpoll ram_used :interval "5s"
+  "sh -c \"free -m | awk '/Mem:/ {print $3}'\"")
+
+(defpoll ram_total :interval "60s"
+  "sh -c \"free -m | awk '/Mem:/ {print $2}'\"")
+
+(defpoll disk_used :interval "60s"
+  "sh -c \"df -h / | awk 'NR==2 {print $5}' | tr -d '%'\"")
+
+(defpoll uptime :interval "30s"
+  "uptime -p | sed 's/up //'")
+
+(defpoll time :interval "1s"
+  "date '+%H:%M'")
+
+(defwidget _sysinfo []
+  (box
+    :class "sysinfo-box"
+    :orientation "vertical"
+    :spacing 8
+    :halign "start"
+
+    (label :class "section-title" :text "SYSTEM")
+
+    (box :class "row"
+      (label :text "CPU")
+      (label :halign "end" :text "${cpu_usage}%"))
+
+    (box :class "row"
+      (label :text "RAM")
+      (label :halign "end" :text "${ram_used}/${ram_total} MB"))
+
+    (box :class "row"
+      (label :text "Disk")
+      (label :halign "end" :text "${disk_used}%"))
+
+    (box :class "row"
+      (label :text "Uptime")
+      (label :halign "end" :text "${uptime}"))
+
+    (label :class "clock" :text "${time}")))
+ 
+

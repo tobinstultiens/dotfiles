@@ -1,3 +1,5 @@
+(include "sysinfo.yuck")
+
 ;; Alternatively
 (defwindow sidebar
   :monitor 0 ;; Optional for X11
@@ -12,6 +14,7 @@
     (box :valign "start" :halign "start" :space-evenly false :spacing 25
       (label :class "title" :text "Widget menu"))
     (box :space-evenly false :hexpand true :vexpand true :orientation "v"
+      (_sysinfo)
       (_scripts)
       (_buttons 
         :shutdown "poweroff" :reboot "reboot" :logout "loginctl kill-session self" 
@@ -30,3 +33,4 @@
     (button :onclick shutdown shutdown_icon)
     (button :onclick reboot reboot_icon)
     (button :onclick logout logout_icon)))
+
