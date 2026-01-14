@@ -154,6 +154,7 @@ usbutils
 ventoy-bin
 vesktop
 vial-appimage
+vifm
 vim
 waybar
 web-os-dev-manager-bin
@@ -182,6 +183,7 @@ xsel
 xterm
 yay
 yay-debug
+yazi
 ydotool
 zathura
 zathura-pdf-mupdf
