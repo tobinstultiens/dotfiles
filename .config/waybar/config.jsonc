@@ -16,8 +16,8 @@
     "modules-right": [
         "upower#controller",
         "upower#earbuds",
+        "upower#mouse",
         "pulseaudio",
-        "network",
         "cpu",
         "memory",
         "temperature",
@@ -178,6 +178,12 @@
         "native-path": "/org/bluez/hci0/dev_AC_80_0A_22_A8_F9",
         "tooltip": true,
         "format": "󱡏 {percentage}",
+        "show-icon": false,
+    },
+    "upower#mouse": {
+        "native-path": "hidpp_battery_9",
+        "tooltip": true,
+        "format": "󰍽 {percentage}",
         "show-icon": false,
     },
 }
