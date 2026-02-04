@@ -3,7 +3,6 @@ ansible
 aquamarine
 archipelagomw-bin
 arenatracker
-aspnet-runtime
 aspnet-runtime-8.0
 base
 base-devel
@@ -25,7 +24,6 @@ dmenu
 dmidecode
 docker
 docker-buildx
-dotnet-sdk
 dotnet-sdk-8.0
 dragon-drop-git
 dunst
