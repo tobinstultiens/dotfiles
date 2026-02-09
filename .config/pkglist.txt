@@ -74,6 +74,7 @@ jellyfin-desktop
 jetbrains-toolbox
 kdeconnect
 kitty
+krita
 kvantum
 lact
 lf
@@ -103,6 +104,7 @@ nvm
 obsidian
 opam
 openssh
+opentabletdriver
 pavucontrol
 pcsx2-avx-git
 picom
