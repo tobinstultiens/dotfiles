@@ -25,6 +25,7 @@ dmidecode
 docker
 docker-buildx
 dotnet-sdk-8.0
+dotnet-sdk-bin
 dragon-drop-git
 dunst
 efibootmgr
