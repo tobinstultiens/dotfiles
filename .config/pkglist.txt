@@ -134,6 +134,7 @@ rofi-games
 rsync
 rust
 sddm
+signal-desktop
 smartmontools
 solaar
 spotify
