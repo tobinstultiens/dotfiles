@@ -142,6 +142,7 @@ sshfs
 sshpass
 steam-native-runtime
 steam-screensaver-fix
+superproductivity-bin
 sway
 swayidle
 swaylock
