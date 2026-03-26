@@ -1,5 +1,6 @@
 alsa-utils
 ansible
+ansible-lint
 aquamarine-git
 archipelagomw-bin
 arenatracker
@@ -101,8 +102,7 @@ noto-fonts
 noto-fonts-cjk
 noto-fonts-emoji
 npm
-nvidia-dkms
-nvidia-utils
+nvidia-580xx-dkms
 nvm
 obsidian
 opam
