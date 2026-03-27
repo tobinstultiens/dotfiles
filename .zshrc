@@ -50,3 +50,4 @@ source /usr/share/nvm/init-nvm.sh
 [[ ! -r /home/tobins/.opam/opam-init/init.zsh ]] || source /home/tobins/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
 
 fastfetch
+export PATH="$HOME/.local/bin:$PATH"
