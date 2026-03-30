@@ -124,6 +124,7 @@ python-passlib
 python-pygments
 python-pyserial
 qmk
+quickshell
 redshift
 reflector
 retroarch
