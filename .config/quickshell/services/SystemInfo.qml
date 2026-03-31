@@ -1,3 +1,4 @@
+pragma Singleton
 import Quickshell.Io
 import QtQuick
 
@@ -12,11 +13,11 @@ Item {
     property string diskTotal:   "?"
     property real   diskPercent: 0.0
     property string uptime:      "?"
-    property bool   active:      false
+    property real   tempCelsius: 0.0
 
     Timer {
         interval: 3000
-        running: root.active
+        running: true
         repeat: true
         triggeredOnStart: true
         onTriggered: {
@@ -24,6 +25,7 @@ Item {
             ramProc.running  = true
             diskProc.running = true
             upProc.running   = true
+            tempProc.running = true
         }
     }
 
@@ -88,6 +90,18 @@ Item {
         ]
         stdout: SplitParser {
             onRead: line => { root.uptime = line.trim() }
+        }
+    }
+
+    // Temperature: hwmon sensor
+    Process {
+        id: tempProc
+        command: [
+            "bash", "-c",
+            "cat /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon*/temp1_input 2>/dev/null | head -1"
+        ]
+        stdout: SplitParser {
+            onRead: line => { root.tempCelsius = Math.round((parseInt(line) || 0) / 1000) }
         }
     }
 }

@@ -4,7 +4,6 @@ import "../.." 1.0
 
 Item {
     id: root
-    required property var sysInfo
     implicitHeight: col.implicitHeight
 
     Column {
@@ -24,31 +23,31 @@ Item {
         StatRow {
             width: parent.width
             label: "CPU"
-            value: Math.round(root.sysInfo.cpuPercent) + "%"
-            percent: root.sysInfo.cpuPercent
+            value: Math.round(SystemInfo.cpuPercent) + "%"
+            percent: SystemInfo.cpuPercent
             barColor: Colors.blue
         }
 
         StatRow {
             width: parent.width
             label: "RAM"
-            value: root.sysInfo.ramUsedGb.toFixed(1) + " / " + root.sysInfo.ramTotalGb.toFixed(1) + " GB"
-            percent: root.sysInfo.ramPercent
+            value: SystemInfo.ramUsedGb.toFixed(1) + " / " + SystemInfo.ramTotalGb.toFixed(1) + " GB"
+            percent: SystemInfo.ramPercent
             barColor: Colors.mauve
         }
 
         StatRow {
             width: parent.width
             label: "Disk"
-            value: root.sysInfo.diskUsed + " / " + root.sysInfo.diskTotal
-            percent: root.sysInfo.diskPercent
+            value: SystemInfo.diskUsed + " / " + SystemInfo.diskTotal
+            percent: SystemInfo.diskPercent
             barColor: Colors.peach
         }
 
         StatRow {
             width: parent.width
             label: "Up"
-            value: root.sysInfo.uptime
+            value: SystemInfo.uptime
             percent: -1
             barColor: "transparent"
         }

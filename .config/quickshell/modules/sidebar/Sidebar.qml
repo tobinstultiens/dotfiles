@@ -7,8 +7,6 @@ import "../.." 1.0
 PanelWindow {
     id: root
 
-    required property var sysInfo
-
     // Start hidden; toggled via IPC
     property bool open: false
 
@@ -88,7 +86,6 @@ PanelWindow {
 
                 SystemStats {
                     width: parent.width
-                    sysInfo: root.sysInfo
                 }
 
                 NetworkWidget {

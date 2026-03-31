@@ -1,15 +1,20 @@
 import Quickshell
-import Quickshell.Io
 import "." 1.0
-import "services"
 import "modules/sidebar"
+import "modules/bar"
 
 ShellRoot {
-    SystemInfo { id: sysInfo; active: sidebar.open }
+    // One bar per screen
+    Variants {
+        model: Quickshell.screens
+        Bar {
+            required property var modelData
+            screen: modelData
+        }
+    }
 
     Sidebar {
         id: sidebar
-        sysInfo: sysInfo
     }
 
     IpcHandler {
