@@ -21,11 +21,11 @@ The Hyprland keybind `Super+I` is mapped to `qs ipc call sidebar toggle`.
 
 ## Architecture
 
-**Entry point:** `shell.qml` — declares the `ShellRoot`, instantiates `SystemInfo` and `Sidebar`, and registers the `IpcHandler` for the sidebar toggle.
+**Entry point:** `shell.qml` — declares the `ShellRoot`, creates one `Bar` per screen via `Variants`, creates `Sidebar`, and registers the `IpcHandler`.
 
-**Colors:** `Colors.qml` is a `pragma Singleton` registered in `qmldir`. All sidebar files import it with `import "../.." 1.0` and reference colors as `Colors.base`, `Colors.blue`, etc. (Catppuccin Mocha palette). To add a new color, add it to `Colors.qml` — no other registration needed.
+**Colors:** `Colors.qml` is a `pragma Singleton` registered in `qmldir`. All files import it with `import "../.." 1.0` and reference colors as `Colors.base`, `Colors.blue`, etc. (Catppuccin Mocha palette).
 
-**System data:** `services/SystemInfo.qml` is a plain `Item` (not a QuickShell Singleton) instantiated once in `shell.qml` and passed as `required property var sysInfo` through `Sidebar → SystemStats`. It polls CPU/RAM/Disk/Uptime every 3s via shell processes, but only when `active: sidebar.open`.
+**System data:** `services/SystemInfo.qml` is a `pragma Singleton` registered in `qmldir` (`singleton SystemInfo 1.0 services/SystemInfo.qml`). Any file with `import "../.." 1.0` can use `SystemInfo.cpuPercent`, `SystemInfo.ramPercent`, etc. directly. It polls CPU/RAM/Disk/Uptime/Temp every 3s always-on (bar needs continuous data). Root is `QtObject` (required for `pragma Singleton` — `Item` root fails silently).
 
 **Sidebar panel:** `modules/sidebar/Sidebar.qml` is a `PanelWindow` anchored to the right edge. Key behaviours:
 - `visible` is tied to `open || hideTimer.running` so the Wayland surface is destroyed after the 260ms slide-out animation, preventing invisible input blocking.
@@ -51,4 +51,6 @@ The Hyprland keybind `Super+I` is mapped to `qs ipc call sidebar toggle`.
 - `PanelWindow` uses `implicitWidth` not `width` (setting `width` emits a deprecation warning).
 - `Behavior on transform.xTranslation` is invalid — use an intermediate `property real` and put the `Behavior` on that.
 - Subdirectory QML files cannot see root-level types without `import "../.." 1.0`. The version suffix is required for the `qmldir` singleton registration to work.
-- QuickShell's `Singleton {}` root type does NOT expose properties by type name to subdirectory files. Use `pragma Singleton` + `qmldir` registration instead (as done for `Colors.qml`).
+- QuickShell's `Singleton {}` root type does NOT expose properties by type name to subdirectory files. Use `pragma Singleton` + `qmldir` registration instead.
+- `pragma Singleton` requires a `QtObject` root — using `Item` as root fails silently (type resolves to the component factory, not an instance; property access returns `undefined`). For singletons that need `Timer`/`Process` children: use a `QtObject` root with `property var _impl: Item { ... }` — the inner `Item` has the `data` default property that hosts the non-visual children naturally.
+- `PanelWindow` per-monitor assignment: declare `required screen` (NOT `required property var screen`) to mark the inherited property as required without shadowing it.

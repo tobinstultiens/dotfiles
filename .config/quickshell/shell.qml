@@ -1,4 +1,5 @@
 import Quickshell
+import Quickshell.Io
 import "." 1.0
 import "modules/sidebar"
 import "modules/bar"
