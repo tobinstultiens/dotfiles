@@ -2,6 +2,9 @@ pragma Singleton
 import QtQuick
 
 QtObject {
+    // Shared layout values
+    readonly property int pillHeight: 34
+
     // Catppuccin Mocha palette
     readonly property color base:     "#1e1e2e"
     readonly property color mantle:   "#181825"

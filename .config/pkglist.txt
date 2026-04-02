@@ -11,6 +11,8 @@ bizhawk-bin
 blueman
 bluez-utils
 bolt-launcher
+boost
+botan2-debug
 brightnessctl
 chaotic-keyring
 chaotic-mirrorlist
@@ -34,7 +36,6 @@ ethtool
 eww
 fastfetch
 feh
-feishin-bin
 firefox
 flameshot
 foot
@@ -82,6 +83,8 @@ krita
 kvantum
 lact
 lf
+lib32-librtmp0-debug
+lib32-openssl-1.1-debug
 libreoffice-fresh
 linux
 linux-firmware
@@ -123,6 +126,7 @@ python-image-go-nord
 python-passlib
 python-pygments
 python-pyserial
+python-sphinx
 qmk
 qt6-3d
 qt6-canvaspainter
