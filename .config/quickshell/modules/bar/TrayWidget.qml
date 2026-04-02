@@ -19,6 +19,7 @@ Item {
             model: SystemTray.items
 
             delegate: Item {
+                id: delegateItem
                 required property SystemTrayItem modelData
                 property SystemTrayItem item: modelData
 
@@ -27,9 +28,19 @@ Item {
                 anchors.verticalCenter: parent.verticalCenter
 
                 IconImage {
+                    id: trayIcon
                     anchors.fill: parent
-                    source: parent.item.icon
+                    source: delegateItem.item.icon
                     implicitSize: 16
+                }
+
+                QsMenuAnchor {
+                    id: menuAnchor
+                    menu: delegateItem.item.menu
+                    anchor.window: root.barWindow
+                    anchor.item: trayIcon
+                    anchor.edges: Edges.Bottom
+                    anchor.gravity: Edges.Bottom
                 }
 
                 MouseArea {
@@ -37,13 +48,9 @@ Item {
                     acceptedButtons: Qt.LeftButton | Qt.RightButton
                     onClicked: mouse => {
                         if (mouse.button === Qt.LeftButton) {
-                            parent.item.activate()
+                            delegateItem.item.activate()
                         } else {
-                            parent.item.display(
-                                root.barWindow,
-                                mapToItem(null, mouse.x, 0).x,
-                                root.barWindow.implicitHeight
-                            )
+                            menuAnchor.open()
                         }
                     }
                 }
