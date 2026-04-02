@@ -1,0 +1,3 @@
+module Qs
+singleton Colors 1.0 ../Colors.qml
+singleton SystemInfo 1.0 ../services/SystemInfo.qml

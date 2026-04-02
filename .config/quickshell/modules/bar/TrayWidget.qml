@@ -2,7 +2,7 @@ import Quickshell
 import Quickshell.Services.SystemTray
 import Quickshell.Widgets
 import QtQuick
-import "../.." 1.0
+import Qs
 
 Item {
     id: root

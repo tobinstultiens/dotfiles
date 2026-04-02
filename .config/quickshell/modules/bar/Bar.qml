@@ -2,7 +2,7 @@ import Quickshell
 import Quickshell.Wayland
 import QtQuick
 import QtQuick.Layouts
-import "../.." 1.0
+import Qs
 
 PanelWindow {
     id: root

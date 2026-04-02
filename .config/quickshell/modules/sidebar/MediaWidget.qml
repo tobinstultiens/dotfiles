@@ -1,7 +1,7 @@
 import Quickshell.Services.Mpris
 import QtQuick
 import QtQuick.Layouts
-import "../.." 1.0
+import Qs
 
 Item {
     id: root

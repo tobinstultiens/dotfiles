@@ -2,7 +2,7 @@ import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Widgets
 import QtQuick
-import "../.." 1.0
+import Qs
 
 Item {
     id: root
