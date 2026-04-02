@@ -11,13 +11,10 @@ Item {
         width: parent.width
         spacing: 6
 
-        Text {
-            text: "SYSTEM"
-            font.pixelSize: 10
-            font.weight: Font.Medium
-            color: Colors.overlay1
-            leftPadding: 2
-            bottomPadding: 2
+        SectionHeader {
+            width: parent.width
+            label: "SYSTEM"
+            accent: Colors.blue
         }
 
         StatRow {

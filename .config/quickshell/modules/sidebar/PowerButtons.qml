@@ -32,12 +32,10 @@ Item {
         width: parent.width
         spacing: 8
 
-        Text {
-            text: "SESSION"
-            font.pixelSize: 10
-            font.weight: Font.Medium
-            color: Colors.overlay1
-            leftPadding: 2
+        SectionHeader {
+            width: parent.width
+            label: "SESSION"
+            accent: Colors.red
         }
 
         // Normal button grid

@@ -10,7 +10,7 @@ Item {
     property var now: new Date()
 
     SystemClock {
-        precision: SystemClock.Minutes
+        precision: SystemClock.Seconds
         onDateChanged: root.now = new Date()
     }
 
@@ -31,13 +31,25 @@ Item {
         spacing: 4
 
         // Large clock
-        Text {
-            width: parent.width
-            horizontalAlignment: Text.AlignHCenter
-            text: Qt.formatDateTime(root.now, "HH:mm")
-            font.pixelSize: 64
-            font.weight: Font.Light
-            color: Colors.text
+        Row {
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            Text {
+                text: Qt.formatDateTime(root.now, "HH:mm")
+                font.pixelSize: 64
+                font.weight: Font.Light
+                color: Colors.text
+                anchors.bottom: parent.bottom
+            }
+
+            Text {
+                text: Qt.formatDateTime(root.now, ":ss")
+                font.pixelSize: 36
+                font.weight: Font.Light
+                color: Colors.subtext0
+                anchors.bottom: parent.bottom
+                bottomPadding: 6
+            }
         }
 
         // Date line

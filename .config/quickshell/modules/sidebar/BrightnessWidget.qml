@@ -59,12 +59,10 @@ Item {
         width: parent.width
         spacing: 8
 
-        Text {
-            text: "BRIGHTNESS"
-            font.pixelSize: 10
-            font.weight: Font.Medium
-            color: Colors.overlay1
-            leftPadding: 2
+        SectionHeader {
+            width: parent.width
+            label: "BRIGHTNESS"
+            accent: Colors.yellow
         }
 
         Rectangle {

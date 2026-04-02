@@ -1,7 +1,6 @@
 import Quickshell
 import Quickshell.Wayland
 import QtQuick
-import QtQuick.Controls
 import "../.." 1.0
 
 PanelWindow {
@@ -20,7 +19,7 @@ PanelWindow {
         repeat: false
     }
 
-    implicitWidth: 300
+    implicitWidth: 400
 
     anchors {
         right: true
@@ -61,7 +60,8 @@ PanelWindow {
             color: Colors.surface1
         }
 
-        Flickable {
+        Column {
+            id: content
             anchors {
                 top: parent.top
                 left: parent.left
@@ -71,48 +71,33 @@ PanelWindow {
                 leftMargin: 14
                 rightMargin: 14
             }
-            contentHeight: content.implicitHeight
-            clip: true
-            ScrollBar.vertical: ScrollBar { policy: ScrollBar.AsNeeded }
+            spacing: 16
 
-            Column {
-                id: content
+            ClockCalendar {
                 width: parent.width
-                spacing: 16
-
-                ClockCalendar {
-                    width: parent.width
-                }
-
-                SystemStats {
-                    width: parent.width
-                }
-
-                NetworkWidget {
-                    width: parent.width
-                    active: root.open
-                }
-
-                BrightnessWidget {
-                    width: parent.width
-                    active: root.open
-                }
-
-                MediaWidget {
-                    width: parent.width
-                }
-
-                BatteryWidget {
-                    width: parent.width
-                }
             }
-        }
 
-        // Divider + pinned session buttons
-        Rectangle {
-            anchors { left: parent.left; right: parent.right; bottom: footer.top }
-            height: 1
-            color: Colors.surface1
+            SystemStats {
+                width: parent.width
+            }
+
+            NetworkWidget {
+                width: parent.width
+                active: root.open
+            }
+
+            BrightnessWidget {
+                width: parent.width
+                active: root.open
+            }
+
+            MediaWidget {
+                width: parent.width
+            }
+
+            BatteryWidget {
+                width: parent.width
+            }
         }
 
         Item {

@@ -110,13 +110,10 @@ Item {
         width: parent.width
         spacing: 0
 
-        Text {
-            text: "NETWORK"
-            font.pixelSize: 10
-            font.weight: Font.Medium
-            color: Colors.overlay1
-            leftPadding: 2
-            bottomPadding: 8
+        SectionHeader {
+            width: parent.width
+            label: "NETWORK"
+            accent: Colors.green
         }
 
         Rectangle {

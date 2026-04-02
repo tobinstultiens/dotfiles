@@ -10,6 +10,14 @@ Item {
     implicitHeight: parent.height
     implicitWidth: trayRow.implicitWidth
 
+    function resolveIcon(raw) {
+        if (raw === "image://icon/drive-removable-media")
+            return "file:///usr/share/icons/AdwaitaLegacy/32x32/devices/drive-removable-media.png"
+        if (raw.includes("spotify-linux-"))
+            return "file:///opt/spotify/icons/spotify-linux-32.png"
+        return raw
+    }
+
     Row {
         id: trayRow
         anchors.verticalCenter: parent.verticalCenter
@@ -30,7 +38,7 @@ Item {
                 IconImage {
                     id: trayIcon
                     anchors.fill: parent
-                    source: delegateItem.item.icon
+                    source: root.resolveIcon(delegateItem.item.icon)
                     implicitSize: 16
                 }
 
