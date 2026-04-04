@@ -8,9 +8,23 @@ Item {
 
     readonly property MprisPlayer player: {
         const players = Mpris.players.values
+        let spotify = null
+        let spotifyPlaying = null
+        let anyPlaying = null
         for (let i = 0; i < players.length; i++) {
-            if (players[i].isPlaying) return players[i]
+            const p = players[i]
+            const isSpotify = p.identity && p.identity.toLowerCase().includes("spotify")
+            if (isSpotify) {
+                if (!spotify) spotify = p
+                if (p.isPlaying) spotifyPlaying = p
+            } else if (p.isPlaying && !anyPlaying) {
+                anyPlaying = p
+            }
         }
+        // Priority: Spotify playing → any playing → Spotify paused → any player
+        if (spotifyPlaying) return spotifyPlaying
+        if (anyPlaying) return anyPlaying
+        if (spotify) return spotify
         return players.length > 0 ? players[0] : null
     }
 

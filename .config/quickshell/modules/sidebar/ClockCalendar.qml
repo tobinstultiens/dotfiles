@@ -105,28 +105,68 @@ Item {
             // Leading blank cells
             Repeater {
                 model: root.firstDow
-                delegate: Item { width: calGrid.width / 7; height: 28 }
+                delegate: Item { width: calGrid.width / 7; height: 34 }
             }
 
             // Day cells
             Repeater {
                 model: root.daysInMonth
                 delegate: Item {
+                    id: dayCell
                     width: calGrid.width / 7
-                    height: 28
+                    height: 34
 
+                    readonly property string dateStr:
+                        Qt.formatDate(new Date(root.calYear, root.calMonth, index + 1), "yyyy-MM-dd")
+                    readonly property bool isToday:    (index + 1 === root.today)
+                    readonly property bool isSelected: (dateStr === TodoService.selectedDate)
+                    readonly property bool hasTodos: {
+                        var _r = TodoService._revision  // reactive dep
+                        return TodoService.hasTodosForDate(dateStr)
+                    }
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: TodoService.selectedDate = dayCell.dateStr
+                    }
+
+                    // Selected-date ring (behind the fill circle)
                     Rectangle {
-                        anchors.centerIn: parent
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.top: parent.top
+                        anchors.topMargin: 1
+                        width: 26; height: 26; radius: 13
+                        color: "transparent"
+                        border.color: dayCell.isSelected ? Colors.peach : "transparent"
+                        border.width: 1.5
+                        Behavior on border.color { ColorAnimation { duration: 120 } }
+                    }
+
+                    // Day fill circle
+                    Rectangle {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.top: parent.top
+                        anchors.topMargin: 2
                         width: 24; height: 24; radius: 12
-                        color: (index + 1 === root.today) ? Colors.blue : "transparent"
+                        color: dayCell.isToday ? Colors.blue : "transparent"
 
                         Text {
                             anchors.centerIn: parent
                             text: index + 1
                             font.pixelSize: 11
-                            color: (index + 1 === root.today) ? Colors.base : Colors.text
-                            font.weight: (index + 1 === root.today) ? Font.Bold : Font.Normal
+                            color: dayCell.isToday ? Colors.base : Colors.text
+                            font.weight: dayCell.isToday ? Font.Bold : Font.Normal
                         }
+                    }
+
+                    // Todo dot
+                    Rectangle {
+                        visible: dayCell.hasTodos
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.bottom: parent.bottom
+                        anchors.bottomMargin: 2
+                        width: 4; height: 4; radius: 2
+                        color: Colors.peach
                     }
                 }
             }

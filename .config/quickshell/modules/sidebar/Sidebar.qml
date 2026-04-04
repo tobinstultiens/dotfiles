@@ -77,6 +77,10 @@ PanelWindow {
                 width: parent.width
             }
 
+            TodoWidget {
+                width: parent.width
+            }
+
             SystemStats {
                 width: parent.width
             }
@@ -96,6 +100,10 @@ PanelWindow {
             }
 
             BatteryWidget {
+                width: parent.width
+            }
+
+            NotesWidget {
                 width: parent.width
             }
         }

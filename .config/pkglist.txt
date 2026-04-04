@@ -12,7 +12,6 @@ blueman
 bluez-utils
 bolt-launcher
 boost
-botan2-debug
 brightnessctl
 chaotic-keyring
 chaotic-mirrorlist
@@ -56,11 +55,11 @@ htop
 hugo
 hyprcursor-git
 hyprgraphics-git
-hypridle
+hypridle-git
 hyprland-guiutils-git
 hyprland-protocols
 hyprlang-git
-hyprlock
+hyprlock-git
 hyprpicker
 hyprpolkitagent
 hyprshot
@@ -83,8 +82,6 @@ krita
 kvantum
 lact
 lf
-lib32-librtmp0-debug
-lib32-openssl-1.1-debug
 libreoffice-fresh
 linux
 linux-firmware

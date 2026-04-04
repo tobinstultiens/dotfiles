@@ -8,9 +8,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 qs 2>&1 &
+QS_PID=$!
 sleep 4
-kill %1
-wait
+kill $QS_PID
+wait $QS_PID 2>/dev/null
 ```
 
 Look for `ERROR` lines in the output — a failed load prints `Failed to load configuration` and a cause chain. Fix all errors before finishing. Hot-reload handles most edits automatically, but `//@ pragma UseQApplication` and `qmldir` changes require a full restart.
