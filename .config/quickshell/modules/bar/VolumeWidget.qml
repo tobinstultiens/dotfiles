@@ -9,7 +9,9 @@ Item {
 
     readonly property PwNode sink: Pipewire.defaultAudioSink
     readonly property bool   muted:  sink && sink.audio ? sink.audio.muted  : false
-    readonly property real   volume: sink && sink.audio ? (sink.audio.volume || 0.0) : 0.0
+    readonly property real   volume: sink && sink.audio ? sink.audio.volume : 0.0
+
+    PwObjectTracker { objects: sink ? [sink] : [] }
 
     Rectangle {
         id: pill

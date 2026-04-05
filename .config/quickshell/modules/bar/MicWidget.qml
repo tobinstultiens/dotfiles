@@ -5,11 +5,14 @@ import Qs
 Item {
     id: root
     implicitHeight: parent.height
-    implicitWidth: pill.implicitWidth
+    implicitWidth: visible ? pill.implicitWidth : 0
+    visible: source !== null
 
     readonly property PwNode source: Pipewire.defaultAudioSource
     readonly property bool   muted:  source && source.audio ? source.audio.muted  : false
-    readonly property real   volume: source && source.audio ? (source.audio.volume || 0.0) : 0.0
+    readonly property real   volume: source && source.audio ? source.audio.volume : 0.0
+
+    PwObjectTracker { objects: source ? [source] : [] }
 
     Rectangle {
         id: pill
