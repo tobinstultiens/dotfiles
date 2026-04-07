@@ -26,6 +26,7 @@ dmenu
 dmidecode
 docker
 docker-buildx
+docker-compose
 dotnet-sdk-8.0
 dotnet-sdk-bin
 dragon-drop-git
