@@ -201,6 +201,7 @@ wine
 wine-ge-custom-bin-opt
 wine-mono
 winetricks
+wireguard-tools
 wireless_tools
 wlopm
 wlrctl
