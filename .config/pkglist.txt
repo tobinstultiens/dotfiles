@@ -48,6 +48,8 @@ ghcup-hs-bin
 git
 git-delta
 github-cli
+gitmux
+gitmux-debug
 glaze
 google-chrome
 gparted

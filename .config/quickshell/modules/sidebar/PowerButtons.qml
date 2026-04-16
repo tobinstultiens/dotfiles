@@ -21,10 +21,13 @@ Item {
         root.pendingAction = cmd
     }
 
+    signal executed()
+
     function execute(cmd) {
         root.pendingAction = ""
         actionProc.cmd = cmd
         actionProc.running = true
+        root.executed()
     }
 
     Column {
@@ -63,10 +66,10 @@ Item {
             }
             PowerBtn {
                 Layout.fillWidth: true
-                label: "Logout"
-                icon: "󰍃"
+                label: "Sleep"
+                icon: "󰒲"
                 btnColor: Colors.yellow
-                onTap: root.confirm("hyprctl dispatch exit 0")
+                onTap: root.execute("systemctl suspend")
             }
             PowerBtn {
                 Layout.fillWidth: true

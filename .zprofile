@@ -21,10 +21,14 @@ export TERMINAL="st"
 export BROWSER="firefox"
 export READER="zathura"
 
-# Set browser
+# Set browser (one-time setup)
 BROWSER_DESKTOP="firefox.desktop"
-xdg-mime default $BROWSER_DESKTOP x-scheme-handler/http
-xdg-mime default $BROWSER_DESKTOP x-scheme-handler/https
+if [[ "$(xdg-mime query default x-scheme-handler/http)" != "$BROWSER_DESKTOP" ]]; then
+    xdg-mime default $BROWSER_DESKTOP x-scheme-handler/http
+fi
+if [[ "$(xdg-mime query default x-scheme-handler/https)" != "$BROWSER_DESKTOP" ]]; then
+    xdg-mime default $BROWSER_DESKTOP x-scheme-handler/https
+fi
 
 # This is the list for lf icons:
 export LF_ICONS="\

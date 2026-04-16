@@ -9,6 +9,9 @@ PanelWindow {
 
     required screen
 
+    // Shared state object passed in from shell.qml
+    property QtObject powerMenuState: null
+
     implicitHeight: 44
 
     anchors {
@@ -22,7 +25,7 @@ PanelWindow {
 
     color: "transparent"
 
-    // WindowTitle anchored to true screen center, outside the RowLayout
+    // WindowTitle anchored to the fixed bar height
     WindowTitle {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
@@ -90,7 +93,7 @@ PanelWindow {
                 // CPU pill
                 Pill {
                     height: root.height
-                    icon: ""
+                    icon: ""
                     iconColor: Colors.blue
                     value: SystemInfo ? Math.round(SystemInfo.cpuPercent) + "%" : "—%"
                 }
@@ -134,6 +137,44 @@ PanelWindow {
                             anchors.centerIn: parent
                             height: parent.height
                             barWindow: root
+                        }
+                    }
+                }
+
+                // Power menu toggle pill
+                Item {
+                    height: root.height
+                    implicitWidth: powerPillRect.implicitWidth
+
+                    readonly property bool menuOpen: root.powerMenuState ? root.powerMenuState.open : false
+
+                    Rectangle {
+                        id: powerPillRect
+                        anchors.verticalCenter: parent.verticalCenter
+                        implicitWidth: powerPillIcon.implicitWidth + 24
+                        height: Colors.pillHeight
+                        radius: 8
+                        color: parent.menuOpen
+                               ? Qt.rgba(Colors.red.r, Colors.red.g, Colors.red.b, 0.2)
+                               : Colors.surface0
+                        Behavior on color { ColorAnimation { duration: 120 } }
+
+                        Text {
+                            id: powerPillIcon
+                            anchors.centerIn: parent
+                            text: "󰐥"
+                            font.family: "JetBrainsMono Nerd Font"
+                            font.pixelSize: 16
+                            color: parent.parent.menuOpen ? Colors.red : Colors.subtext0
+                            Behavior on color { ColorAnimation { duration: 120 } }
+                        }
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                if (root.powerMenuState)
+                                    root.powerMenuState.open = !root.powerMenuState.open
+                            }
                         }
                     }
                 }

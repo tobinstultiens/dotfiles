@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+session="$1"
+window="$2"
+target="${session}:${window}"
+
+layout=$(printf "dev\nfocus\nsplit" | fzf --prompt="workspace> " \
+    --preview="printf '%s' '{1}' | grep -q dev   && echo '┌──────────┬──────────┐\n│          │  term 2  │\n│  term 1  ├──────────┤\n│          │  term 3  │\n└──────────┴──────────┘'
+             printf '%s' '{1}' | grep -q focus  && echo '┌─────────────────────┐\n│                     │\n│       term 1        │\n│                     │\n└─────────────────────┘'
+             printf '%s' '{1}' | grep -q split  && echo '┌──────────┬──────────┐\n│          │          │\n│  term 1  │  term 2  │\n│          │          │\n└──────────┴──────────┘'")
+
+if [[ -z $layout ]]; then
+    exit 0
+fi
+
+pane_count=$(tmux list-panes -t "$target" | wc -l)
+
+case "$layout" in
+    dev)
+        # Target: 3 panes — left + two stacked right
+        # Do nothing if already at or above target
+        [[ $pane_count -ge 3 ]] && exit 0
+        if [[ $pane_count -eq 1 ]]; then
+            tmux split-window -h -t "${target}.1"
+        fi
+        tmux split-window -v -t "${target}.2"
+        tmux select-pane -t "${target}.1"
+        ;;
+    split)
+        # Target: 2 panes side by side
+        [[ $pane_count -ge 2 ]] && exit 0
+        tmux split-window -h -t "${target}.1"
+        tmux select-pane -t "${target}.1"
+        ;;
+    focus)
+        # Kill all panes except the active one
+        tmux list-panes -t "$target" -F "#{pane_id} #{pane_active}" | awk '$2==0{print $1}' | xargs -I{} tmux kill-pane -t {}
+        ;;
+esac
