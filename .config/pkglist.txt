@@ -49,7 +49,6 @@ git
 git-delta
 github-cli
 gitmux
-gitmux-debug
 glaze
 google-chrome
 gparted
@@ -196,7 +195,7 @@ vial-appimage
 vifm
 vim
 waybar
-web-os-dev-manager-bin
+webos-dev-manager-bin
 wget
 whatsdesk-bin
 wine
