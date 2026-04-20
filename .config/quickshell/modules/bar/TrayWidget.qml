@@ -24,7 +24,24 @@ Item {
         spacing: 8
 
         Repeater {
+            id: trayRepeater
             model: SystemTray.items
+
+            Connections {
+                target: SystemTray
+                function onItemRegistered(item) {
+                    Qt.callLater(function() {
+                        trayRepeater.model = null
+                        trayRepeater.model = SystemTray.items
+                    })
+                }
+                function onItemUnregistered(item) {
+                    Qt.callLater(function() {
+                        trayRepeater.model = null
+                        trayRepeater.model = SystemTray.items
+                    })
+                }
+            }
 
             delegate: Item {
                 id: delegateItem
