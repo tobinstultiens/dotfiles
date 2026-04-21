@@ -119,6 +119,7 @@ pipewire-alsa
 pipewire-audio
 pipewire-pulse
 playerctl
+pnpm
 protonplus
 pulsemixer
 python-image-go-nord
@@ -167,6 +168,7 @@ rust
 sddm
 signal-desktop
 smartmontools
+socat
 solaar
 spotify
 sshfs
@@ -189,6 +191,7 @@ udiskie
 umu-launcher
 unigine-heaven
 usbutils
+uv
 ventoy-bin
 vesktop
 vial-appimage

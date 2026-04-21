@@ -25,27 +25,11 @@ Item {
 
         Repeater {
             id: trayRepeater
-            model: SystemTray.items
-
-            Connections {
-                target: SystemTray
-                function onItemRegistered(item) {
-                    Qt.callLater(function() {
-                        trayRepeater.model = null
-                        trayRepeater.model = SystemTray.items
-                    })
-                }
-                function onItemUnregistered(item) {
-                    Qt.callLater(function() {
-                        trayRepeater.model = null
-                        trayRepeater.model = SystemTray.items
-                    })
-                }
-            }
+            model: SystemTray.items.values
 
             delegate: Item {
                 id: delegateItem
-                required property SystemTrayItem modelData
+                required property var modelData
                 property SystemTrayItem item: modelData
 
                 width: 20
