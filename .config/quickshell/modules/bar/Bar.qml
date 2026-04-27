@@ -93,8 +93,17 @@ PanelWindow {
                 // CPU pill
                 Pill {
                     height: root.height
-                    icon: ""
-                    iconColor: Colors.blue
+                    icon: {
+                        const p = SystemInfo ? SystemInfo.cpuPercent : 0
+                        if (p >= 80) return "󰻘"
+                        return "󰘚"
+                    }
+                    iconColor: {
+                        const p = SystemInfo ? SystemInfo.cpuPercent : 0
+                        if (p >= 80) return Colors.red
+                        if (p >= 40) return Colors.yellow
+                        return Colors.blue
+                    }
                     value: SystemInfo ? Math.round(SystemInfo.cpuPercent) + "%" : "—%"
                 }
 

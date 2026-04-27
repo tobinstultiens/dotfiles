@@ -36,11 +36,12 @@ Item {
                 height: 20
                 anchors.verticalCenter: parent.verticalCenter
 
-                IconImage {
+                Image {
                     id: trayIcon
                     anchors.fill: parent
                     source: root.resolveIcon(delegateItem.item.icon)
-                    implicitSize: 16
+                    sourceSize: Qt.size(16, 16)
+                    fillMode: Image.PreserveAspectFit
                 }
 
                 QsMenuAnchor {

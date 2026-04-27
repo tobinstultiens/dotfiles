@@ -1,6 +1,7 @@
 import Quickshell.Services.Mpris
 import QtQuick
 import Qs
+import "../.." 1.0
 
 Item {
     id: root
@@ -45,20 +46,33 @@ Item {
     Rectangle {
         id: pill
         anchors.verticalCenter: parent.verticalCenter
-        implicitWidth: label.implicitWidth + 20
+        implicitWidth: content.implicitWidth + 20
         height: Colors.pillHeight
         radius: 10
         color: root.playing ? "#1DB954" : Colors.surface0
 
         Behavior on color { ColorAnimation { duration: 200 } }
+        Behavior on implicitWidth { NumberAnimation { duration: 200 } }
 
-        Text {
-            id: label
+        Row {
+            id: content
             anchors.centerIn: parent
-            text: root.playerIcon(root.player) + "  " + root.trackText(root.player)
-            font.pixelSize: 13
-            font.family: "JetBrainsMono Nerd Font"
-            color: root.playing ? "#1f1f28" : Colors.text
+            spacing: 8
+
+            Text {
+                id: label
+                anchors.verticalCenter: parent.verticalCenter
+                text: root.playerIcon(root.player) + "  " + root.trackText(root.player)
+                font.pixelSize: 13
+                font.family: "JetBrainsMono Nerd Font"
+                color: root.playing ? "#1f1f28" : Colors.text
+            }
+
+            EqualizerBars {
+                anchors.verticalCenter: parent.verticalCenter
+                playing: root.playing
+                barColor: "#1f1f28"
+            }
         }
     }
 }

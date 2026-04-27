@@ -19,15 +19,27 @@ Item {
 
         StatRow {
             width: parent.width
-            label: "CPU"
+            icon: SystemInfo.cpuPercent >= 80 ? "󰻘" : "󰘚"
+            iconColor: {
+                const p = SystemInfo.cpuPercent
+                if (p >= 80) return Colors.red
+                if (p >= 40) return Colors.yellow
+                return Colors.blue
+            }
             value: Math.round(SystemInfo.cpuPercent) + "%"
             percent: SystemInfo.cpuPercent
-            barColor: Colors.blue
+            barColor: {
+                const p = SystemInfo.cpuPercent
+                if (p >= 80) return Colors.red
+                if (p >= 40) return Colors.yellow
+                return Colors.blue
+            }
         }
 
         StatRow {
             width: parent.width
-            label: "RAM"
+            icon: "󰍛"
+            iconColor: Colors.mauve
             value: SystemInfo.ramUsedGb.toFixed(1) + " / " + SystemInfo.ramTotalGb.toFixed(1) + " GB"
             percent: SystemInfo.ramPercent
             barColor: Colors.mauve
@@ -35,7 +47,8 @@ Item {
 
         StatRow {
             width: parent.width
-            label: "Disk"
+            icon: "󱛟"
+            iconColor: Colors.peach
             value: SystemInfo.diskUsed + " / " + SystemInfo.diskTotal
             percent: SystemInfo.diskPercent
             barColor: Colors.peach
@@ -43,7 +56,8 @@ Item {
 
         StatRow {
             width: parent.width
-            label: "Up"
+            icon: "󰔛"
+            iconColor: Colors.teal
             value: SystemInfo.uptime
             percent: -1
             barColor: "transparent"
@@ -51,10 +65,11 @@ Item {
     }
 
     component StatRow: Item {
-        required property string label
         required property string value
         required property real   percent
         required property color  barColor
+        property string icon: ""
+        property color iconColor: Colors.overlay1
 
         implicitHeight: 38
 
@@ -67,10 +82,12 @@ Item {
         Text {
             id: lbl
             anchors { left: parent.left; leftMargin: 10; verticalCenter: parent.verticalCenter }
-            text: parent.label
-            font.pixelSize: 11
-            color: Colors.subtext0
-            width: 30
+            text: parent.icon
+            font.pixelSize: 15
+            font.family: "JetBrainsMono Nerd Font"
+            color: parent.iconColor
+            width: 24
+            horizontalAlignment: Text.AlignHCenter
         }
 
         Rectangle {

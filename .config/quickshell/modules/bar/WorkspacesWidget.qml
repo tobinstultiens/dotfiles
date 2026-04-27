@@ -13,19 +13,26 @@ Item {
     function appIcon(cls) {
         const c = (cls || "").toLowerCase()
         if (c.includes("code"))                return "\u{F0A1E}"
-        if (c.includes("rider"))               return "\uE88F"
-        if (c.includes("nvim") || c.includes("vim")) return "\uE6AE"
-        if (c.includes("tmux") || c === "sh" || c === "bash" || c === "zsh") return "\uE6AE"
-        if (c.includes("st-") || c === "st")   return "\uE795"
-        if (c.includes("discord") || c.includes("vesktop")) return "\uF1FF"
-        if (c.includes("whatsdesk"))           return "\uF232"
-        if (c.includes("steam"))               return "\uF1B6"
+        if (c.includes("rider"))               return ""
+        if (c.includes("nvim") || c.includes("vim")) return ""
+        if (c.includes("tmux") || c === "sh" || c === "bash" || c === "zsh") return ""
+        if (c.includes("st-") || c === "st")   return ""
+        if (c.includes("discord") || c.includes("vesktop")) return ""
+        if (c.includes("whatsdesk"))           return ""
+        if (c.includes("steam"))               return ""
         if (c.includes("hearthstone"))         return "\u{F0EB7}"
-        if (c.includes("thunderbird"))         return "\uF370"
-        if (c.includes("spotify"))             return "\uF1BC"
-        if (c.includes("jellyfin"))            return "\uF36E"
-        if (c.includes("firefox"))             return "\uF269"
-        return "\uF2D0"
+        if (c.includes("thunderbird"))         return ""
+        if (c.includes("spotify"))             return ""
+        if (c.includes("jellyfin"))            return ""
+        if (c.includes("firefox"))             return ""
+        return ""
+    }
+
+    function wsColor(id) {
+        const palette = [Colors.blue, Colors.mauve, Colors.green, Colors.peach,
+                         Colors.red, Colors.yellow, Colors.teal, Colors.sapphire,
+                         Colors.lavender, Colors.pink]
+        return palette[(id - 1) % palette.length]
     }
 
     Row {
@@ -40,73 +47,72 @@ Item {
                 required property HyprlandWorkspace modelData
                 property HyprlandWorkspace ws: modelData
 
-                // Only show workspaces on this screen's monitor
                 visible: ws.monitor && ws.monitor.name === root.barScreen.name
 
                 height: Colors.pillHeight
-                implicitWidth: Math.max(32, wsContent.implicitWidth + 16)
+                implicitWidth: Math.max(36, iconRow.implicitWidth + 20) + focusBoost
                 radius: 8
                 color: ws.focused ? Colors.surface1 : Colors.surface0
 
+                property real focusBoost: ws.focused ? 14 : 0
+                Behavior on focusBoost { NumberAnimation { duration: 150; easing.type: Easing.OutCubic } }
                 Behavior on color { ColorAnimation { duration: 120 } }
 
-                // Workspace number (top) + window icons (bottom)
-                Column {
-                    id: wsContent
+                // Window icons, centered in the pill
+                Row {
+                    id: iconRow
                     anchors.centerIn: parent
-                    spacing: 2
+                    spacing: 3
 
-                    Text {
-                        text: ws.id
-                        font.pixelSize: 10
-                        color: ws.focused ? Colors.text : Colors.overlay1
-                        anchors.horizontalCenter: parent.horizontalCenter
-                    }
+                    Repeater {
+                        id: iconRepeater
+                        model: Hyprland.toplevels.values.filter(
+                                   t => t.workspace && t.workspace.id === ws.id)
+                        delegate: Item {
+                            required property HyprlandToplevel modelData
 
-                    // Window icons row — hidden when workspace is empty
-                    Row {
-                        id: iconRow
-                        spacing: 2
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        visible: iconRepeater.count > 0
+                            property string appClass: (modelData.lastIpcObject && modelData.lastIpcObject["class"])
+                                                      || modelData.appId || ""
+                            property string iconSrc: {
+                                const p = Quickshell.iconPath(appClass, true)
+                                if (p !== "") return p
+                                return Quickshell.iconPath(appClass.toLowerCase(), true)
+                            }
 
-                        Repeater {
-                            id: iconRepeater
-                            model: Hyprland.toplevels.values.filter(
-                                       t => t.workspace && t.workspace.id === ws.id)
-                            delegate: Item {
-                                required property HyprlandToplevel modelData
+                            width: 16
+                            height: 16
 
-                                property string appClass: (modelData.lastIpcObject && modelData.lastIpcObject["class"])
-                                                          || modelData.appId || ""
-                                property string iconSrc: {
-                                    const p = Quickshell.iconPath(appClass, true)
-                                    if (p !== "") return p
-                                    return Quickshell.iconPath(appClass.toLowerCase(), true)
-                                }
+                            IconImage {
+                                id: iconImg
+                                anchors.fill: parent
+                                implicitSize: 16
+                                source: parent.iconSrc
+                                visible: parent.iconSrc !== "" && status === Image.Ready
+                            }
 
-                                width: 16
-                                height: 16
-
-                                IconImage {
-                                    id: iconImg
-                                    anchors.fill: parent
-                                    implicitSize: 16
-                                    source: parent.iconSrc
-                                    visible: parent.iconSrc !== "" && status === Image.Ready
-                                }
-
-                                Text {
-                                    anchors.centerIn: parent
-                                    text: root.appIcon(parent.appClass)
-                                    font.family: "JetBrainsMono Nerd Font"
-                                    font.pixelSize: 14
-                                    color: Colors.subtext0
-                                    visible: parent.iconSrc === "" || iconImg.status !== Image.Ready
-                                }
+                            Text {
+                                anchors.centerIn: parent
+                                text: root.appIcon(parent.appClass)
+                                font.family: "JetBrainsMono Nerd Font"
+                                font.pixelSize: 14
+                                color: Colors.text
+                                visible: parent.iconSrc === "" || iconImg.status !== Image.Ready
                             }
                         }
                     }
+                }
+
+                // Colored accent bar — unique per workspace ID, dims when unfocused
+                Rectangle {
+                    anchors.bottom: parent.bottom
+                    anchors.bottomMargin: 4
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    width: parent.width - 12
+                    height: 2
+                    radius: 1
+                    color: root.wsColor(ws.id)
+                    opacity: ws.focused ? 1.0 : 0.35
+                    Behavior on opacity { NumberAnimation { duration: 120 } }
                 }
 
                 MouseArea {

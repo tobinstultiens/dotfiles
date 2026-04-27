@@ -2,6 +2,7 @@ import Quickshell.Services.Mpris
 import QtQuick
 import QtQuick.Layouts
 import Qs
+import "../.." 1.0
 
 Item {
     id: root
@@ -28,6 +29,12 @@ Item {
         return players.length > 0 ? players[0] : null
     }
 
+    readonly property bool isSpotifyPlaying: {
+        const p = root.player
+        return p !== null && p.isPlaying
+            && p.identity && p.identity.toLowerCase().includes("spotify")
+    }
+
     implicitHeight: visible ? col.implicitHeight : 0
     visible: root.player !== null
 
@@ -48,6 +55,10 @@ Item {
             color: Colors.surface0
             radius: 8
             clip: true
+            border.width: 1
+            border.color: Qt.rgba(0x1D/255.0, 0xB9/255.0, 0x54/255.0, borderOpacity)
+            property real borderOpacity: root.isSpotifyPlaying ? 0.55 : 0
+            Behavior on borderOpacity { NumberAnimation { duration: 500 } }
 
             // Album art as subtle background
             Image {
@@ -67,11 +78,21 @@ Item {
                 }
                 spacing: 4
 
-                // Player name
-                Text {
-                    text: root.player ? (root.player.identity || "") : ""
-                    font.pixelSize: 10
-                    color: Colors.overlay1
+                // Player name + animated equalizer when playing
+                Row {
+                    spacing: 6
+
+                    Text {
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: root.player ? (root.player.identity || "") : ""
+                        font.pixelSize: 10
+                        color: Colors.overlay1
+                    }
+
+                    EqualizerBars {
+                        anchors.verticalCenter: parent.verticalCenter
+                        playing: root.player !== null && root.player.isPlaying
+                    }
                 }
 
                 // Track title
