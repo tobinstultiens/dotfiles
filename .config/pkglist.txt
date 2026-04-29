@@ -62,6 +62,7 @@ hyprland-guiutils-git
 hyprland-protocols
 hyprlang-git
 hyprlock-git
+hyprpaper-git
 hyprpicker
 hyprpolkitagent
 hyprshot
