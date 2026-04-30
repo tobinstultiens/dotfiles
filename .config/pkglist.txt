@@ -200,6 +200,7 @@ vifm
 vim
 waybar
 webos-dev-manager-bin
+wf-recorder
 wget
 whatsdesk-bin
 wine

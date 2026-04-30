@@ -4,11 +4,18 @@ import Quickshell.Io
 import QtQuick
 import "modules/sidebar"
 import "modules/bar"
+import "modules/wallpaper"
 
 ShellRoot {
     // Shared state for the bar power menu
     QtObject {
         id: pms
+        property bool open: false
+    }
+
+    // Shared state for the wallpaper picker
+    QtObject {
+        id: wps
         property bool open: false
     }
 
@@ -28,8 +35,30 @@ ShellRoot {
         onCloseRequested: pms.open = false
     }
 
+    // One wallpaper renderer per screen — Layer.Background, dual-image crossfade
+    Variants {
+        model: Quickshell.screens
+        WallpaperBackground {
+            required property var modelData
+            screen: modelData
+        }
+    }
+
+    WallpaperPicker {
+        open: wps.open
+        onCloseRequested: wps.open = false
+    }
+
     Sidebar {
         id: sidebar
+    }
+
+    IpcHandler {
+        target: "wallpaper"
+
+        function toggle(): void { wps.open = !wps.open }
+        function show(): void   { wps.open = true }
+        function hide(): void   { wps.open = false }
     }
 
     IpcHandler {
