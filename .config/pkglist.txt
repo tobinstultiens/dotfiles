@@ -36,6 +36,7 @@ ethtool
 eww
 fastfetch
 feh
+feishin-git
 firefox
 flameshot
 foot

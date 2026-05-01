@@ -21,7 +21,9 @@ PanelWindow {
     onOpenChanged: {
         if (!open) {
             closeTimer.start()
+            restoreWorkspaceProc.running = true
         } else {
+            hideWindowsProc.running = true
             panel.forceActiveFocus()
             monitorDetectProc.running = true
         }
@@ -31,6 +33,18 @@ PanelWindow {
     MouseArea {
         anchors.fill: parent
         onClicked: root.closeRequested()
+    }
+
+    // Switch to an empty workspace so windows don't obscure the wallpaper preview.
+    // Layer-shell surfaces (bar, picker) stay visible across all workspaces.
+    Process {
+        id: hideWindowsProc
+        command: ["hyprctl", "dispatch", "workspace", "empty"]
+    }
+
+    Process {
+        id: restoreWorkspaceProc
+        command: ["hyprctl", "dispatch", "workspace", "previous"]
     }
 
     // ── Detect active monitor on open ──────────────────────────────────────

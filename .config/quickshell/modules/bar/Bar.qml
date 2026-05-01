@@ -9,8 +9,9 @@ PanelWindow {
 
     required screen
 
-    // Shared state object passed in from shell.qml
-    property QtObject powerMenuState: null
+    // Shared state objects passed in from shell.qml
+    property QtObject powerMenuState:  null
+    property QtObject mediaPopupState: null
 
     implicitHeight: 44
 
@@ -53,6 +54,10 @@ PanelWindow {
 
                 BarMediaWidget {
                     height: root.height
+                    onPopupToggled: {
+                        if (root.mediaPopupState)
+                            root.mediaPopupState.open = !root.mediaPopupState.open
+                    }
                 }
             }
 

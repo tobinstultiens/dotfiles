@@ -16,29 +16,9 @@ config add <new-file-path>
 
 ## Testing Changes
 
-**Always test by running `qs` after making changes** and check for errors before reporting done:
+`qs` cannot be run in the Claude Code sandbox (no Wayland compositor). **Do not attempt to test by running `qs`** — ask the user to reload instead, or rely on QML syntax review.
 
-```bash
-qs 2>&1 &
-QS_PID=$!
-sleep 4
-kill $QS_PID
-wait $QS_PID 2>/dev/null
-```
-
-Treat both `ERROR` and `WARN` lines as failures — fix all of them before finishing. A failed config load prints `Failed to load configuration` followed by a cause chain. Hot-reload handles most edits automatically, but `//@ pragma UseQApplication` and `qmldir` changes require a full restart.
-
-**Known ignorable warnings** — these appear in sandbox/non-Hyprland test environments only and do not indicate a config problem:
-
-| Warning text | Cause | Ignore when |
-|---|---|---|
-| `Could not create instance runtime directory` | No running `qs` session to own the runtime dir | Running outside Hyprland |
-| `Could not create id symlink` / `Could not create PID symlink` | Same as above | Running outside Hyprland |
-| `Could not start filesystem logger` | Runtime dir missing (see above) | Running outside Hyprland |
-| `Failed to create wl_display (Operation not permitted)` | No Wayland compositor available | Running outside Hyprland |
-| `Searching custom icon paths is not yet supported. Icon path will be ignored` | QuickShell limitation: tray apps (e.g. udiskie, Spotify) advertise an `IconPath` D-Bus field that QuickShell can't use yet; fires once per such app | Always — unresolvable from QML; `resolveIcon()` in `TrayWidget.qml` manually handles the affected icons as a workaround |
-
-Any other `WARN` line — binding loops, `Cannot read property`, `QML Warning`, `Property ... has no notify signal`, `width`/`height` deprecation on `PanelWindow` — must be fixed. To make Qt abort on the first unexpected warning during development, prefix the command with `QT_FATAL_WARNINGS=1 qs`.
+Hot-reload handles most edits automatically. `//@ pragma UseQApplication` and `qmldir` changes require a full restart (`killall qs && qs &`).
 
 ## Running and Reloading
 

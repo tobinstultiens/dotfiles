@@ -8,16 +8,13 @@ import "modules/wallpaper"
 
 ShellRoot {
     // Shared state for the bar power menu
-    QtObject {
-        id: pms
-        property bool open: false
-    }
+    QtObject { id: pms; property bool open: false }
 
     // Shared state for the wallpaper picker
-    QtObject {
-        id: wps
-        property bool open: false
-    }
+    QtObject { id: wps; property bool open: false }
+
+    // Shared state for the media popup
+    QtObject { id: mps; property bool open: false }
 
     // One bar per screen
     Variants {
@@ -25,7 +22,8 @@ ShellRoot {
         Bar {
             required property var modelData
             screen: modelData
-            powerMenuState: pms
+            powerMenuState:  pms
+            mediaPopupState: mps
         }
     }
 
@@ -33,6 +31,12 @@ ShellRoot {
     BarPowerMenu {
         open: pms.open
         onCloseRequested: pms.open = false
+    }
+
+    // Media player popup
+    BarMediaPopup {
+        open: mps.open
+        onCloseRequested: mps.open = false
     }
 
     // One wallpaper renderer per screen — Layer.Background, dual-image crossfade
