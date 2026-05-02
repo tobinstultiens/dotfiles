@@ -6,16 +6,14 @@ import Qs
 PanelWindow {
     id: root
 
-    // Start hidden; toggled via IPC
     property bool open: false
 
-    // Keep the surface alive during the slide-out animation, then remove it
     visible: open || hideTimer.running
     onOpenChanged: if (!open) hideTimer.start()
 
     Timer {
         id: hideTimer
-        interval: 280   // slightly longer than the 260ms animation
+        interval: 280
         repeat: false
     }
 
@@ -27,15 +25,10 @@ PanelWindow {
         bottom: true
     }
 
-    // Overlay apps — don't shrink window area
     exclusionMode: ExclusionMode.Ignore
-
-    // Allow keyboard/mouse focus inside
     focusable: true
-
     color: "transparent"
 
-    // Slide animation container
     Rectangle {
         id: panel
         anchors {
@@ -46,61 +39,72 @@ PanelWindow {
         width: root.width
         color: Colors.base
 
-        // Slide in from right using an intermediate property
         property real slideX: root.open ? 0 : root.width
         transform: Translate { x: panel.slideX }
         Behavior on slideX {
             NumberAnimation { duration: 260; easing.type: Easing.OutCubic }
         }
 
-        // Subtle left border
         Rectangle {
             anchors { left: parent.left; top: parent.top; bottom: parent.bottom }
             width: 1
             color: Colors.surface1
         }
 
-        Column {
-            id: content
+        // Scrollable content area
+        Flickable {
+            id: scrollArea
             anchors {
-                top: parent.top
-                left: parent.left
-                right: parent.right
-                bottom: footer.top
-                topMargin: 14
-                leftMargin: 14
-                rightMargin: 14
+                top: parent.top; topMargin: 14
+                left: parent.left; leftMargin: 14
+                right: parent.right; rightMargin: 14
+                bottom: footer.top; bottomMargin: 8
             }
-            spacing: 16
+            contentHeight: content.implicitHeight
+            clip: true
 
-            ClockCalendar {
-                width: parent.width
-            }
+            Column {
+                id: content
+                width: scrollArea.width
+                spacing: 16
 
-            SystemStats {
-                width: parent.width
-            }
+                ClockCalendar {
+                    width: parent.width
+                }
 
-            NetworkWidget {
-                width: parent.width
-                active: root.open
-            }
+                SystemStats {
+                    width: parent.width
+                }
 
-            BrightnessWidget {
-                width: parent.width
-                active: root.open
-            }
+                NetworkWidget {
+                    width: parent.width
+                    active: root.open
+                }
 
-            MediaWidget {
-                width: parent.width
-            }
+                BrightnessWidget {
+                    width: parent.width
+                    active: root.open
+                }
 
-            BatteryWidget {
-                width: parent.width
-            }
+                MediaWidget {
+                    width: parent.width
+                }
 
-            NotesWidget {
-                width: parent.width
+                WeatherWidget {
+                    width: parent.width
+                }
+
+                BatteryWidget {
+                    width: parent.width
+                }
+
+                NotifWidget {
+                    width: parent.width
+                }
+
+                NotesWidget {
+                    width: parent.width
+                }
             }
         }
 

@@ -3,6 +3,7 @@ import Quickshell.Wayland
 import QtQuick
 import QtQuick.Layouts
 import Qs
+import "../.." 1.0
 
 PanelWindow {
     id: root
@@ -53,10 +54,13 @@ PanelWindow {
                 }
 
                 BarMediaWidget {
+                    id: mediaWidget
                     height: root.height
                     onPopupToggled: {
-                        if (root.mediaPopupState)
+                        if (root.mediaPopupState) {
+                            root.mediaPopupState.popupX = mediaWidget.mapToItem(null, 0, 0).x
                             root.mediaPopupState.open = !root.mediaPopupState.open
+                        }
                     }
                 }
             }
@@ -68,6 +72,17 @@ PanelWindow {
             Row {
                 spacing: 6
                 Layout.alignment: Qt.AlignVCenter
+
+                // Recording indicator — only visible while recording
+                RecordingPill {
+                    height: root.height
+                    visible: RecorderService.running
+                }
+
+                // VPN indicator
+                VPNPill {
+                    height: root.height
+                }
 
                 UPowerDevice {
                     height: root.height
@@ -266,6 +281,107 @@ PanelWindow {
                 font.pixelSize: 13
                 font.family: "JetBrainsMono Nerd Font"
                 color: Colors.text
+            }
+        }
+    }
+
+    // ── Recording indicator pill ─────────────────────────────────────────
+    component RecordingPill: Item {
+        implicitWidth: recRect.implicitWidth
+        implicitHeight: parent.height
+
+        Rectangle {
+            id: recRect
+            anchors.verticalCenter: parent.verticalCenter
+            implicitWidth: recRow.implicitWidth + 18
+            height: Colors.pillHeight
+            radius: 8
+            color: Colors.surface0
+            border.width: 1
+            border.color: Qt.rgba(Colors.red.r, Colors.red.g, Colors.red.b, 0.5)
+
+            Row {
+                id: recRow
+                anchors.centerIn: parent
+                spacing: 6
+
+                // Pulsing red dot
+                Rectangle {
+                    id: recDot
+                    width: 8; height: 8; radius: 4
+                    anchors.verticalCenter: parent.verticalCenter
+                    color: Colors.red
+                    // Paused: dim; not recording: full; recording: animation overrides
+                    opacity: RecorderService ? (RecorderService.paused ? 0.4 : 1.0) : 1.0
+
+                    SequentialAnimation {
+                        id: dotPulse
+                        running: RecorderService ? (RecorderService.running && !RecorderService.paused) : false
+                        loops: Animation.Infinite
+                        NumberAnimation { target: recDot; property: "opacity"; from: 1; to: 0.3; duration: 600 }
+                        NumberAnimation { target: recDot; property: "opacity"; from: 0.3; to: 1; duration: 600 }
+                    }
+                }
+
+                Text {
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: RecorderService.formatElapsed()
+                    font.pixelSize: 12
+                    font.family: "JetBrainsMono Nerd Font"
+                    color: Colors.text
+                }
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: RecorderService.stop()
+                onPressAndHold: RecorderService.togglePause()
+            }
+        }
+    }
+
+    // ── VPN status pill ─────────────────────────────────────────────────
+    component VPNPill: Item {
+        implicitWidth: vpnRect.implicitWidth
+        implicitHeight: parent.height
+
+        Rectangle {
+            id: vpnRect
+            anchors.verticalCenter: parent.verticalCenter
+            implicitWidth: vpnRow.implicitWidth + 18
+            height: Colors.pillHeight
+            radius: 8
+            color: Colors.surface0
+            border.width: 1
+            border.color: Qt.rgba(Colors.green.r, Colors.green.g, Colors.green.b,
+                                  VPNService.connected ? 0.5 : 0)
+            Behavior on border.color { ColorAnimation { duration: 300 } }
+
+            Row {
+                id: vpnRow
+                anchors.centerIn: parent
+                spacing: 5
+
+                Text {
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: "󰒄"
+                    font.pixelSize: 14
+                    font.family: "JetBrainsMono Nerd Font"
+                    color: VPNService.connected ? Colors.green : Colors.overlay1
+                }
+
+                Text {
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: VPNService.type === "wireguard" ? "WG" : "VPN"
+                    font.pixelSize: 11
+                    font.family: "JetBrainsMono Nerd Font"
+                    color: VPNService.connected ? Colors.green : Colors.subtext1
+                }
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: VPNService.toggle()
             }
         }
     }

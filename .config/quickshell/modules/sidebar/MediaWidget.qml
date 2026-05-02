@@ -131,10 +131,11 @@ Item {
                                 font.family: "JetBrainsMono Nerd Font"
                                 color: Colors.overlay1
                             }
-                            EqualizerBars {
+                            CavaWidget {
                                 anchors.verticalCenter: parent.verticalCenter
-                                playing: root.isPlaying
+                                bars: 10
                                 barColor: root.isSpotify ? "#1DB954" : Colors.mauve
+                                playing: root.isPlaying
                             }
                         }
 

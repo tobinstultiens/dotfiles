@@ -13,6 +13,7 @@ bluez-utils
 bolt-launcher
 boost
 brightnessctl
+cava
 chaotic-keyring
 chaotic-mirrorlist
 chromium
@@ -30,7 +31,6 @@ docker-compose
 dotnet-sdk-8.0
 dotnet-sdk-bin
 dragon-drop-git
-dunst
 efibootmgr
 ethtool
 eww

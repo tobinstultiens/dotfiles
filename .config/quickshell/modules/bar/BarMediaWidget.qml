@@ -97,7 +97,7 @@ Item {
             BarCtrl {
                 icon: "󰒮"
                 size: 14
-                enabled: root.player && root.player.canGoPrevious
+                canUse: root.player && root.player.canGoPrevious
                 textColor: Colors.subtext1
                 onTap: if (root.player) root.player.previous()
             }
@@ -106,7 +106,7 @@ Item {
             BarCtrl {
                 icon: root.playing ? "󰏤" : "󰐊"
                 size: 15
-                enabled: root.player && root.player.canTogglePlaying
+                canUse: root.player && root.player.canTogglePlaying
                 textColor: root.playing && root.isSpotify ? "#1DB954" : Colors.text
                 onTap: if (root.player) root.player.togglePlaying()
             }
@@ -115,7 +115,7 @@ Item {
             BarCtrl {
                 icon: "󰒭"
                 size: 14
-                enabled: root.player && root.player.canGoNext
+                canUse: root.player && root.player.canGoNext
                 textColor: Colors.subtext1
                 onTap: if (root.player) root.player.next()
             }
@@ -141,13 +141,13 @@ Item {
     component BarCtrl: Item {
         property string icon: ""
         property real   size: 14
-        property bool   enabled: true
+        property bool   canUse: true
         property color  textColor: Colors.text
         signal tap
 
         width: size + 6; height: size + 6
         anchors.verticalCenter: parent ? parent.verticalCenter : undefined
-        opacity: enabled ? 1.0 : 0.35
+        opacity: canUse ? 1.0 : 0.35
 
         Text {
             anchors.centerIn: parent
