@@ -7,3 +7,4 @@ singleton WeatherService      1.0 ../services/WeatherService.qml
 singleton NotificationService 1.0 ../services/NotificationService.qml
 singleton VPNService          1.0 ../services/VPNService.qml
 singleton RecorderService     1.0 ../services/RecorderService.qml
+singleton AudioService        1.0 ../services/AudioService.qml

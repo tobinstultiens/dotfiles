@@ -5,26 +5,28 @@ import QtQuick
 QtObject {
     id: root
 
-    // WireGuard
-    property bool   wgConnected:  false
-    property string wgInterface:  ""   // active interface from 'wg show interfaces'
-    property string wgConfigName: "wg0" // config to bring up (from /etc/wireguard/)
+    // PIA (via piactl daemon)
+    property bool   piaConnected: false
+    property string piaState:     "Disconnected"  // raw piactl connectionstate
+    property string piaRegion:    ""
+    property string piaIp:        ""
 
-    // Tailscale
+    // Tailscale (user-space, no sudo)
     property bool   tsConnected: false
     property string tsIp:        ""
 
-    property bool anyConnected: wgConnected || tsConnected
+    property bool anyConnected: piaConnected || tsConnected
 
-    property string _wgBuf: ""
-    property string _tsBuf: ""
-    property string _cfgBuf: ""
+    property string _piaBuf:    ""
+    property string _piaRgnBuf: ""
+    property string _piaIpBuf:  ""
+    property string _tsBuf:     ""
 
-    function wgToggle() {
-        if (root.wgConnected) {
-            wgDownProc.running = true
+    function piaToggle() {
+        if (root.piaConnected) {
+            piaDisconnectProc.running = true
         } else {
-            wgUpProc.running = true
+            piaConnectProc.running = true
         }
     }
 
@@ -38,45 +40,65 @@ QtObject {
 
     property var _impl: Item {
 
-        // Poll both VPNs every 10s
         Timer {
             interval: 10000
             running: true
             repeat: true
             triggeredOnStart: true
             onTriggered: {
-                wgCheckProc.running = true
-                tsCheckProc.running = true
+                piaCheckProc.running = true
+                tsCheckProc.running  = true
             }
         }
 
-        // Discover WireGuard config name from /etc/wireguard/ on startup
+        // PIA: connection state
         Process {
-            id: wgConfigProc
-            command: ["bash", "-c",
-                "ls /etc/wireguard/*.conf 2>/dev/null | head -1 | sed 's|.*/||;s|\\.conf$||'"]
-            stdout: SplitParser { onRead: line => { root._cfgBuf += line.trim() } }
+            id: piaCheckProc
+            command: ["bash", "-c", "piactl get connectionstate 2>/dev/null || echo Disconnected"]
+            stdout: SplitParser { onRead: line => { root._piaBuf += line.trim() } }
             onExited: {
-                var name = root._cfgBuf.trim()
-                if (name.length > 0) root.wgConfigName = name
-                root._cfgBuf = ""
+                var state = root._piaBuf.trim()
+                root.piaState     = state
+                root.piaConnected = state === "Connected"
+                root._piaBuf      = ""
+                // Fetch region + IP only when connected
+                if (root.piaConnected) {
+                    piaRegionProc.running = true
+                    piaIpProc.running     = true
+                } else {
+                    root.piaRegion = ""
+                    root.piaIp     = ""
+                }
             }
         }
 
-        // Detect active WireGuard interface
         Process {
-            id: wgCheckProc
-            command: ["bash", "-c", "wg show interfaces 2>/dev/null || true"]
-            stdout: SplitParser { onRead: line => { root._wgBuf += line.trim() } }
-            onExited: {
-                var iface = root._wgBuf.trim().split(/\s+/).filter(s => s.length > 0)[0] || ""
-                root.wgInterface  = iface
-                root.wgConnected  = iface !== ""
-                root._wgBuf = ""
-            }
+            id: piaRegionProc
+            command: ["bash", "-c", "piactl get region 2>/dev/null || true"]
+            stdout: SplitParser { onRead: line => { root._piaRgnBuf += line.trim() } }
+            onExited: { root.piaRegion = root._piaRgnBuf.trim(); root._piaRgnBuf = "" }
         }
 
-        // Detect Tailscale state
+        Process {
+            id: piaIpProc
+            command: ["bash", "-c", "piactl get vpnip 2>/dev/null || true"]
+            stdout: SplitParser { onRead: line => { root._piaIpBuf += line.trim() } }
+            onExited: { root.piaIp = root._piaIpBuf.trim(); root._piaIpBuf = "" }
+        }
+
+        Process {
+            id: piaConnectProc
+            command: ["piactl", "connect"]
+            onExited: piaCheckProc.running = true
+        }
+
+        Process {
+            id: piaDisconnectProc
+            command: ["piactl", "disconnect"]
+            onExited: { root.piaConnected = false; root.piaRegion = ""; root.piaIp = ""; piaCheckProc.running = true }
+        }
+
+        // Tailscale
         Process {
             id: tsCheckProc
             command: ["bash", "-c", "tailscale status --json 2>/dev/null || echo '{}'"]
@@ -96,21 +118,6 @@ QtObject {
             }
         }
 
-        // WireGuard up/down — requires sudoers NOPASSWD for wg-quick
-        Process {
-            id: wgUpProc
-            command: ["bash", "-c", "sudo wg-quick up " + root.wgConfigName + " 2>/dev/null"]
-            onExited: wgCheckProc.running = true
-        }
-
-        Process {
-            id: wgDownProc
-            command: ["bash", "-c",
-                "sudo wg-quick down " + (root.wgInterface || root.wgConfigName) + " 2>/dev/null"]
-            onExited: { root.wgConnected = false; wgCheckProc.running = true }
-        }
-
-        // Tailscale — user-space, no sudo required
         Process {
             id: tsUpProc
             command: ["tailscale", "up"]
@@ -125,8 +132,7 @@ QtObject {
     }
 
     Component.onCompleted: {
-        wgConfigProc.running = true
-        wgCheckProc.running  = true
+        piaCheckProc.running = true
         tsCheckProc.running  = true
     }
 }

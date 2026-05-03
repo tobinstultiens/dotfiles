@@ -1,5 +1,7 @@
 import Quickshell
 import Quickshell.Wayland
+import Quickshell.Io
+import Quickshell.Bluetooth
 import QtQuick
 import QtQuick.Layouts
 import Qs
@@ -11,8 +13,12 @@ PanelWindow {
     required screen
 
     // Shared state objects passed in from shell.qml
-    property QtObject powerMenuState:  null
-    property QtObject mediaPopupState: null
+    property QtObject powerMenuState:   null
+    property QtObject mediaPopupState:  null
+    property QtObject vpnPopupState:    null
+    property QtObject audioPopupState:  null
+    property QtObject btPopupState:     null
+    property QtObject networkPopupState: null
 
     implicitHeight: 44
 
@@ -81,7 +87,36 @@ PanelWindow {
 
                 // VPN indicator
                 VPNPill {
+                    id: vpnPillInst
                     height: root.height
+                    onPillClicked: (x) => {
+                        if (root.vpnPopupState) {
+                            root.vpnPopupState.popupX = x
+                            root.vpnPopupState.open = !root.vpnPopupState.open
+                        }
+                    }
+                }
+
+                // Network indicator
+                NetworkPill {
+                    height: root.height
+                    onPillClicked: (x) => {
+                        if (root.networkPopupState) {
+                            root.networkPopupState.popupX = x
+                            root.networkPopupState.open = !root.networkPopupState.open
+                        }
+                    }
+                }
+
+                // Bluetooth indicator
+                BluetoothPill {
+                    height: root.height
+                    onPillClicked: (x) => {
+                        if (root.btPopupState) {
+                            root.btPopupState.popupX = x
+                            root.btPopupState.open = !root.btPopupState.open
+                        }
+                    }
                 }
 
                 UPowerDevice {
@@ -104,6 +139,12 @@ PanelWindow {
 
                 VolumeWidget {
                     height: root.height
+                    onPopupRequested: (x) => {
+                        if (root.audioPopupState) {
+                            root.audioPopupState.popupX = x
+                            root.audioPopupState.open = !root.audioPopupState.open
+                        }
+                    }
                 }
 
                 MicWidget {
@@ -342,8 +383,17 @@ PanelWindow {
 
     // ── VPN status pill ─────────────────────────────────────────────────
     component VPNPill: Item {
+        id: vpnPillComp
         implicitWidth: vpnRect.implicitWidth
         implicitHeight: parent.height
+        signal pillClicked(real screenX)
+
+        readonly property color _activeColor: {
+            if (VPNService.piaConnected && VPNService.tsConnected) return Colors.teal
+            if (VPNService.piaConnected) return Colors.green
+            if (VPNService.tsConnected)  return Colors.mauve
+            return Colors.overlay1
+        }
 
         Rectangle {
             id: vpnRect
@@ -353,8 +403,10 @@ PanelWindow {
             radius: 8
             color: Colors.surface0
             border.width: 1
-            border.color: Qt.rgba(Colors.green.r, Colors.green.g, Colors.green.b,
-                                  VPNService.connected ? 0.5 : 0)
+            border.color: (VPNService.anyConnected || VPNService.piaState === "Connecting")
+                          ? Qt.rgba(vpnPillComp._activeColor.r, vpnPillComp._activeColor.g,
+                                    vpnPillComp._activeColor.b, 0.5)
+                          : "transparent"
             Behavior on border.color { ColorAnimation { duration: 300 } }
 
             Row {
@@ -367,21 +419,165 @@ PanelWindow {
                     text: "󰒄"
                     font.pixelSize: 14
                     font.family: "JetBrainsMono Nerd Font"
-                    color: VPNService.connected ? Colors.green : Colors.overlay1
+                    color: vpnPillComp._activeColor
+                    Behavior on color { ColorAnimation { duration: 300 } }
                 }
 
                 Text {
                     anchors.verticalCenter: parent.verticalCenter
-                    text: VPNService.type === "wireguard" ? "WG" : "VPN"
+                    text: {
+                        if (VPNService.piaConnected && VPNService.tsConnected) return "PIA+TS"
+                        if (VPNService.piaState === "Connecting")               return "PIA…"
+                        if (VPNService.piaConnected)                            return "PIA"
+                        if (VPNService.tsConnected)                             return "TS"
+                        return "VPN"
+                    }
                     font.pixelSize: 11
                     font.family: "JetBrainsMono Nerd Font"
-                    color: VPNService.connected ? Colors.green : Colors.subtext1
+                    color: vpnPillComp._activeColor
+                    Behavior on color { ColorAnimation { duration: 300 } }
                 }
             }
 
             MouseArea {
                 anchors.fill: parent
-                onClicked: VPNService.toggle()
+                onClicked: vpnPillComp.pillClicked(vpnPillComp.mapToItem(null, 0, 0).x)
+            }
+        }
+    }
+
+    // ── Network pill ─────────────────────────────────────────────────────
+    component NetworkPill: Item {
+        id: netPillComp
+        implicitWidth: netRect.implicitWidth
+        implicitHeight: parent.height
+        signal pillClicked(real screenX)
+
+        property string _ssid: ""
+        property string _type: "wifi"   // "wifi", "ethernet", "none"
+        property string _buf:  ""
+
+        // Poll current connection every 15s.
+        // Uses 'nmcli d' (device state) which is reliable for both ethernet and wifi.
+        Process {
+            id: netCheckProc
+            command: ["bash", "-c",
+                "eth=$(nmcli -t -f DEVICE,TYPE,STATE d 2>/dev/null | awk -F: '$2==\"ethernet\"&&$3==\"connected\"{print $1;exit}');" +
+                "if [ -n \"$eth\" ]; then echo \"ethernet:LAN\"; exit; fi;" +
+                "wdev=$(nmcli -t -f DEVICE,TYPE,STATE d 2>/dev/null | awk -F: '$2==\"wifi\"&&$3==\"connected\"{print $1;exit}');" +
+                "if [ -n \"$wdev\" ]; then" +
+                "  ssid=$(nmcli -t -f GENERAL.CONNECTION d show \"$wdev\" 2>/dev/null | awk -F: 'NR==1{print $2}');" +
+                "  echo \"wifi:$ssid\"; exit; fi;" +
+                "echo 'none:'"]
+            stdout: SplitParser { onRead: line => netPillComp._buf += line.trim() }
+            onExited: {
+                var raw   = netPillComp._buf.trim()
+                var colon = raw.indexOf(":")
+                var type  = colon >= 0 ? raw.slice(0, colon) : "none"
+                var label = colon >= 0 ? raw.slice(colon + 1) : ""
+                netPillComp._type = type
+                netPillComp._ssid = label
+                netPillComp._buf  = ""
+            }
+        }
+
+        Timer {
+            interval: 15000; running: true; repeat: true; triggeredOnStart: true
+            onTriggered: netCheckProc.running = true
+        }
+
+        Rectangle {
+            id: netRect
+            anchors.verticalCenter: parent.verticalCenter
+            implicitWidth: netRow.implicitWidth + 18
+            height: Colors.pillHeight; radius: 8
+            color: Colors.surface0
+
+            Row {
+                id: netRow
+                anchors.centerIn: parent
+                spacing: 5
+
+                Text {
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: netPillComp._type === "wifi"     ? "󰤨"
+                        : netPillComp._type === "ethernet" ? "󰈁"
+                        : "󰤭"
+                    font.pixelSize: 14; font.family: "JetBrainsMono Nerd Font"
+                    color: netPillComp._type !== "none" ? Colors.green : Colors.overlay1
+                }
+
+                Text {
+                    anchors.verticalCenter: parent.verticalCenter
+                    visible: netPillComp._ssid !== ""
+                    text: netPillComp._ssid.length > 12
+                          ? netPillComp._ssid.slice(0, 11) + "…" : netPillComp._ssid
+                    font.pixelSize: 11; font.family: "JetBrainsMono Nerd Font"
+                    color: Colors.text
+                }
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: netPillComp.pillClicked(netPillComp.mapToItem(null, 0, 0).x)
+            }
+        }
+    }
+
+    // ── Bluetooth pill ───────────────────────────────────────────────────
+    component BluetoothPill: Item {
+        id: btPillComp
+        implicitWidth: btRect.implicitWidth
+        implicitHeight: parent.height
+        signal pillClicked(real screenX)
+
+        // Derived state — computed once, reused in multiple bindings
+        readonly property bool _btEnabled:   Bluetooth.defaultAdapter !== null && Bluetooth.defaultAdapter.enabled
+        readonly property int  _btConnected: Bluetooth.devices.values.filter(d => d.connected).length
+
+        Rectangle {
+            id: btRect
+            anchors.verticalCenter: parent.verticalCenter
+            implicitWidth: btRow.implicitWidth + 18
+            height: Colors.pillHeight; radius: 8
+            color: Colors.surface0
+            border.width: 1
+            // Dim border when on but nothing connected; full border when a device is connected
+            border.color: btPillComp._btConnected > 0
+                          ? Qt.rgba(Colors.blue.r, Colors.blue.g, Colors.blue.b, 0.6)
+                          : btPillComp._btEnabled
+                            ? Qt.rgba(Colors.blue.r, Colors.blue.g, Colors.blue.b, 0.25)
+                            : "transparent"
+            Behavior on border.color { ColorAnimation { duration: 300 } }
+
+            Row {
+                id: btRow
+                anchors.centerIn: parent
+                spacing: 5
+
+                Text {
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: "󰂯"
+                    font.pixelSize: 14; font.family: "JetBrainsMono Nerd Font"
+                    // overlay1 when off, subtext0 when on, blue when device connected
+                    color: btPillComp._btConnected > 0 ? Colors.blue
+                         : btPillComp._btEnabled       ? Colors.subtext0
+                         : Colors.overlay1
+                    Behavior on color { ColorAnimation { duration: 300 } }
+                }
+
+                Text {
+                    anchors.verticalCenter: parent.verticalCenter
+                    visible: btPillComp._btConnected > 0
+                    text: btPillComp._btConnected.toString()
+                    font.pixelSize: 11; font.family: "JetBrainsMono Nerd Font"
+                    color: Colors.blue
+                }
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: btPillComp.pillClicked(btPillComp.mapToItem(null, 0, 0).x)
             }
         }
     }

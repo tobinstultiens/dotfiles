@@ -7,6 +7,8 @@ Item {
     implicitHeight: parent.height
     implicitWidth: pill.implicitWidth
 
+    signal popupRequested(real screenX)
+
     readonly property PwNode sink: Pipewire.defaultAudioSink
     readonly property bool   muted:  sink && sink.audio ? sink.audio.muted  : false
     readonly property real   volume: sink && sink.audio ? sink.audio.volume : 0.0
@@ -32,10 +34,7 @@ Item {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: {
-                if (root.sink && root.sink.audio)
-                    root.sink.audio.muted = !root.sink.audio.muted
-            }
+            onClicked: root.popupRequested(root.mapToItem(null, 0, 0).x)
             onWheel: e => {
                 if (root.sink && root.sink.audio) {
                     const delta = e.angleDelta.y > 0 ? 0.05 : -0.05
