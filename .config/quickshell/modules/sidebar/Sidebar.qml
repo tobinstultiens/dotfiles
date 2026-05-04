@@ -76,12 +76,7 @@ PanelWindow {
                     width: parent.width
                 }
 
-                NetworkWidget {
-                    width: parent.width
-                    active: root.open
-                }
-
-                BrightnessWidget {
+BrightnessWidget {
                     width: parent.width
                     active: root.open
                 }
@@ -91,6 +86,10 @@ PanelWindow {
                 }
 
                 WeatherWidget {
+                    width: parent.width
+                }
+
+                RainWidget {
                     width: parent.width
                 }
 

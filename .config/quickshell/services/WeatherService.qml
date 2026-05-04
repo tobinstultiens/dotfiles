@@ -90,13 +90,15 @@ QtObject {
                     root.currentIcon = w.icon
                     root.currentDesc = w.desc
 
-                    var days = []
+                    var days  = []
                     var codes = d.daily.weathercode
                     var highs = d.daily.temperature_2m_max
                     var lows  = d.daily.temperature_2m_min
+                    var dates = d.daily.time           // ["2026-05-03", ...]
                     for (var i = 0; i < Math.min(5, codes.length); i++) {
                         var dw = root._decode(codes[i])
                         days.push({
+                            date: dates ? dates[i] : "",
                             code: codes[i],
                             high: Math.round(highs[i]),
                             low:  Math.round(lows[i]),

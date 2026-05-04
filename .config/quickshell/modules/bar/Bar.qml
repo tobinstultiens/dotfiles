@@ -151,6 +151,16 @@ PanelWindow {
                     height: root.height
                 }
 
+                // Weather pill
+                Pill {
+                    height: root.height
+                    visible: WeatherService.hasData
+                    icon: WeatherService.currentIcon
+                    iconColor: Colors.sapphire
+                    iconSize: 14
+                    value: WeatherService.currentTemp + "°"
+                }
+
                 // CPU pill
                 Pill {
                     height: root.height
@@ -531,9 +541,31 @@ PanelWindow {
         implicitHeight: parent.height
         signal pillClicked(real screenX)
 
-        // Derived state — computed once, reused in multiple bindings
-        readonly property bool _btEnabled:   Bluetooth.defaultAdapter !== null && Bluetooth.defaultAdapter.enabled
-        readonly property int  _btConnected: Bluetooth.devices.values.filter(d => d.connected).length
+        readonly property bool _btEnabled:     Bluetooth.defaultAdapter !== null
+                                               && Bluetooth.defaultAdapter.enabled
+        readonly property var  _connDevices:   Bluetooth.devices.values.filter(d => d.connected)
+        readonly property int  _btConnected:   _connDevices.length
+
+        // Map BluetoothDevice.icon → Nerd Font glyph
+        function deviceIcon(icon) {
+            if (!icon) return "󰂱"
+            const i = icon.toLowerCase()
+            if (i.includes("mouse"))                          return "󰍽"
+            if (i.includes("gaming") || i.includes("joystick") || i.includes("gamepad")) return "󰊗"
+            if (i.includes("keyboard"))                       return "󰌌"
+            if (i.includes("headset") || i.includes("headphone")) return "󰋋"
+            if (i.includes("audio")   || i.includes("speaker"))   return "󰓃"
+            if (i.includes("phone"))                          return "󰄕"
+            if (i.includes("computer") || i.includes("laptop"))   return "󰌢"
+            return "󰂱"
+        }
+
+        // Battery percentage → colour
+        function batteryColor(pct) {
+            if (pct > 50) return Colors.green
+            if (pct > 20) return Colors.yellow
+            return Colors.red
+        }
 
         Rectangle {
             id: btRect
@@ -542,7 +574,6 @@ PanelWindow {
             height: Colors.pillHeight; radius: 8
             color: Colors.surface0
             border.width: 1
-            // Dim border when on but nothing connected; full border when a device is connected
             border.color: btPillComp._btConnected > 0
                           ? Qt.rgba(Colors.blue.r, Colors.blue.g, Colors.blue.b, 0.6)
                           : btPillComp._btEnabled
@@ -553,25 +584,52 @@ PanelWindow {
             Row {
                 id: btRow
                 anchors.centerIn: parent
-                spacing: 5
+                spacing: 6
 
+                // BT icon — identifies the pill type
                 Text {
                     anchors.verticalCenter: parent.verticalCenter
                     text: "󰂯"
                     font.pixelSize: 14; font.family: "JetBrainsMono Nerd Font"
-                    // overlay1 when off, subtext0 when on, blue when device connected
                     color: btPillComp._btConnected > 0 ? Colors.blue
                          : btPillComp._btEnabled       ? Colors.subtext0
                          : Colors.overlay1
                     Behavior on color { ColorAnimation { duration: 300 } }
                 }
 
-                Text {
-                    anchors.verticalCenter: parent.verticalCenter
-                    visible: btPillComp._btConnected > 0
-                    text: btPillComp._btConnected.toString()
-                    font.pixelSize: 11; font.family: "JetBrainsMono Nerd Font"
-                    color: Colors.blue
+                // One entry per connected device: [type icon] [battery%]
+                Repeater {
+                    model: btPillComp._connDevices
+
+                    Row {
+                        spacing: 3
+                        anchors.verticalCenter: parent.verticalCenter
+
+                        // Thin separator between devices and the BT icon
+                        Rectangle {
+                            width: 1; height: 14
+                            color: Colors.surface2
+                            anchors.verticalCenter: parent.verticalCenter
+                            visible: index === 0
+                        }
+
+                        // Device type icon
+                        Text {
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: btPillComp.deviceIcon(modelData.icon)
+                            font.pixelSize: 13; font.family: "JetBrainsMono Nerd Font"
+                            color: Colors.text
+                        }
+
+                        // Battery percentage (only when device reports it)
+                        Text {
+                            anchors.verticalCenter: parent.verticalCenter
+                            visible: modelData.batteryAvailable
+                            text: Math.round(modelData.battery * 100) + "%"
+                            font.pixelSize: 11; font.family: "JetBrainsMono Nerd Font"
+                            color: btPillComp.batteryColor(Math.round(modelData.battery * 100))
+                        }
+                    }
                 }
             }
 
