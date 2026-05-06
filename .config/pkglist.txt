@@ -107,6 +107,7 @@ noto-fonts-cjk
 noto-fonts-emoji
 npm
 nvidia-580xx-dkms
+nvidia-container-toolkit
 nvm
 obsidian
 opam
@@ -124,6 +125,7 @@ playerctl
 pnpm
 protonplus
 pulsemixer
+python-docker
 python-image-go-nord
 python-passlib
 python-pygments
