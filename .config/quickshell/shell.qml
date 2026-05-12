@@ -115,6 +115,10 @@ ShellRoot {
         // Called from hyprland.conf brightness keybinds:
         //   qs ipc call osd brightness up
         //   qs ipc call osd brightness down
+        function volumeApp(pct: string, muted: string, app: string): void {
+            osd.showVolumeApp(parseInt(pct) / 100.0, muted === "1", app)
+        }
+
         function brightness(direction: string): void {
             var step = 10
             var cur = 50  // fallback; brightnessctl reads actual value

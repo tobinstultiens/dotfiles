@@ -25,6 +25,7 @@ PanelWindow {
         osdItem.mode    = "volume"
         osdItem.value   = muted ? 0 : val
         osdItem.muted   = muted
+        osdItem.appName = ""
         osdItem.opacity = 1
         hideTimer.restart()
     }
@@ -33,6 +34,16 @@ PanelWindow {
         osdItem.mode    = "brightness"
         osdItem.value   = pct / 100.0
         osdItem.muted   = false
+        osdItem.appName = ""
+        osdItem.opacity = 1
+        hideTimer.restart()
+    }
+
+    function showVolumeApp(val, muted, appName) {
+        osdItem.mode    = "volume-app"
+        osdItem.value   = muted ? 0 : val
+        osdItem.muted   = muted
+        osdItem.appName = appName || ""
         osdItem.opacity = 1
         hideTimer.restart()
     }
@@ -58,11 +69,15 @@ PanelWindow {
     Rectangle {
         id: osdItem
 
-        property string mode:  "volume"    // "volume" | "brightness"
-        property real   value: 0.0         // 0.0 – 1.0
-        property bool   muted: false
+        property string mode:    "volume"    // "volume" | "brightness" | "volume-app"
+        property real   value:   0.0         // 0.0 – 1.0
+        property bool   muted:   false
+        property string appName: ""
 
-        width: 280
+        // Widen slightly when showing the app name tag
+        width: mode === "volume-app" ? 310 : 280
+        Behavior on width { NumberAnimation { duration: 120; easing.type: Easing.OutCubic } }
+
         height: 52
         radius: 12
         anchors.horizontalCenter: parent.horizontalCenter
@@ -103,9 +118,10 @@ PanelWindow {
                 }
             }
 
-            // Track background
+            // Track background — narrower in volume-app mode to make room for the label
             Rectangle {
-                width: 180
+                width: osdItem.mode === "volume-app" ? 150 : 180
+                Behavior on width { NumberAnimation { duration: 120; easing.type: Easing.OutCubic } }
                 height: 6
                 radius: 3
                 color: Colors.surface1
@@ -115,7 +131,9 @@ PanelWindow {
                     width: parent.width * Math.max(0, Math.min(1, osdItem.value))
                     height: parent.height
                     radius: parent.radius
-                    color: osdItem.mode === "brightness" ? Colors.yellow : Colors.blue
+                    color: osdItem.mode === "brightness" ? Colors.yellow
+                         : osdItem.mode === "volume-app" ? Colors.mauve
+                         : Colors.blue
                     Behavior on width {
                         NumberAnimation { duration: 120; easing.type: Easing.OutCubic }
                     }
@@ -130,6 +148,18 @@ PanelWindow {
                 font.family: "JetBrainsMono Nerd Font"
                 color: Colors.subtext1
                 width: 36
+            }
+
+            // Per-app name tag — truncated to keep consistent pill width
+            Text {
+                visible: osdItem.mode === "volume-app"
+                anchors.verticalCenter: parent.verticalCenter
+                text: osdItem.appName
+                font.pixelSize: 10
+                font.family: "JetBrainsMono Nerd Font"
+                color: Colors.mauve
+                width: 56
+                elide: Text.ElideRight
             }
         }
     }
