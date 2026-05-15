@@ -35,6 +35,13 @@ Item {
         return palette[(id - 1) % palette.length]
     }
 
+    Connections {
+        target: Hyprland.toplevels
+        function onObjectInsertedPost(object, index) {
+            Qt.callLater(Hyprland.refreshToplevels)
+        }
+    }
+
     Row {
         id: row
         anchors.verticalCenter: parent.verticalCenter
@@ -71,8 +78,11 @@ Item {
                         delegate: Item {
                             required property HyprlandToplevel modelData
 
-                            property string appClass: (modelData.lastIpcObject && modelData.lastIpcObject["class"])
-                                                      || modelData.appId || ""
+                            property string appClass: {
+                                const hyprClass = modelData.lastIpcObject && modelData.lastIpcObject["class"]
+                                if (hyprClass) return hyprClass
+                                return (modelData.wayland && modelData.wayland.appId) || ""
+                            }
                             property string iconSrc: {
                                 const p = Quickshell.iconPath(appClass, true)
                                 if (p !== "") return p
