@@ -81,6 +81,11 @@ BrightnessWidget {
                     active: root.open
                 }
 
+                WlsunsetWidget {
+                    width: parent.width
+                    active: root.open
+                }
+
                 MediaWidget {
                     width: parent.width
                 }
