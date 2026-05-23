@@ -2,6 +2,7 @@ import Quickshell
 import Quickshell.Services.Mpris
 import QtQuick
 import QtQuick.Shapes
+import Qt5Compat.GraphicalEffects
 import Qs
 import "../.." 1.0
 
@@ -122,13 +123,53 @@ PanelWindow {
 
             Item { width: 1; height: 10 }
 
-            // ── Album art with circular progress ring ───────────────────
-            // Art: 150×150, ring radius: 85 (art half 75 + 8 gap + 2 stroke-half)
-            // Container: 174×174  (2 × (85+2) = 174)
+            // ── Album art with circular progress ring + radial CAVA bars ──
+            // Art: 150×150 circle, progress ring radius 85, CAVA bars 92–102px
+            // Container: 210×210  (2 × (102+3) padding)
             Item {
                 id: artContainer
-                width: 174; height: 174
+                width: 210; height: 210
                 anchors.horizontalCenter: parent.horizontalCenter
+
+                // 32 radial bars just outside the progress ring
+                Repeater {
+                    model: 32
+                    delegate: Item {
+                        anchors.centerIn: parent
+                        width: 0; height: 0
+                        rotation: index * 11.25
+
+                        Rectangle {
+                            id: popupBar
+                            property bool playing: root.player !== null && root.player.isPlaying
+                            property real barH: 2
+                            width: 3
+                            height: barH
+                            x: -1
+                            y: -(92 + barH)
+                            radius: 1
+                            color: root.isSpotify ? "#1DB954" : Colors.mauve
+                            opacity: playing ? 1.0 : 0.25
+                            Behavior on opacity { NumberAnimation { duration: 200 } }
+
+                            SequentialAnimation on barH {
+                                running: popupBar.playing
+                                loops: Animation.Infinite
+                                onRunningChanged: if (!running) popupBar.barH = 2
+                                NumberAnimation {
+                                    to: 2 + (index % 5) * 1.8
+                                    duration: 300 + (index * 41) % 220
+                                    easing.type: Easing.InOutSine
+                                }
+                                NumberAnimation {
+                                    to: 9 - (index % 4) * 1.6
+                                    duration: 300 + ((index + 7) * 53) % 220
+                                    easing.type: Easing.InOutSine
+                                }
+                            }
+                        }
+                    }
+                }
 
                 // Background ring (full circle)
                 Shape {
@@ -140,7 +181,7 @@ PanelWindow {
                         fillColor: "transparent"
                         capStyle: ShapePath.RoundCap
                         PathAngleArc {
-                            centerX: 87; centerY: 87
+                            centerX: 105; centerY: 105
                             radiusX: 85; radiusY: 85
                             startAngle: -90; sweepAngle: 360
                         }
@@ -158,7 +199,7 @@ PanelWindow {
                         fillColor: "transparent"
                         capStyle: ShapePath.RoundCap
                         PathAngleArc {
-                            centerX: 87; centerY: 87
+                            centerX: 105; centerY: 105
                             radiusX: 85; radiusY: 85
                             startAngle: -90
                             sweepAngle: 360 * root.progress
@@ -169,19 +210,32 @@ PanelWindow {
                     }
                 }
 
-                // Album art square
-                Rectangle {
+                // Circular album art
+                Item {
                     width: 150; height: 150
-                    radius: 10
                     anchors.centerIn: parent
-                    color: Colors.surface0
-                    clip: true
+
+                    Rectangle {
+                        id: artBg
+                        anchors.fill: parent
+                        color: Colors.surface0
+                        radius: 75
+                    }
 
                     Image {
+                        id: artImg
                         anchors.fill: parent
                         source: root.artUrl
                         fillMode: Image.PreserveAspectCrop
                         asynchronous: true
+                        visible: root.artUrl !== ""
+                        layer.enabled: true
+                        layer.effect: OpacityMask {
+                            maskSource: Rectangle {
+                                width: 150; height: 150
+                                radius: 75
+                            }
+                        }
                     }
 
                     Text {
@@ -288,19 +342,6 @@ PanelWindow {
                     active: root.player && root.player.canGoNext
                     onTap: if (root.player) root.player.next()
                 }
-            }
-
-            Item { width: 1; height: 10 }
-
-            // ── Audio visualizer ────────────────────────────────────────
-            CavaWidget {
-                anchors.horizontalCenter: parent.horizontalCenter
-                bars: 24
-                barWidth: 8
-                spacing: 2
-                implicitHeight: 28
-                playing: root.player !== null && root.player.isPlaying
-                barColor: root.isSpotify ? "#1DB954" : Colors.mauve
             }
 
             // ── Player selector — only shown when 2+ players are open ───

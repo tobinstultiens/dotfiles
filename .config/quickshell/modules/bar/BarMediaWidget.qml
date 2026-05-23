@@ -1,5 +1,6 @@
 import Quickshell.Services.Mpris
 import QtQuick
+import Qt5Compat.GraphicalEffects
 import Qs
 import "../.." 1.0
 
@@ -76,20 +77,84 @@ Item {
             anchors.centerIn: parent
             spacing: 8
 
-            // Album art thumbnail
-            Rectangle {
-                width: 22; height: 22
-                radius: 4
-                color: Colors.surface1
-                clip: true
+            // Circular album art + radial equalizer ring
+            Item {
+                id: artWrap
+                width: 34; height: 34
                 anchors.verticalCenter: parent.verticalCenter
-                visible: root.player && root.player.trackArtUrl !== ""
 
-                Image {
-                    anchors.fill: parent
-                    source: root.player ? (root.player.trackArtUrl || "") : ""
-                    fillMode: Image.PreserveAspectCrop
-                    asynchronous: true
+                Repeater {
+                    model: 16
+                    delegate: Item {
+                        anchors.centerIn: parent
+                        width: 0; height: 0
+                        rotation: index * 22.5
+
+                        Rectangle {
+                            id: bar
+                            property real barH: 1
+                            width: 2
+                            height: barH
+                            x: -1
+                            y: -(12 + barH)
+                            radius: 1
+                            color: root.playing && root.isSpotify ? "#1DB954" : Colors.mauve
+                            opacity: root.playing ? 1.0 : 0.25
+                            Behavior on opacity { NumberAnimation { duration: 200 } }
+
+                            SequentialAnimation on barH {
+                                running: root.playing
+                                loops: Animation.Infinite
+                                onRunningChanged: if (!running) bar.barH = 1
+                                NumberAnimation {
+                                    to: 1 + (index % 3) * 1.5
+                                    duration: 260 + (index * 37) % 180
+                                    easing.type: Easing.InOutSine
+                                }
+                                NumberAnimation {
+                                    to: 4 - (index % 2)
+                                    duration: 260 + ((index + 5) * 43) % 180
+                                    easing.type: Easing.InOutSine
+                                }
+                            }
+                        }
+                    }
+                }
+
+                Item {
+                    anchors.centerIn: parent
+                    width: 22; height: 22
+
+                    Rectangle {
+                        anchors.fill: parent
+                        radius: 11
+                        color: Colors.surface1
+                    }
+
+                    Image {
+                        id: pillArtImg
+                        anchors.fill: parent
+                        source: root.player ? (root.player.trackArtUrl || "") : ""
+                        fillMode: Image.PreserveAspectCrop
+                        asynchronous: true
+                        visible: root.player !== null && root.player.trackArtUrl !== ""
+                        layer.enabled: true
+                        layer.effect: OpacityMask {
+                            maskSource: Rectangle {
+                                width: 22; height: 22
+                                radius: 11
+                            }
+                        }
+                    }
+
+                    Text {
+                        anchors.centerIn: parent
+                        visible: !root.player || root.player.trackArtUrl === ""
+                        text: "󰝚"
+                        font.pixelSize: 10
+                        font.family: "JetBrainsMono Nerd Font"
+                        color: Colors.overlay0
+                    }
                 }
             }
 
@@ -129,11 +194,6 @@ Item {
                 color: Colors.text
             }
 
-            EqualizerBars {
-                anchors.verticalCenter: parent.verticalCenter
-                playing: root.playing
-                barColor: root.playing && root.isSpotify ? "#1DB954" : Colors.mauve
-            }
         }
     }
 

@@ -128,6 +128,16 @@ Item {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: ws.activate()
+                    onWheel: e => {
+                        const local = Hyprland.workspaces.values
+                            .filter(w => w.monitor && w.monitor.name === root.barScreen.name)
+                            .sort((a, b) => a.id - b.id)
+                        const idx = local.findIndex(w => w.focused)
+                        if (idx === -1) return
+                        const next = idx + (e.angleDelta.y > 0 ? -1 : 1)
+                        if (next >= 0 && next < local.length)
+                            local[next].activate()
+                    }
                 }
             }
         }

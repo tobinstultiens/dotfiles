@@ -34,7 +34,6 @@ QtObject {
             onNotification: (notif) => {
                 notif.tracked = true
                 root.unread++
-                console.log("Notification:", notif.appName, "-", notif.summary)
             }
         }
     }
