@@ -14,6 +14,21 @@ config add <new-file-path>
 
 **Do not `config add` files under `data/`** (`data/notes.txt`, `data/todos.json`, etc.) — these are runtime-written user data, not source files.
 
+## Knowledge Index
+
+A comprehensive reference is maintained at [`QS_KNOWLEDGE.md`](QS_KNOWLEDGE.md). It contains:
+- Complete service catalog (all 10 singletons) with properties and methods
+- Full file map (all QML files including services, popups, OSD, wallpaper, notifications)
+- Bar and sidebar widget order (current)
+- All IPC handlers and shared state objects (`pms`, `wps`, `mps`, `vps`, `aps`, `bts`, `nps`)
+- Complete external dependency table
+- QuickShell API reference (which QS modules are used where)
+- Hardcoded values (coordinates, paths, magic numbers)
+- Color palette reference
+- Known pitfalls beyond those listed here
+
+**Keep `QS_KNOWLEDGE.md` up to date.** Whenever you add a new widget, service, IPC handler, shared state object, external dependency, hardcoded value, or discover a new pitfall or QuickShell API behavior — update the relevant section of `QS_KNOWLEDGE.md` immediately after the change. This is the primary reference for building future widgets correctly.
+
 ## Testing Changes
 
 `qs` cannot be run in the Claude Code sandbox (no Wayland compositor). **Do not attempt to test by running `qs`** — ask the user to reload instead, or rely on QML syntax review.
@@ -43,63 +58,110 @@ All required tools must be installed. Missing tools cause silent failures (widge
 
 | Tool / Resource | Required by | Purpose |
 |---|---|---|
-| `nmcli` (NetworkManager) | `NetworkWidget.qml` | Connection type, SSID, signal strength |
+| `nmcli` | `NetworkWidget.qml`, `BarNetworkPopup.qml` | WiFi info, network list, connect/disconnect |
 | `brightnessctl` | `BrightnessWidget.qml` | Read and set backlight level |
 | `hyprlock` | `PowerButtons.qml` | Lock screen |
 | `systemctl` | `PowerButtons.qml` | Poweroff, reboot, suspend |
-| `python3` (stdlib) | `TodoService.qml`, `NotesWidget.qml` | Atomic file writes to `data/` |
+| `python3` (stdlib) | `TodoService.qml`, `NotesWidget.qml`, `WallpaperService.qml`, `WlsunsetWidget.qml`, `CavaWidget.qml` | Atomic file writes; avoids shell quoting |
+| `pactl` | `AudioService.qml` | Aggregate sink/source info as JSON |
+| `curl` | `WeatherService.qml`, `RainService.qml` | Open-Meteo API fetches (15s timeout) |
+| `piactl` daemon | `VPNService.qml` | PIA VPN control (must be running as daemon) |
+| `tailscale` CLI | `VPNService.qml` | Tailscale status + up/down |
+| `gpu-screen-recorder` | `RecorderService.qml` | Screen recording (SIGINT=stop, SIGUSR1=pause) |
+| `cava` | `CavaWidget.qml` | Audio visualizer; PipeWire input |
+| `wlsunset` | `WlsunsetWidget.qml` | Color temperature / night light |
+| `hyprctl` | `WallpaperService.qml`, `WallpaperPicker.qml` | Monitor list, workspace switching |
+| `pkill` | `RecorderService.qml`, `WlsunsetWidget.qml` | Signal external processes |
 | JetBrainsMono Nerd Font | All widgets | Nerd-font icon glyphs — no fallback font set |
 
 ## File Map
 
 ```
-shell.qml                             Entry point: ShellRoot, one Bar per screen, Sidebar, IpcHandler; pms QtObject shared between Bar and BarPowerMenu
-Colors.qml                            pragma Singleton: Catppuccin Mocha palette + pillHeight constant
-EqualizerBars.qml                     Reusable animated equalizer: property bool playing, property color barColor
-Qs/qmldir                             Module registration: Colors, SystemInfo, TodoService → import Qs
-services/SystemInfo.qml               pragma Singleton: CPU/RAM/disk/uptime/temp — polls every 3s always-on
-services/TodoService.qml              pragma Singleton: todo CRUD, selectedDate, _revision counter, python3 persistence
-modules/bar/Bar.qml                   PanelWindow 44px; inline Pill + ClockPill components; right Row + WindowTitle
-modules/bar/WorkspacesWidget.qml      Workspace + window-icon pills, left side of bar
-modules/bar/BarMediaWidget.qml        MPRIS compact pill, left side of bar
-modules/bar/BarPowerMenu.qml          Full-screen overlay PanelWindow; open state driven by pms.open in shell.qml
-modules/bar/TrayWidget.qml            SystemTray repeater with QsMenuAnchor right-click; resolveIcon() for broken icons
-modules/bar/VolumeWidget.qml          PipeWire speaker volume pill
-modules/bar/MicWidget.qml             Microphone volume pill; hides when source is null
-modules/bar/UPowerDevice.qml          Bluetooth battery pill; hidden when device absent
-modules/bar/WindowTitle.qml           Focused window title, screen-centred on PanelWindow
-modules/sidebar/Sidebar.qml           PanelWindow 400px right edge; slide animation; widget Column; footer PowerButtons
-modules/sidebar/ClockCalendar.qml     Large clock, calendar grid; tapping a day sets TodoService.selectedDate
-modules/sidebar/TodoWidget.qml        Peach-accented todo list for the calendar-selected date; uses TodoService
-modules/sidebar/SystemStats.qml       CPU/RAM/disk/uptime stat rows; inline StatRow component
-modules/sidebar/NetworkWidget.qml     nmcli connection info + /proc/net/dev speed delta; active-gated
-modules/sidebar/BrightnessWidget.qml  brightnessctl slider; self-hides when maxBrightness === 0; active-gated
-modules/sidebar/MediaWidget.qml       Full MPRIS card with album art; inline MediaBtn component
-modules/sidebar/BatteryWidget.qml     UPower battery bar; self-hides when no laptop battery
-modules/sidebar/NotesWidget.qml       Lavender-accented TextEdit; debounced python3 save to data/notes.txt
-modules/sidebar/PowerButtons.qml      Session controls with confirm/cancel state machine; inline PowerBtn
-modules/sidebar/SectionHeader.qml     Reusable: 3px accent bar + bold label + hairline divider
-data/notes.txt                        Plain text; written by NotesWidget, created on first save
-data/todos.json                       JSON array of todo objects; written by TodoService on every mutation
+shell.qml                                    Entry point; all panels, shared state objects (pms/wps/mps/vps/aps/bts/nps), 4 IPC handlers
+Colors.qml                                   pragma Singleton: Catppuccin Mocha palette + pillHeight: 34
+EqualizerBars.qml                            Reusable animated equalizer: property bool playing, property color barColor
+CavaWidget.qml                               Reusable cava visualizer: bars, barColor, playing, barWidth, spacing
+Qs/qmldir                                    Registers all 10 singletons → import Qs 1.0
+
+services/SystemInfo.qml                      pragma Singleton: CPU/RAM/disk/uptime/temp — polls every 3s always-on
+services/TodoService.qml                     pragma Singleton: todo CRUD, selectedDate, _revision counter, python3 persistence
+services/WallpaperService.qml               pragma Singleton: monitor list, wallpaper scan + apply; state → ~/.cache/wallpaper-switcher/state.json
+services/WeatherService.qml                 pragma Singleton: Open-Meteo weather + 5-day forecast; polls every 30 min
+services/NotificationService.qml            pragma Singleton: DBus NotificationServer; keepOnReload:true; model + unread counter
+services/VPNService.qml                     pragma Singleton: PIA (piactl) + Tailscale state; polls every 10s
+services/RecorderService.qml               pragma Singleton: gpu-screen-recorder lifecycle; running/paused/elapsed
+services/AudioService.qml                  pragma Singleton: pactl-backed sink/source list + default switching
+services/RainService.qml                   pragma Singleton: Open-Meteo rain forecast (8×15min); polls every 10 min
+
+modules/bar/Bar.qml                         PanelWindow 44px; inline Pill/ClockPill/RecordingPill/VPNPill/NetworkPill/BluetoothPill
+modules/bar/WorkspacesWidget.qml            Workspace + window-icon pills, left side of bar
+modules/bar/BarMediaWidget.qml              MPRIS compact pill, left side of bar; click → mps.open
+modules/bar/BarPowerMenu.qml               Full-screen overlay PanelWindow; open state driven by pms.open
+modules/bar/TrayWidget.qml                 SystemTray repeater with QsMenuAnchor right-click; resolveIcon() for broken icons
+modules/bar/VolumeWidget.qml               PipeWire speaker volume pill; click → aps.open
+modules/bar/MicWidget.qml                  Microphone volume pill; hides when source is null
+modules/bar/UPowerDevice.qml              Bluetooth battery pill; hidden when device absent
+modules/bar/WindowTitle.qml               Focused window title, screen-centred on PanelWindow
+modules/bar/BarMediaPopup.qml             Full MPRIS popup; circular art + progress ring + radial equalizer; driven by mps.open
+modules/bar/BarVPNPopup.qml               PIA + Tailscale toggle rows; driven by VPNService + vps.open
+modules/bar/BarAudioPopup.qml             Sink/source device selector + volume sliders (0–150%); driven by aps.open
+modules/bar/BarBluetoothPopup.qml         Bluetooth device list + enable/discover toggles; driven by bts.open
+modules/bar/BarNetworkPopup.qml           nmcli WiFi scanner + connect/disconnect; driven by nps.open
+
+modules/sidebar/Sidebar.qml               PanelWindow 400px right; 260ms slide; hideTimer 280ms; Flickable content
+modules/sidebar/ClockCalendar.qml         64px HH:mm + 36px :ss; calendar grid; day tap → TodoService.selectedDate
+modules/sidebar/TodoWidget.qml            Peach-accented todo list for selectedDate; uses TodoService + _revision
+modules/sidebar/SystemStats.qml          CPU/RAM/disk/uptime stat rows; inline StatRow; blue header
+modules/sidebar/NetworkWidget.qml        nmcli connection info + /proc/net/dev speed delta; active-gated; green header
+modules/sidebar/BrightnessWidget.qml     brightnessctl slider; self-hides when maxBrightness === 0; active-gated; yellow header
+modules/sidebar/WlsunsetWidget.qml       wlsunset day/night temperature sliders; config → data/wlsunset.json; yellow header
+modules/sidebar/MediaWidget.qml          Full MPRIS card with album art; inline MediaBtn; mauve header
+modules/sidebar/WeatherWidget.qml        Current conditions + 5-day forecast from WeatherService; green header
+modules/sidebar/RainWidget.qml           2h precipitation bar chart from RainService; blue header
+modules/sidebar/BatteryWidget.qml        UPower battery bar; self-hides when no laptop battery
+modules/sidebar/NotifWidget.qml          Notification log from NotificationService; dismiss + clear-all; lavender header
+modules/sidebar/NotesWidget.qml          Lavender-accented TextEdit; debounced 1500ms python3 save to data/notes.txt
+modules/sidebar/PowerButtons.qml         Session controls; confirm/cancel state machine; inline PowerBtn; red SESSION header
+modules/sidebar/SectionHeader.qml        Reusable: 3px accent bar + bold label + hairline divider
+
+modules/notifications/NotifPopups.qml    PanelWindow top-right toast stack; ExclusionMode.Ignore
+modules/notifications/NotifToast.qml    Slide-in toast; auto-dismiss; hover pauses; critical never auto-dismiss
+
+modules/osd/OSD.qml                      WlrLayer.Overlay OSD; modes: volume/brightness/volume-app; 2s auto-hide
+
+modules/wallpaper/WallpaperBackground.qml  WlrLayer.Background per screen; double-buffered image swap; 600ms fade
+modules/wallpaper/WallpaperPicker.qml      Full-screen grid; keyboard nav (Tab/arrows/Return/Esc); driven by wps.open
+modules/wallpaper/WallpaperTransition.qml  Overlay covering blank-frame flash during wallpaper switch
+
+data/notes.txt                            Plain text; written by NotesWidget on debounce; created on first save
+data/todos.json                           JSON [{id,date,text,done}]; written by TodoService on every mutation
+data/wlsunset.json                        JSON {dayTemp,nightTemp,latitude,longitude}; written by WlsunsetWidget
 ```
 
 ## Architecture
 
-**Entry point:** `shell.qml` declares the `ShellRoot`, creates one `Bar` per screen via `Variants`, creates `Sidebar` and `BarPowerMenu`, and registers the `IpcHandler`. Has `//@ pragma UseQApplication` at the top (required for `QsMenuAnchor.open()` to work). A shared `QtObject { id: pms; property bool open }` is passed to both `Bar` and `BarPowerMenu` — this avoids a direct parent-child dependency between two sibling `PanelWindow` instances.
+**Entry point:** `shell.qml` declares the `ShellRoot`, creates one `Bar` per screen via `Variants`, and registers all panels and 4 `IpcHandler` targets. Has `//@ pragma UseQApplication` at the top (required for `QsMenuAnchor.open()` to work). Shared `QtObject` state objects (`pms`, `wps`, `mps`, `vps`, `aps`, `bts`, `nps`) are passed as required properties to panels that need to communicate open/close state — this avoids direct sibling `PanelWindow` dependencies.
 
-**Qs module:** `Colors`, `SystemInfo`, and `TodoService` are `pragma Singleton` types registered in `Qs/qmldir`. Any file can import them with `import Qs` and reference them by type name directly. This works because `QML_IMPORT_PATH=/home/tobins/.config/quickshell` is set in Hyprland's env config.
+**Qs module:** All 10 `pragma Singleton` services are registered in `Qs/qmldir`. Any file can import them with `import Qs 1.0` and reference them by type name directly. This works because `QML_IMPORT_PATH=/home/tobins/.config/quickshell` is set in Hyprland's env config.
 
 **SystemInfo polling** runs every 3s always-on (not gated by sidebar state). The bar pills (CPU, RAM, temp) need continuous data even while the sidebar is closed.
 
 ## Services
 
-All three singletons are registered in `Qs/qmldir`. Import with `import Qs`.
+All 10 singletons are registered in `Qs/qmldir`. Import with `import Qs 1.0` (version suffix required).
 
 | Singleton | File | Key properties | Polling |
 |---|---|---|---|
 | `Colors` | `Colors.qml` | Full Catppuccin Mocha palette; `pillHeight: 34` | None (static) |
 | `SystemInfo` | `services/SystemInfo.qml` | `cpuPercent`, `ramUsedGb`, `ramTotalGb`, `ramPercent`, `diskUsed`, `diskTotal`, `diskPercent`, `uptime`, `tempCelsius` | Every 3s, always-on |
-| `TodoService` | `services/TodoService.qml` | `todoModel`, `selectedDate`, `_revision`; functions: `addTodo`, `toggleTodo`, `removeTodo`, `todosForDate`, `hasTodosForDate` | On-demand (load on startup, save on mutation) |
+| `TodoService` | `services/TodoService.qml` | `todoModel`, `selectedDate`, `_revision`; `addTodo`, `toggleTodo`, `removeTodo`, `todosForDate`, `hasTodosForDate` | On-demand |
+| `WallpaperService` | `services/WallpaperService.qml` | `monitors[]`, `activeWallpapers{}`, `wallpapers[]`, `_wallpapersRev`; `apply(monitor, path)`, `activeFor(monitor)` | On-demand; signal `applyRequested` |
+| `WeatherService` | `services/WeatherService.qml` | `currentTemp/Code/Wind/Humidity/Icon/Desc`, `forecast[]`, `hasData`, `loading` | Every 30 min |
+| `NotificationService` | `services/NotificationService.qml` | `model` (ObjectModel), `unread`; `clearAll()`, `markRead()`; `keepOnReload: true` | Event-driven (DBus) |
+| `VPNService` | `services/VPNService.qml` | `piaConnected/State/Region/Ip`, `tsConnected/Ip`, `anyConnected`; `piaToggle()`, `tsToggle()` | Every 10s |
+| `RecorderService` | `services/RecorderService.qml` | `running`, `paused`, `elapsed`; `formatElapsed()`; signals: `startRequested`, `stopRequested`, `pauseRequested` | On-demand |
+| `AudioService` | `services/AudioService.qml` | `sinks[]`, `sources[]` ({name,description,isDefault}), `loading`; `refresh()`, `setSink(name)`, `setSource(name)` | On-demand |
+| `RainService` | `services/RainService.qml` | `readings[]` (8×{minutes,mmh}), `hasData`, `hasRain`, `maxMmh` | Every 10 min |
 
 **Temperature source:** `SystemInfo.qml` reads `/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon*/temp1_input` — AMD CPU die temperature. On Intel or other hardware this path will not exist and `tempCelsius` stays `0`. Adjust `tempProc.command` to deploy on non-AMD hardware.
 
@@ -111,6 +173,7 @@ The `data/` directory holds all runtime-written state.
 |---|---|---|---|
 | `data/notes.txt` | Plain text (supports `TextEdit.MarkdownText` rendering) | `NotesWidget.qml` — debounced 1500ms after last keystroke | `NotesWidget.qml` on `Component.onCompleted` |
 | `data/todos.json` | JSON array: `[{id, date, text, done}, ...]`; `date` is `"yyyy-MM-dd"` | `TodoService.qml` — on every `addTodo`/`toggleTodo`/`removeTodo` | `TodoService.qml` on `Component.onCompleted` |
+| `data/wlsunset.json` | JSON `{dayTemp, nightTemp, latitude, longitude}` | `WlsunsetWidget.qml` — on slider change | `WlsunsetWidget.qml` on `Component.onCompleted` |
 
 Both files are written via `python3 -c "import sys,pathlib; p=pathlib.Path.home()/'.config/quickshell/data/<file>'; p.parent.mkdir(parents=True,exist_ok=True); p.write_text(sys.argv[1])"`. This is preferred over bash redirection because `write_text` is effectively atomic and auto-creates `data/` on first run.
 
@@ -120,9 +183,14 @@ All pills use the inline `Pill` component in `Bar.qml` with a shared `iconSize: 
 
 | Widget | File | Notes |
 |---|---|---|
+| RecordingPill | inline in `Bar.qml` | Pulsing red dot; opacity 0.4 when paused; hidden when not recording |
+| VPNPill | inline in `Bar.qml` | PIA / Tailscale / both; click → `vps.open` |
+| NetworkPill | inline in `Bar.qml` | WiFi/Ethernet SSID; polls every 15s; click → `nps.open` |
+| BluetoothPill | inline in `Bar.qml` | Connected device count + batteries; click → `bts.open` |
 | UPowerDevice ×3 | `UPowerDevice.qml` | Bluetooth headset, headphones, mouse — hidden when device absent |
-| VolumeWidget | `VolumeWidget.qml` | `volume%  󰋋/󰋎` — click to mute, scroll to adjust |
+| VolumeWidget | `VolumeWidget.qml` | `volume%  󰋋/󰋎` — click to mute/`aps.open`, scroll to adjust |
 | MicWidget | `MicWidget.qml` | `volume%  󰍬/󰍭` — click to mute, scroll to adjust; hides when source null |
+| Weather pill | inline in `Bar.qml` | Icon + temp from WeatherService |
 | CPU pill | inline in `Bar.qml` | nf-md-chip icon, blue |
 | RAM pill | inline in `Bar.qml` | nf-md-memory icon, mauve |
 | Temp pill | inline in `Bar.qml` | nf-md-thermometer / nf-md-fire (≥80°C), peach/red |
@@ -158,9 +226,13 @@ SVG files do not load via `file://` in `IconImage` — always use PNG for file-b
 | System stats | `SystemStats.qml` | Blue |
 | Network | `NetworkWidget.qml` | Green |
 | Brightness | `BrightnessWidget.qml` | Yellow |
+| Night light | `WlsunsetWidget.qml` | Yellow |
 | Media player | `MediaWidget.qml` | Mauve |
-| Notes | `NotesWidget.qml` | Lavender |
+| Weather | `WeatherWidget.qml` | Green |
+| Rain forecast | `RainWidget.qml` | Blue |
 | Battery | `BatteryWidget.qml` | — (no header) |
+| Notifications | `NotifWidget.qml` | Lavender |
+| Notes | `NotesWidget.qml` | Lavender |
 | Power buttons | `PowerButtons.qml` | Red (SESSION) |
 
 Section headers use the reusable `SectionHeader.qml` component: a 3px coloured accent bar, bold spaced label, and a hairline divider extending to the right.
