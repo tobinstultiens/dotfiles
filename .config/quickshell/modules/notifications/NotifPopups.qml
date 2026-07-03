@@ -16,6 +16,10 @@ PanelWindow {
     exclusionMode: ExclusionMode.Ignore
     color: "transparent"
 
+    // Only the toast column captures pointer input; the rest of this
+    // transparent window is click-through so bar icons underneath stay usable.
+    mask: Region { item: stack }
+
     // Only show when there are active toasts
     visible: stack.count > 0
 

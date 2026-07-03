@@ -16,18 +16,14 @@ config add <new-file-path>
 
 ## Knowledge Index
 
-A comprehensive reference is maintained at [`QS_KNOWLEDGE.md`](QS_KNOWLEDGE.md). It contains:
-- Complete service catalog (all 10 singletons) with properties and methods
-- Full file map (all QML files including services, popups, OSD, wallpaper, notifications)
-- Bar and sidebar widget order (current)
-- All IPC handlers and shared state objects (`pms`, `wps`, `mps`, `vps`, `aps`, `bts`, `nps`)
-- Complete external dependency table
-- QuickShell API reference (which QS modules are used where)
-- Hardcoded values (coordinates, paths, magic numbers)
-- Color palette reference
-- Known pitfalls beyond those listed here
+The durable, hard-won lessons live in [`QS_KNOWLEDGE.md`](QS_KNOWLEDGE.md). It holds only knowledge that is not derivable from the code or the official docs:
+- Non-obvious QuickShell framework behaviors (hot-reload, singleton roots, `Variants` screen binding, `Behavior` timing, etc.)
+- Reusable patterns and conventions (`_impl` singleton, `_revision` reactivity, confirmation state machine, active-gated polling, slide animations)
+- Known pitfalls and QuickShell crash bugs
 
-**Keep `QS_KNOWLEDGE.md` up to date.** Whenever you add a new widget, service, IPC handler, shared state object, external dependency, hardcoded value, or discover a new pitfall or QuickShell API behavior — update the relevant section of `QS_KNOWLEDGE.md` immediately after the change. This is the primary reference for building future widgets correctly.
+It is **not** a catalog. The service list, file map, bar/sidebar layout, IPC handlers, shared state objects, external dependencies, hardcoded values, and color palette all live in this file (`CLAUDE.md`) — look them up and update them here.
+
+**Keep `QS_KNOWLEDGE.md` up to date** only when you learn something durable: a new pitfall or crash bug, a non-obvious QuickShell framework behavior, or a new reusable pattern/convention. For routine additions (a new widget, service, IPC handler, shared state object, external dependency, or hardcoded value), update the relevant table in `CLAUDE.md` instead — those do not belong in `QS_KNOWLEDGE.md`.
 
 ## Testing Changes
 
