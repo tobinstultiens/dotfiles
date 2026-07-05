@@ -37,6 +37,8 @@ fastfetch
 feh
 feishin-git
 firefox
+flac1.3
+flac1.3-debug
 flameshot
 foot
 fprintd
@@ -84,7 +86,9 @@ krita
 kvantum
 lact
 lf
+lib32-gstreamer-debug
 libreoffice-fresh
+librtmp0-debug
 linux
 linux-firmware
 linux-headers
@@ -130,6 +134,7 @@ python-pygments
 python-pyserial
 python-sphinx
 qmk
+qt5-location-debug
 qt6-3d
 qt6-canvaspainter
 qt6-charts

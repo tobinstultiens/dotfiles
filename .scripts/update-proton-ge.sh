@@ -1,17 +1,31 @@
 #!/bin/bash
 set -euo pipefail
 
+second_grep="-v aarch64"
+
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --arm)
+      second_grep="aarch64"
+      shift
+      ;;
+    *)
+      break
+      ;;
+  esac
+done
+
 # make temp working directory
 rm -r /tmp/proton-ge-custom || true
 mkdir /tmp/proton-ge-custom
 cd /tmp/proton-ge-custom
 
 # download  tarball
-curl -sLOJ "$(curl -s https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases/latest | grep browser_download_url | cut -d\" -f4 | grep .tar.gz)"
+curl -sLOJ "$(curl -s https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases/latest | grep browser_download_url | cut -d\" -f4 | grep .tar.gz | grep $second_grep)"
 
 echo "Downloading latest proton-GE"
 # download checksum
-curl -sLOJ "$(curl -s https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases/latest | grep browser_download_url | cut -d\" -f4 | grep .sha512sum)"
+curl -sLOJ "$(curl -s https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases/latest | grep browser_download_url | cut -d\" -f4 | grep .sha512sum | grep $second_grep)"
 
 echo "Checking tarball checksum"
 # check tarball with checksum
