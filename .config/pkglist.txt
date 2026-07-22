@@ -37,8 +37,6 @@ fastfetch
 feh
 feishin-git
 firefox
-flac1.3
-flac1.3-debug
 flameshot
 foot
 fprintd
@@ -60,6 +58,7 @@ hugo
 hyprcursor
 hyprgraphics
 hypridle
+hyprland
 hyprland-guiutils
 hyprland-protocols
 hyprlang
@@ -75,7 +74,6 @@ i3blocks
 i3lock
 i3status
 inetutils
-input-leap-git
 intel-ucode
 iwd
 jellyfin-desktop-git
@@ -86,9 +84,7 @@ krita
 kvantum
 lact
 lf
-lib32-gstreamer-debug
 libreoffice-fresh
-librtmp0-debug
 linux
 linux-firmware
 linux-headers
@@ -134,7 +130,6 @@ python-pygments
 python-pyserial
 python-sphinx
 qmk
-qt5-location-debug
 qt6-3d
 qt6-canvaspainter
 qt6-charts
