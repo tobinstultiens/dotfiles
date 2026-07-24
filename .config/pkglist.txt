@@ -111,6 +111,7 @@ obsidian
 opam
 openssh
 opentabletdriver
+pandoc-cli
 pavucontrol
 pcsx2-avx-git
 picom
@@ -186,10 +187,18 @@ swaylock
 sxiv
 teamspeak
 teensy_loader_cli
+texlive-basic
+texlive-fontsrecommended
+texlive-latex
+texlive-latexextra
+texlive-latexrecommended
+texlive-xetex
 thefuck
 thunderbird
 tmux
 trayer
+ttf-ibm-plex
+ttf-jetbrains-mono-nerd
 ttf-nerd-fonts-symbols
 udiskie
 umu-launcher
@@ -216,6 +225,7 @@ wlopm
 wlrctl
 wlsunset
 wpa_supplicant
+xdg-desktop-portal-hyprland
 xdg-utils
 xdotool
 xmobar
