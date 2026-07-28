@@ -111,6 +111,7 @@ obsidian
 opam
 openssh
 opentabletdriver
+otf-font-awesome
 pandoc-cli
 pavucontrol
 pcsx2-avx-git
@@ -202,7 +203,6 @@ ttf-jetbrains-mono-nerd
 ttf-nerd-fonts-symbols
 udiskie
 umu-launcher
-unigine-heaven
 usbutils
 uv
 ventoy-bin
