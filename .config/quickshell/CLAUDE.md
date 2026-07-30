@@ -29,13 +29,22 @@ It is **not** a catalog. The service list, file map, bar/sidebar layout, IPC han
 
 `qs` cannot be run in the Claude Code sandbox (no Wayland compositor). **Do not attempt to test by running `qs`** — ask the user to reload instead, or rely on QML syntax review.
 
-Hot-reload handles most edits automatically. `//@ pragma UseQApplication` and `qmldir` changes require a full restart (`killall qs && qs &`).
+Hot-reload handles most edits automatically. `//@ pragma UseQApplication` and `qmldir` changes require a full restart — just `killall qs`, because the supervisor restarts it within ~2s.
 
 ## Running and Reloading
 
+`qs` is launched by `scripts/qs-supervise.sh` from Hyprland's `exec-once`, not directly. The supervisor raises the FD ceiling, restarts `qs` whenever it exits, and prunes stale runtime dirs. **Do not use `killall qs && qs &`** — that leaves a second, unsupervised instance running.
+
 ```bash
-# Start the shell
-qs
+# Restart the shell (supervisor brings it back in ~2s)
+killall qs
+
+# Stop supervision deliberately, then kill
+touch "$XDG_RUNTIME_DIR/qs-supervise.stop" && killall qs
+
+# Why did it die? Restart history and FD growth:
+cat "$XDG_RUNTIME_DIR/qs-supervise.log"
+cat "$XDG_RUNTIME_DIR/qs-fdwatch.log"
 
 # Reload after changes (QuickShell watches files and hot-reloads automatically)
 # No manual reload needed — edits to .qml files take effect on save
@@ -128,6 +137,10 @@ modules/osd/OSD.qml                      WlrLayer.Overlay OSD; modes: volume/bri
 modules/wallpaper/WallpaperBackground.qml  WlrLayer.Background per screen; double-buffered image swap; 600ms fade
 modules/wallpaper/WallpaperPicker.qml      Full-screen grid; keyboard nav (Tab/arrows/Return/Esc); driven by wps.open
 modules/wallpaper/WallpaperTransition.qml  Overlay covering blank-frame flash during wallpaper switch
+
+scripts/qs-supervise.sh                   Launched by Hyprland exec-once; raises FD limit, restarts qs on death, prunes stale runtime dirs
+scripts/qs-fdwatch.sh                     Samples qs FD count/limit/type histogram every 5min → $XDG_RUNTIME_DIR/qs-fdwatch.log
+scripts/app-volume.sh                     Adjusts focused window's PipeWire stream volume; bound to Super+XF86Audio* keys
 
 data/notes.txt                            Plain text; written by NotesWidget on debounce; created on first save
 data/todos.json                           JSON [{id,date,text,done}]; written by TodoService on every mutation

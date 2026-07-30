@@ -19,7 +19,7 @@ derivable from the code or the official docs.
 
 Behaviors of the QuickShell framework itself, not specific to this config. Add new ones here as they're discovered.
 
-- **Hot-reload** — QuickShell watches `.qml` files and reloads automatically on save. `//@ pragma UseQApplication` changes and `qmldir` edits require a full restart (`killall qs && qs &`).
+- **Hot-reload** — QuickShell watches `.qml` files and reloads automatically on save. `//@ pragma UseQApplication` changes and `qmldir` edits require a full restart — `killall qs` alone, since `scripts/qs-supervise.sh` restarts it in ~2s.
 - **`pragma Singleton` root must be `QtObject`** — using `Item` as singleton root compiles but silently returns `undefined` for all property accesses.
 - **`required screen` vs `required property var screen`** — the former marks the inherited property as required; the latter shadows it with a new property and breaks per-screen assignment.
 - **`PanelWindow.implicitWidth`** — setting `width` directly on a `PanelWindow` emits a deprecation warning and may be ignored; always use `implicitWidth`.
@@ -69,6 +69,13 @@ Behaviors of the QuickShell framework itself, not specific to this config. Add n
 - Transparent `PanelWindow`s still capture pointer input over their **entire** rectangle — `color: "transparent"` and `ExclusionMode.Ignore` do NOT make empty areas click-through. A tall/wide transparent window (e.g. a toast stack) will silently swallow clicks to windows beneath it. Fix: set `mask: Region { item: <visibleItem> }` (the `mask` property is on `QsWindow`, inherited by `PanelWindow`; `Region` comes from the `Quickshell` module) so only the painted item is interactive and everything else passes through. Applied in `NotifPopups.qml` (`item: stack`).
 
 **QuickShell crash bugs:**
+- **FD exhaustion looks like nothing at all** — the most common way `qs` dies here is *not* a crash. It runs out of file descriptors, and because that also breaks its own crash-reporter path, you get **no coredump, no crash-report dir, and no error on screen** — the bar just isn't there any more. Diagnose from the per-instance log, which survives in `$XDG_RUNTIME_DIR/quickshell/by-id/<id>/log.qslog` (binary; read with `qs log <file>`, `-t N` to tail). The signature is:
+  ```
+  WARN : QProcess: Cannot create pipe (Too many open files)
+  WARN: Process failed to start, likely because the binary could not be found. Command: QList("bash", "-c", ...)
+  ```
+  **The second line is a lying Qt fallback message** — the binary is fine; the real error is the `EMFILE` above it. Once this starts every `Process` fails, so all polled widgets freeze and the shell is a zombie before it finally exits. Known upstream cause on NVIDIA: `anon_inode:sync_file` DRM fences leak during active rendering ([quickshell#723](https://github.com/quickshell-mirror/quickshell/issues/723), open, maintainer considers it below QS). Mitigated here by `scripts/qs-supervise.sh` (raises soft `NOFILE` 1024→524288 from the hard limit, restarts on death) plus `scripts/qs-fdwatch.sh` to identify which FD type is actually growing.
+- **`qs` never prunes its runtime dirs** — every instance leaves `$XDG_RUNTIME_DIR/quickshell/by-id/<id>/` behind forever, and a long session's `log.qslog` can reach tens of MB (70MB observed over 6 days). Combined with an auto-restart loop this will slowly fill the `/run/user` tmpfs, so the supervisor prunes dirs whose owning PID is gone.
 - **StatusNotifierItem IconName segfault** — if any tray application returns a DBus error on `Get(IconName)`, QS crashes with a segfault immediately after logging `WARN quickshell.dbus.properties: QDBusError(..., "error occurred in Get")`. This is a C++ null-check bug in QS; no QML workaround exists. Known offender: `signal-desktop` — fix by going to Signal Settings → Preferences → uncheck "Show tray icon". To identify other offenders: `busctl --user status :<address>` using the address from the log.
 
 **Service-specific:**
