@@ -216,7 +216,6 @@ wf-recorder
 wget
 whatsdesk-bin
 wine
-wine-ge-custom-bin-opt
 wine-mono
 winetricks
 wireguard-tools
