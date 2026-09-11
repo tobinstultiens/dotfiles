@@ -84,6 +84,7 @@ krita
 kvantum
 lact
 lf
+lib32-nvidia-580xx-utils
 libreoffice-fresh
 linux
 linux-firmware
