@@ -15,13 +15,11 @@ ZSH_THEME="avit"
 plugins=(z command-time zsh-autosuggestions fzf)
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#99aaae"
-export ANDROID_HOME=/home/tobins/Android/Sdk
+export ANDROID_HOME="$HOME/Android/Sdk"
+export ANDROID_SDK_ROOT="$ANDROID_HOME"
 export CHROME_EXECUTABLE=/bin/google-chrome-stable
-export JAVA_HOME=/usr/lib/jvm/java-17-openjdk/
-export PATH=$PATH:$ANDROID_HOME/tools 
-export PATH=$PATH:$ANDROID_HOME/tools/bin
-export PATH=$PATH/:$ANDROID_HOME/platform-tools
-export PATH=$PATH/:$ANDROID_HOME/platform-tools
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
+export PATH="$ANDROID_HOME/platform-tools:$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
 export PATH=$PATH:$HOME/.scripts
 export GLOBAL_MONITOR1="PC"
 export GLOBAL_MONITOR2="PC"
