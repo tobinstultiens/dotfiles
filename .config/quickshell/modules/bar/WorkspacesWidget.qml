@@ -35,6 +35,13 @@ Item {
         return palette[(id - 1) % palette.length]
     }
 
+    // Hyprland.workspaces is only sorted at insertion time; workspaces created
+    // early with id -1 (common at login) never get re-sorted. Sort here —
+    // reading w.id/w.monitor makes this re-evaluate when those change.
+    readonly property var localWorkspaces: Hyprland.workspaces.values
+        .filter(w => w.monitor && w.monitor.name === root.barScreen.name)
+        .sort((a, b) => a.id - b.id)
+
     Connections {
         target: Hyprland.toplevels
         function onObjectInsertedPost(object, index) {
@@ -48,13 +55,11 @@ Item {
         spacing: 4
 
         Repeater {
-            model: Hyprland.workspaces
+            model: root.localWorkspaces
 
             delegate: Rectangle {
                 required property HyprlandWorkspace modelData
                 property HyprlandWorkspace ws: modelData
-
-                visible: ws.monitor && ws.monitor.name === root.barScreen.name
 
                 height: Colors.pillHeight
                 implicitWidth: Math.max(36, iconRow.implicitWidth + 20) + focusBoost
@@ -129,9 +134,7 @@ Item {
                     anchors.fill: parent
                     onClicked: ws.activate()
                     onWheel: e => {
-                        const local = Hyprland.workspaces.values
-                            .filter(w => w.monitor && w.monitor.name === root.barScreen.name)
-                            .sort((a, b) => a.id - b.id)
+                        const local = root.localWorkspaces
                         const idx = local.findIndex(w => w.focused)
                         if (idx === -1) return
                         const next = idx + (e.angleDelta.y > 0 ? -1 : 1)

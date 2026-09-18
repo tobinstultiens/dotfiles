@@ -87,3 +87,4 @@ Behaviors of the QuickShell framework itself, not specific to this config. Add n
 - `WallpaperService` Hyprland IPC may not be ready on startup; retries once after a 500ms delay.
 - `RecorderService` uses SIGINT (stop) / SIGUSR1 (pause) implicitly — depends on `gpu-screen-recorder` signal-handling conventions.
 - `BarMediaPopup` progress = 0 when `player.length === 0` or `lengthSupported === false` — no indicator shown.
+- `Hyprland.workspaces` order is not reliable (Quickshell 0.3.1): it is only sorted by id at insertion, and at login workspaces are often inserted early with id `-1` (from monitor/event paths racing `j/workspaces`) and never re-sorted when their real id arrives. Always sort `.values` by `id` in QML — see `WorkspacesWidget.qml` `localWorkspaces`.
