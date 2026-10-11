@@ -76,6 +76,7 @@ i3lock
 i3status
 inetutils
 intel-ucode
+iw
 iwd
 jdk17-openjdk
 jellium-desktop-git
