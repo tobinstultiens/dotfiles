@@ -87,11 +87,15 @@ krita
 kvantum
 lact
 lf
+lib32-libvdpau-debug
 lib32-nvidia-580xx-utils
+lib32-openal-debug
+lib32-tdb-debug
 libreoffice-fresh
 linux
 linux-firmware
 linux-headers
+litehtml0.9-debug
 luarocks
 lutris
 man-db
