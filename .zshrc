@@ -24,6 +24,7 @@ export PATH=$PATH:$HOME/.scripts
 export GLOBAL_MONITOR1="PC"
 export GLOBAL_MONITOR2="PC"
 export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
+export LC_TIME=nl_NL.UTF-8
 
 # When quitting nnn open the file.
 if [ -f /usr/share/nnn/quitcd/quitcd.bash_sh_zsh ]; then
