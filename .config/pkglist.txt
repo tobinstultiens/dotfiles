@@ -90,6 +90,7 @@ lf
 lib32-nvidia-580xx-utils
 libreoffice-fresh
 linux
+linux-arctis-manager
 linux-firmware
 linux-headers
 luarocks
@@ -191,6 +192,7 @@ sway
 swayidle
 swaylock
 sxiv
+tailscale
 teamspeak
 teensy_loader_cli
 texlive-basic
